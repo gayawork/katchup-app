@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Archive — Katchup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F5F5F5;
+      --surface: #FFFFFF;
+      --accent: #7B5EA7;
+      --accent-dark: #6a4e92;
+      --text-primary: #111111;
+      --text-secondary: #444444;
+      --card-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      --card-border: 1px solid rgba(0,0,0,0.07);
+      --card-radius: 16px;
+      --max-w: 1100px;
+    }
+
+    body {
+      background: linear-gradient(135deg, #ede8f5 0%, #f0eaf8 35%, #e8eef8 65%, #f5f0ff 100%);
+      background-attachment: fixed;
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NAV ─────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.5);
+      height: 60px;
+    }
+
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 900;
+      font-size: 22px;
+      color: var(--accent);
+      letter-spacing: -1px;
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      position: relative;
+      padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-links a.active { color: var(--accent); }
+    .nav-links a.active::after { transform: scaleX(1); }
+
+    .btn-subscribe {
+      background: var(--accent);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      flex-shrink: 0;
+    }
+    .btn-subscribe:hover { background: var(--accent-dark); transform: translateY(-1px); }
+
+    /* ── LAYOUT ──────────────────────────────────────── */
+    .section-wrap {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    main {
+      padding-top: 60px;
+      min-height: 100vh;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── PAGE HEADER ─────────────────────────────────── */
+    .page-header {
+      padding: 64px 0 52px;
+    }
+
+    .page-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 900;
+      color: var(--text-primary);
+      letter-spacing: -1px;
+      line-height: 1.1;
+    }
+
+    .page-title-line {
+      width: 40px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .page-subtitle {
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+
+    /* ── FILTER TABS ─────────────────────────────────── */
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+
+    .tab-btn {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 8px 18px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text-secondary);
+      transition: background 0.18s, color 0.18s;
+    }
+
+    .tab-btn:hover {
+      background: rgba(123,94,167,0.09);
+      color: var(--accent);
+    }
+
+    .tab-btn.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* ── ISSUE GRID — 2-column ───────────────────────── */
+    .issue-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      padding-bottom: 48px;
+    }
+
+    /* ── CARD ────────────────────────────────────────── */
+    .issue-card {
+      background: rgba(255,255,255,0.65);
+      backdrop-filter: blur(16px) saturate(160%);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(255,255,255,0.8);
+      border-radius: var(--card-radius);
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: cardIn 0.35s ease forwards;
+    }
+
+    @keyframes cardIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .issue-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 48px rgba(123,94,167,0.18);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+      flex-shrink: 0;
+      transition: transform 0.4s ease;
+    }
+    .issue-card:hover .card-img { transform: scale(1.04); }
+
+    .card-img-credit {
+      font-size: 11px;
+      color: #999;
+      padding: 4px 24px;
+      background: rgba(0,0,0,0.02);
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .card-body {
+      padding: 20px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .issue-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .issue-number {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    .issue-date {
+      font-size: 12px;
+      color: #999;
+    }
+
+    .issue-pills {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 100px;
+      transition: background 0.25s ease;
+    }
+    .pill:hover { background: var(--accent-dark); }
+
+    .pill.muted {
+      background: rgba(123,94,167,0.12);
+      color: var(--accent);
+    }
+    .pill.muted:hover { background: var(--accent); color: #fff; }
+
+    .issue-headline {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.45;
+      color: var(--text-primary);
+    }
+
+    .issue-summary {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .issue-link {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: gap 0.25s ease, color 0.25s ease;
+      margin-top: 4px;
+      align-self: flex-start;
+    }
+    .issue-link:hover { gap: 10px; color: var(--accent-dark); }
+
+    /* ── INFINITE SCROLL LOADER ──────────────────────── */
+    .scroll-loader {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 0 64px;
+      gap: 8px;
+    }
+
+    .scroll-loader span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.3;
+      animation: bounce 1.2s ease-in-out infinite;
+    }
+    .scroll-loader span:nth-child(2) { animation-delay: 0.2s; }
+    .scroll-loader span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes bounce {
+      0%, 80%, 100% { opacity: 0.3; transform: scale(1); }
+      40% { opacity: 1; transform: scale(1.3); }
+    }
+
+    .scroll-loader.hidden { display: none; }
+
+    .end-message {
+      text-align: center;
+      padding: 40px 0 64px;
+      font-size: 13px;
+      color: #bbb;
+      display: none;
+    }
+    .end-message.visible { display: block; }
+
+    /* ── FOOTER ──────────────────────────────────────── */
+    footer {
+      background: rgba(255,255,255,0.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(255,255,255,0.5);
+      padding: 36px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+
+    .footer-copy {
+      font-size: 13px;
+      color: #999;
+    }
+
+    /* ── HAMBURGER ───────────────────────────────────── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 44px;
+      height: 44px;
+      padding: 10px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+    .hamburger:hover { background: rgba(123,94,167,0.08); }
+    .hamburger span {
+      display: block;
+      height: 2px;
+      width: 20px;
+      background: var(--text-primary);
+      border-radius: 2px;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile menu drawer */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 60px; left: 0; right: 0;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+      padding: 16px 24px 20px;
+      z-index: 99;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      transition: color 0.2s;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--accent); }
+
+    /* ── DECORATIVE BLOBS ───────────────────────────── */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .blob-1 {
+      width: 420px;
+      height: 420px;
+      background: rgba(123,94,167,0.12);
+      top: -120px;
+      right: -100px;
+    }
+    .blob-2 {
+      width: 300px;
+      height: 300px;
+      background: rgba(100,130,210,0.10);
+      bottom: 160px;
+      left: -80px;
+    }
+
+    /* ── RESPONSIVE: 1100px ───────────────────────────── */
+    @media (max-width: 1100px) {
+      .section-wrap { padding: 0 20px; }
+    }
+
+    /* ── RESPONSIVE: 640px ───────────────────────────── */
+    @media (max-width: 640px) {
+      .issue-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── RESPONSIVE: 768px (tablet) ──────────────────── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .page-header { padding: 48px 0 36px; }
+      .page-title { font-size: 36px; }
+
+      /* Touch targets */
+      .btn-subscribe { min-height: 44px; padding: 10px 18px; }
+      .tab-btn { min-height: 44px; }
+    }
+
+    /* ── RESPONSIVE: 480px (mobile) ──────────────────── */
+    @media (max-width: 480px) {
+      .section-wrap { padding: 0 16px; }
+
+      .page-header { padding: 40px 0 28px; }
+      .page-title { font-size: 28px; letter-spacing: -0.5px; }
+      .page-subtitle { font-size: 14px; }
+
+      /* Filter tabs: wrap and fill */
+      .filter-tabs { gap: 6px; }
+      .tab-btn {
+        font-size: 12px;
+        padding: 8px 14px;
+        min-height: 44px;
+      }
+
+      /* Grid: 1-column */
+      .issue-grid { grid-template-columns: 1fr; gap: 16px; }
+
+      /* Cards */
+      .card-img { height: 140px; }
+      .issue-headline { font-size: 15px; }
+
+      /* Footer */
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .footer-links { flex-wrap: wrap; gap: 16px; }
+
+      /* Prevent horizontal overflow */
+      body { overflow-x: hidden; }
+      main { overflow-x: hidden; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="blob blob-1" aria-hidden="true"></div>
+<div class="blob blob-2" aria-hidden="true"></div>
+
+<!-- ── NAV ─────────────────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">Katchup</a>
+    <ul class="nav-links">
+      <li><a href="archive.html?tab=k-pop">K-Pop</a></li>
+      <li><a href="archive.html?tab=k-content">K-Content</a></li>
+      <li><a href="archive.html?tab=lifestyle">Lifestyle</a></li>
+      <li><a href="archive.html?tab=beauty">Beauty</a></li>
+    </ul>
+    <button class="btn-subscribe">Subscribe</button>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <a href="archive.html?tab=k-pop">K-Pop</a>
+  <a href="archive.html?tab=k-content">K-Content</a>
+  <a href="archive.html?tab=lifestyle">Lifestyle</a>
+  <a href="archive.html?tab=beauty">Beauty</a>
+</div>
+
+<main>
+
+  <!-- ── PAGE HEADER ────────────────────────────────── -->
+  <section class="page-header">
+    <div class="section-wrap">
+      <h1 class="page-title">Archive</h1>
+      <div class="page-title-line"></div>
+      <p class="page-subtitle">Every issue, every story. All in one place.</p>
+    </div>
+  </section>
+
+  <!-- ── FILTER + GRID ──────────────────────────────── -->
+  <section>
+    <div class="section-wrap">
+
+      <div class="filter-tabs" id="filterTabs">
+        <button class="tab-btn active" data-tab="all">All</button>
+        <button class="tab-btn" data-tab="k-pop">K-Pop</button>
+        <button class="tab-btn" data-tab="k-content">K-Content</button>
+        <button class="tab-btn" data-tab="lifestyle">Lifestyle</button>
+        <button class="tab-btn" data-tab="beauty">Beauty</button>
+      </div>
+
+      <div class="issue-grid" id="issueGrid"></div>
+
+      <div class="scroll-loader" id="scrollLoader">
+        <span></span><span></span><span></span>
+      </div>
+      <p class="end-message" id="endMessage">You've reached the beginning. ✦</p>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- ── FOOTER ────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="logo">Katchup</a>
+    <ul class="footer-links">
+      <li><a href="archive.html">Archive</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Subscribe</a></li>
+    </ul>
+    <span class="footer-copy">© 2026 Katchup. Made with care in Seoul.</span>
+  </div>
+</footer>
+
+<script>
+  // ── All issue data (newest first) ────────────────────
+  const ALL_ISSUES = [
+    {
+      number: 'No.008',
+      category: 'Lifestyle',
+      date: 'Mar 4, 2026',
+      tags: ['lifestyle'],
+      pills: [{ label: 'Lifestyle', muted: false }],
+      image: 'https://newsimg.koreatimes.co.kr/2026/03/04/1229fe4a-41c5-4f11-abbe-62961df55630.jpg',
+      credit: '© Korea Times',
+      headline: "Korea's 11 Traditional Markets Are Getting a Global Makeover",
+      summary: "From Gyeongdong in Seoul to Haeundae in Busan, Korea is rebranding 11 iconic traditional markets for international travelers — multilingual services, card payments, and anti-overcharging campaigns included.",
+      link: 'https://www.koreatimes.co.kr/lifestyle/travel-food/20260304/korea-to-prep-11-must-see-traditional-markets-for-global-spotlight'
+    },
+    {
+      number: 'No.007',
+      category: 'Lifestyle',
+      date: 'Mar 5, 2026',
+      tags: ['lifestyle'],
+      pills: [{ label: 'Lifestyle', muted: false }],
+      image: 'https://wimg.heraldcorp.com/news/cms/2026/03/05/news-p.v1.20260305.d780ba5f010d4be897fe9c054137d501_T1.jpg',
+      credit: '© Korea Herald',
+      headline: 'Spring Returns to the Palaces — K-Royal Culture Festival Opens in April',
+      summary: "Seoul's five major palaces come alive April 24–May 3 for the 12th annual K-Royal Culture Festival. Performances, ritual reenactments, and palace concerts across Gyeongbokgung, Changdeokgung, and more.",
+      link: 'https://www.koreaherald.com/article/10687716'
+    },
+    {
+      number: 'No.006',
+      category: 'Beauty',
+      date: 'Jan 16, 2026',
+      tags: ['beauty'],
+      pills: [{ label: 'Beauty', muted: false }],
+      image: 'https://assets.vogue.com/photos/69431da006086c4a89d1939d/16:9/w_1280,c_limit/GettyImages-504708913%20(1).jpg',
+      credit: '© Vogue',
+      headline: '7 K-Beauty Trends Shaping 2026, According to Vogue',
+      summary: "Vogue's experts flag slow aging, glass skin 2.0, and sensory-first skincare as defining K-beauty directions for 2026. PDRN and barrier-repair formulas lead ingredient trends.",
+      link: 'https://www.vogue.com/article/k-beauty-trends-2026'
+    },
+    {
+      number: 'No.005',
+      category: 'K-Content',
+      date: 'Mar 30, 2026',
+      tags: ['k-content'],
+      pills: [{ label: 'K-Content', muted: false }],
+      image: 'https://wimg.heraldcorp.com/news/cms/2026/03/30/news-p.v1.20251226.eb9dd82a05ce44f39ad408c65f485e24_T1.jpg',
+      credit: '© Korea Herald',
+      headline: "Korean Culture Is No Longer a Trend — It's a Global Lifestyle",
+      summary: 'The 2026 Overseas Hallyu Survey across 30 countries finds global audiences now average 14.7 hours and $16.60 per month on Korean content. Western markets are accelerating fastest.',
+      link: 'https://www.koreaherald.com/article/10705746'
+    },
+    {
+      number: 'No.004',
+      category: 'K-Content',
+      date: 'Mar 30, 2026',
+      tags: ['k-content'],
+      pills: [{ label: 'K-Content', muted: false }],
+      image: 'https://0.soompi.io/wp-content/uploads/2026/03/30004303/jtbc.png',
+      credit: '© Soompi',
+      headline: 'JTBC Drops 2026 Drama Lineup — Fantasy, Romance, and Slice-of-Life Ahead',
+      summary: 'JTBC unveiled its remaining 2026 slate including We Are All Trying Here (April 18, Koo Kyo Hwan and Go Youn Jung) and a soul-swap comedy. Diverse genres, strong cast picks.',
+      link: 'https://www.soompi.com/article/1828671wpp/jtbc-previews-2026-k-drama-lineup'
+    },
+    {
+      number: 'No.003',
+      category: 'K-Pop',
+      date: 'Mar 30, 2026',
+      tags: ['k-pop'],
+      pills: [{ label: 'K-Pop', muted: false }],
+      image: 'https://kpopofficial.com/wp-content/uploads/2026/03/cover3-IRENE-Teaser-for-Biggest-Fan-Album.webp',
+      credit: '© Kpop Official',
+      headline: "IRENE's First Solo Album Biggest Fan Is Here",
+      summary: "Red Velvet's Irene drops her debut full-length album today (March 30), one of the most anticipated solo releases of early 2026.",
+      link: 'https://kpopofficial.com/album/irene-biggest-fan/'
+    },
+    {
+      number: 'No.002',
+      category: 'K-Pop',
+      date: 'Mar 27, 2026',
+      tags: ['k-pop'],
+      pills: [{ label: 'K-Pop', muted: false }],
+      image: 'https://wimg.heraldcorp.com/news/cms/2026/03/27/news-p.v1.20260327.7fcedfb413674b1ea47fde5947522fd5_T1.jpg',
+      credit: '© Korea Herald',
+      headline: 'Taemin Drops First English-Language Single Ahead of Coachella Debut',
+      summary: "SHINee's Taemin released Long Way Home on March 27, becoming the first male K-pop solo artist to join Coachella's lineup — performing April 11 and 18.",
+      link: 'https://www.koreaherald.com/article/10704051'
+    },
+    {
+      number: 'No.001',
+      category: 'K-Pop',
+      date: 'Mar 21, 2026',
+      tags: ['k-pop'],
+      pills: [{ label: 'K-Pop', muted: false }],
+      image: 'https://wimg.heraldcorp.com/news/cms/2026/03/30/news-p.v1.20260330.298b6f2fc3054ceeb5c3eaa7c7dbad9e_T1.jpg',
+      credit: '© Korea Herald',
+      headline: 'Foreign Spending Jumps on BTS Weekend, Locals Pull Back',
+      summary: "Seoul's BTS comeback weekend drove a sharp spike in foreign card spending across restaurants, hotels, and retail, while domestic consumers pulled back — a sign of just how much economic weight a single K-pop event now carries.",
+      link: 'https://www.koreaherald.com/article/10705738'
+    },
+  ];
+
+  // ── State ─────────────────────────────────────────────
+  const BATCH = 6; // cards per load
+  let activeTab = 'all';
+  let rendered = 0;
+  let loading = false;
+  let filtered = [];
+
+  const grid = document.getElementById('issueGrid');
+  const loader = document.getElementById('scrollLoader');
+  const endMsg = document.getElementById('endMessage');
+
+  // ── Build card HTML ───────────────────────────────────
+  function cardHTML(issue, index) {
+    const pillsHTML = issue.pills.map(p =>
+      `<span class="pill${p.muted ? ' muted' : ''}">${p.label}</span>`
+    ).join('');
+    const imgHTML = issue.image
+      ? `<img class="card-img" src="${issue.image}" alt="${issue.headline}" loading="lazy" onerror="this.parentElement.querySelector('.card-img-credit')&&(this.parentElement.querySelector('.card-img-credit').style.display='none');this.style.display='none'">
+         <p class="card-img-credit">${issue.credit || ''}</p>`
+      : '';
+    return `
+      <article class="issue-card" style="animation-delay:${(index % BATCH) * 60}ms">
+        ${imgHTML}
+        <div class="card-body">
+          <div class="issue-meta">
+            <span class="issue-number">${issue.number}</span>
+            <span class="issue-date">${issue.date}</span>
+          </div>
+          <div class="issue-pills">${pillsHTML}</div>
+          <h2 class="issue-headline">${issue.headline}</h2>
+          <p class="issue-summary">${issue.summary}</p>
+          <a href="${issue.link}" class="issue-link" target="_blank" rel="noopener">Read original →</a>
+        </div>
+      </article>`;
+  }
+
+  // ── Render next batch ─────────────────────────────────
+  function renderBatch() {
+    if (loading || rendered >= filtered.length) return;
+    loading = true;
+
+    const batch = filtered.slice(rendered, rendered + BATCH);
+    const fragment = document.createDocumentFragment();
+    batch.forEach((issue, i) => {
+      const div = document.createElement('div');
+      div.innerHTML = cardHTML(issue, i);
+      fragment.appendChild(div.firstElementChild);
+    });
+    grid.appendChild(fragment);
+    rendered += batch.length;
+
+    if (rendered >= filtered.length) {
+      loader.classList.add('hidden');
+      endMsg.classList.add('visible');
+    } else {
+      loader.classList.remove('hidden');
+    }
+
+    loading = false;
+  }
+
+  // ── Filter + reset ────────────────────────────────────
+  function applyFilter(tab) {
+    activeTab = tab;
+    rendered = 0;
+    grid.innerHTML = '';
+    loader.classList.remove('hidden');
+    endMsg.classList.remove('visible');
+
+    filtered = tab === 'all'
+      ? ALL_ISSUES
+      : ALL_ISSUES.filter(i => i.tags.includes(tab));
+
+    renderBatch();
+  }
+
+  // ── Infinite scroll observer ──────────────────────────
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) renderBatch();
+  }, { rootMargin: '200px' });
+
+  observer.observe(loader);
+
+  // ── Hamburger menu ───────────────────────────────────
+  (function () {
+    const btn  = document.getElementById('hamburger');
+    const menu = document.getElementById('mobileMenu');
+    btn.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open);
+      menu.setAttribute('aria-hidden', !open);
+    });
+    menu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        menu.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        menu.setAttribute('aria-hidden', 'true');
+      });
+    });
+    document.addEventListener('click', (e) => {
+      if (!btn.contains(e.target) && !menu.contains(e.target)) {
+        menu.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        menu.setAttribute('aria-hidden', 'true');
+      }
+    });
+  })();
+
+  // ── Filter tab clicks ─────────────────────────────────
+  document.getElementById('filterTabs').addEventListener('click', function(e) {
+    const btn = e.target.closest('.tab-btn');
+    if (!btn) return;
+    this.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyFilter(btn.dataset.tab);
+  });
+
+  // ── Nav link active state from URL param ──────────────
+  const urlTab = new URLSearchParams(location.search).get('tab');
+  if (urlTab) {
+    const matchBtn = document.querySelector(`.tab-btn[data-tab="${urlTab}"]`);
+    if (matchBtn) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      matchBtn.classList.add('active');
+      applyFilter(urlTab);
+    } else {
+      applyFilter('all');
+    }
+  } else {
+    applyFilter('all');
+  }
+</script>
+</body>
+</html>
