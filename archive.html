@@ -6,7 +6,7 @@
   <title>Archive — Katchup</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -28,7 +28,7 @@
       background-attachment: fixed;
       color: var(--text-primary);
       font-family: 'Inter', sans-serif;
-      font-size: 15px;
+      font-size: 16px;
       line-height: 1.6;
       overflow-x: hidden;
     }
@@ -135,11 +135,11 @@
 
     .page-title {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(32px, 5vw, 48px);
+      font-size: clamp(44px, 6.5vw, 72px);
       font-weight: 900;
       color: var(--text-primary);
-      letter-spacing: -1px;
-      line-height: 1.1;
+      letter-spacing: -2px;
+      line-height: 1.0;
     }
 
     .page-title-line {
@@ -152,7 +152,7 @@
     }
 
     .page-subtitle {
-      font-size: 15px;
+      font-size: 1rem;
       color: var(--text-secondary);
     }
 
@@ -295,14 +295,16 @@
     .pill.muted:hover { background: var(--accent); color: #fff; }
 
     .issue-headline {
-      font-size: 15px;
-      font-weight: 600;
-      line-height: 1.45;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.0625rem;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+      line-height: 1.4;
       color: var(--text-primary);
     }
 
     .issue-summary {
-      font-size: 13px;
+      font-size: 0.875rem;
       color: var(--text-secondary);
       line-height: 1.65;
       display: -webkit-box;
@@ -499,7 +501,7 @@
       .hamburger { display: flex; }
 
       .page-header { padding: 48px 0 36px; }
-      .page-title { font-size: 36px; }
+      .page-title { font-size: 2.75rem; letter-spacing: -1.5px; }
 
       /* Touch targets */
       .btn-subscribe { min-height: 44px; padding: 10px 18px; }
@@ -511,7 +513,7 @@
       .section-wrap { padding: 0 16px; }
 
       .page-header { padding: 40px 0 28px; }
-      .page-title { font-size: 28px; letter-spacing: -0.5px; }
+      .page-title { font-size: 2.25rem; letter-spacing: -1px; }
       .page-subtitle { font-size: 14px; }
 
       /* Filter tabs: wrap and fill */
@@ -527,7 +529,7 @@
 
       /* Cards */
       .card-img { height: 140px; }
-      .issue-headline { font-size: 15px; }
+      .issue-headline { font-size: 1.0625rem; }
 
       /* Footer */
       .footer-inner { flex-direction: column; align-items: flex-start; gap: 20px; }
