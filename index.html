@@ -17,15 +17,14 @@
       --accent-dark: #6a4e92;
       --text-primary: #111111;
       --text-secondary: #444444;
-      --card-shadow: 0 4px 24px rgba(0,0,0,0.06);
-      --card-border: 1px solid rgba(0,0,0,0.07);
-      --card-radius: 16px;
+      --card-shadow: 0 4px 24px rgba(123,94,167,0.10), 0 0 0 1px rgba(123,94,167,0.08);
+      --card-border: 1px solid rgba(123,94,167,0.15);
+      --card-radius: 14px;
       --max-w: 1100px;
     }
 
     body {
-      background: linear-gradient(135deg, #ede8f5 0%, #f0eaf8 35%, #e8eef8 65%, #f5f0ff 100%);
-      background-attachment: fixed;
+      background: #F5F5F5;
       color: var(--text-primary);
       font-family: 'Inter', sans-serif;
       font-size: 15px;
@@ -40,10 +39,10 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      background: rgba(255,255,255,0.72);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.07);
       height: 60px;
     }
 
@@ -62,7 +61,7 @@
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 900;
       font-size: 22px;
-      color: var(--accent);
+      color: #5B3F8C;
       letter-spacing: -1px;
       flex-shrink: 0;
     }
@@ -81,7 +80,7 @@
       color: var(--text-secondary);
       position: relative;
       padding-bottom: 2px;
-      transition: color 0.2s;
+      transition: color 0.25s ease;
     }
 
     .nav-links a::after {
@@ -92,7 +91,7 @@
       background: var(--accent);
       transform: scaleX(0);
       transform-origin: left;
-      transition: transform 0.2s;
+      transition: transform 0.25s ease;
     }
 
     .nav-links a:hover { color: var(--accent); }
@@ -107,7 +106,7 @@
       border-radius: 8px;
       border: none;
       cursor: pointer;
-      transition: background 0.2s, transform 0.15s;
+      transition: background 0.25s ease, transform 0.15s;
       flex-shrink: 0;
     }
     .btn-subscribe:hover { background: var(--accent-dark); transform: translateY(-1px); }
@@ -123,11 +122,11 @@
 
     /* ── HERO ────────────────────────────────────────── */
     #hero {
-      padding: 72px 0 64px;
+      padding: 48px 0 0;
     }
 
     .hero-label {
-      font-size: 11px;
+      font-size: 13px;
       font-weight: 600;
       letter-spacing: 0.14em;
       text-transform: uppercase;
@@ -136,18 +135,18 @@
     }
 
     .hero-heading {
-      font-size: clamp(22px, 3.5vw, 32px);
-      font-weight: 600;
-      margin-bottom: 36px;
+      font-size: 2.4rem;
+      font-weight: 800;
+      margin-bottom: 32px;
       color: var(--text-primary);
     }
 
     /* ── CAROUSEL ────────────────────────────────────── */
     .carousel-viewport {
       overflow: hidden;
-      border-radius: 24px;
+      border-radius: 18px;
       position: relative;
-      height: 300px;
+      min-height: 520px;
     }
 
     .carousel-track {
@@ -160,16 +159,15 @@
       position: absolute;
       top: 0;
       height: 100%;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.65);
-      backdrop-filter: blur(16px) saturate(160%);
-      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      min-height: 400px;
+      border-radius: var(--card-radius);
+      background: var(--surface);
       box-shadow: var(--card-shadow);
-      border: 1px solid rgba(255,255,255,0.8);
-      padding: 28px 30px;
+      border: var(--card-border);
+      padding: 0;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      overflow: hidden;
       cursor: pointer;
       transition:
         left 0.5s cubic-bezier(0.4,0,0.2,1),
@@ -179,42 +177,64 @@
       will-change: transform, left, opacity;
     }
 
-    /* center: 55% wide, horizontally centered */
+    .carousel-card .card-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      flex-shrink: 0;
+      border-radius: var(--card-radius) var(--card-radius) 0 0;
+      transition: transform 0.25s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .carousel-card .card-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .carousel-card .card-headline {
+      font-size: 1.2rem;
+    }
+
+    /* center: ~40% wide, horizontally centered */
     .carousel-card[data-pos="center"] {
-      width: 55%;
-      left: 22.5%;
+      width: 40%;
+      left: 30%;
       transform: translateX(0) scale(1);
       opacity: 1;
       z-index: 3;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      box-shadow: 0 12px 48px rgba(123,94,167,0.16), 0 0 0 1px rgba(123,94,167,0.10);
     }
 
-    /* left: anchored at left:0, translateX(15%) pulls it inward;
-       visual span ≈ 5%–40%, overlaps behind center's left edge */
+    /* left: overlaps behind center's left edge */
     .carousel-card[data-pos="left"] {
-      width: 35%;
+      width: 30%;
       left: 0;
-      transform: translateX(15%) scale(0.92);
+      transform: translateX(10%) scale(0.93);
       transform-origin: center center;
-      opacity: 0.72;
+      opacity: 0.65;
       z-index: 1;
     }
 
-    /* right: anchored at left:65%, translateX(-15%) pulls it inward;
-       visual span ≈ 60%–95%, overlaps behind center's right edge */
+    /* right: overlaps behind center's right edge */
     .carousel-card[data-pos="right"] {
-      width: 35%;
-      left: 65%;
-      transform: translateX(-15%) scale(0.92);
+      width: 30%;
+      left: 70%;
+      transform: translateX(-10%) scale(0.93);
       transform-origin: center center;
-      opacity: 0.72;
+      opacity: 0.65;
       z-index: 1;
     }
 
     .carousel-card[data-pos="center"]:hover {
-      transform: translateX(0) translateY(-6px) scale(1.01);
-      box-shadow: 0 20px 48px rgba(123,94,167,0.18);
+      transform: translateX(0) translateY(-6px);
+      box-shadow: 0 16px 48px rgba(123,94,167,0.22), 0 0 0 1.5px rgba(123,94,167,0.3);
     }
+
+    .carousel-card[data-pos="center"]:hover .card-img { transform: scale(1.04); }
 
     /* Carousel dots */
     .carousel-dots {
@@ -232,7 +252,7 @@
       border: none;
       cursor: pointer;
       padding: 0;
-      transition: background 0.2s, transform 0.2s;
+      transition: background 0.25s ease, transform 0.25s ease;
     }
 
     .carousel-dot.active {
@@ -255,7 +275,7 @@
     }
 
     .card-headline {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 600;
       line-height: 1.4;
       color: var(--text-primary);
@@ -285,14 +305,14 @@
 
     /* ── THE LATEST ──────────────────────────────────── */
     #latest {
-      padding: 64px 0 72px;
+      padding: 32px 0 48px;
     }
 
     .section-header {
       display: flex;
       align-items: baseline;
       justify-content: space-between;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
     .section-heading {
@@ -305,55 +325,81 @@
       font-size: 13px;
       font-weight: 600;
       color: var(--accent);
-      transition: opacity 0.2s;
+      transition: color 0.25s ease;
     }
-    .see-all:hover { opacity: 0.75; }
+    .see-all:hover { color: var(--accent-dark); }
 
     .latest-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      gap: 20px;
       align-items: start;
     }
 
     .latest-card {
-      background: rgba(255,255,255,0.65);
-      backdrop-filter: blur(16px) saturate(160%);
-      -webkit-backdrop-filter: blur(16px) saturate(160%);
-      box-shadow: var(--card-shadow);
-      border: 1px solid rgba(255,255,255,0.8);
+      background: var(--surface);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      border: var(--card-border);
       border-radius: var(--card-radius);
-      padding: 20px;
+      padding: 0;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+      cursor: pointer;
     }
 
     .latest-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 20px 48px rgba(123,94,167,0.18);
+      box-shadow: 0 16px 48px rgba(123,94,167,0.22), 0 0 0 1.5px rgba(123,94,167,0.3);
+    }
+
+    .latest-card:hover .card-img { transform: scale(1.04); }
+
+    .latest-card .card-img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      display: block;
+      border-radius: var(--card-radius) var(--card-radius) 0 0;
+      transition: transform 0.25s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .latest-card .card-body {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
     }
 
     .latest-card .card-headline {
-      font-size: 15px;
-      line-height: 1.45;
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.4;
     }
 
     .latest-card .card-summary {
-      font-size: 13px;
+      font-size: 0.8rem;
+    }
+
+    .latest-card .pill {
+      font-size: 0.65rem;
+      padding: 3px 10px;
     }
 
     .card-date {
-      font-size: 12px;
+      font-size: 0.75rem;
       color: #999;
-      margin-top: 4px;
+      margin-top: 2px;
     }
 
     /* ── SUBSCRIBE BAND ──────────────────────────────── */
     #subscribe-band {
-      background: var(--accent);
-      padding: 80px 0;
+      background: #F5F5F5;
+      border-top: 1px solid rgba(123,94,167,0.1);
+      border-bottom: 1px solid rgba(123,94,167,0.1);
+      padding: 40px 0;
     }
 
     .subscribe-inner {
@@ -368,15 +414,15 @@
     }
 
     .subscribe-inner h2 {
-      font-size: clamp(22px, 3.5vw, 32px);
+      font-size: clamp(20px, 3vw, 28px);
       font-weight: 600;
-      color: #fff;
+      color: var(--accent);
     }
 
     .subscribe-inner p {
       font-size: 15px;
-      color: rgba(255,255,255,0.75);
-      margin-bottom: 8px;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
     }
 
     .subscribe-form {
@@ -390,26 +436,21 @@
       flex: 1;
       padding: 12px 16px;
       border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.3);
+      border: 1px solid rgba(0,0,0,0.15);
       font-size: 14px;
       font-family: 'Inter', sans-serif;
       outline: none;
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      color: #fff;
-      transition: background 0.2s, border-color 0.2s;
+      background: #fff;
+      color: var(--text-primary);
+      transition: border-color 0.25s ease;
     }
 
-    .subscribe-input::placeholder { color: rgba(255,255,255,0.55); }
-    .subscribe-input:focus {
-      background: rgba(255,255,255,0.22);
-      border-color: rgba(255,255,255,0.5);
-    }
+    .subscribe-input::placeholder { color: #aaa; }
+    .subscribe-input:focus { border-color: var(--accent); }
 
     .subscribe-btn {
-      background: #fff;
-      color: var(--accent);
+      background: var(--accent);
+      color: #fff;
       font-size: 14px;
       font-weight: 600;
       padding: 12px 22px;
@@ -418,16 +459,16 @@
       cursor: pointer;
       font-family: 'Inter', sans-serif;
       white-space: nowrap;
-      transition: transform 0.15s, box-shadow 0.15s;
+      transition: background 0.25s ease, transform 0.15s;
     }
-    .subscribe-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,0.15); }
+    .subscribe-btn:hover { background: var(--accent-dark); transform: translateY(-1px); }
 
     /* ── FOOTER ──────────────────────────────────────── */
     footer {
-      background: rgba(255,255,255,0.72);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-top: 1px solid rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(0,0,0,0.07);
       padding: 36px 0;
       position: relative;
       z-index: 1;
@@ -453,7 +494,7 @@
     .footer-links a {
       font-size: 14px;
       color: var(--text-secondary);
-      transition: color 0.2s;
+      transition: color 0.25s ease;
     }
     .footer-links a:hover { color: var(--accent); }
 
@@ -514,7 +555,7 @@
       color: var(--text-secondary);
       padding: 12px 0;
       border-bottom: 1px solid rgba(0,0,0,0.05);
-      transition: color 0.2s;
+      transition: color 0.25s ease;
       min-height: 44px;
       display: flex;
       align-items: center;
@@ -522,30 +563,15 @@
     .mobile-menu a:last-child { border-bottom: none; }
     .mobile-menu a:hover { color: var(--accent); }
 
-    /* ── DECORATIVE BLOBS ───────────────────────────── */
-    .blob {
+    /* ── KETCHUP DROP DECORATIONS ────────────────────── */
+    .drop {
       position: fixed;
-      border-radius: 50%;
-      filter: blur(80px);
       pointer-events: none;
       z-index: 0;
-    }
-    .blob-1 {
-      width: 420px;
-      height: 420px;
-      background: rgba(123,94,167,0.12);
-      top: -120px;
-      right: -100px;
-    }
-    .blob-2 {
-      width: 300px;
-      height: 300px;
-      background: rgba(100,130,210,0.10);
-      bottom: 160px;
-      left: -80px;
+      opacity: 0.13;
     }
 
-    /* ── RESPONSIVE: 1100px (large tablet) ───────────── */
+    /* ── RESPONSIVE: 1100px ───────────────────────────── */
     @media (max-width: 1100px) {
       .section-wrap { padding: 0 20px; }
     }
@@ -561,7 +587,7 @@
       .hamburger { display: flex; }
 
       /* Carousel: single card, no overlap */
-      .carousel-viewport { height: auto; overflow: visible; border-radius: 16px; }
+      .carousel-viewport { height: auto; overflow: visible; border-radius: 14px; }
       .carousel-track { height: auto; position: static; }
       .carousel-card {
         position: relative !important;
@@ -578,8 +604,7 @@
       /* Latest: 2-col on tablet */
       .latest-grid { grid-template-columns: repeat(2, 1fr); }
 
-      /* Subscribe band */
-      .subscribe-inner h2 { font-size: 24px; }
+      .subscribe-inner h2 { font-size: 22px; }
 
       /* Touch targets */
       .btn-subscribe { min-height: 44px; padding: 10px 18px; }
@@ -590,33 +615,25 @@
     @media (max-width: 480px) {
       .section-wrap { padding: 0 16px; }
 
-      #hero { padding: 48px 0 40px; }
-      .hero-heading { font-size: 20px; margin-bottom: 24px; }
-      .hero-label { font-size: 10px; }
-
-      /* Carousel card text */
-      .carousel-card { padding: 20px; }
-      .card-headline { font-size: 15px; }
-      .card-summary { font-size: 13px; }
+      #hero { padding: 44px 0 36px; }
+      .hero-heading { font-size: 19px; margin-bottom: 24px; }
 
       /* Latest: 1-col on mobile */
       .latest-grid { grid-template-columns: 1fr; }
-      #latest { padding: 48px 0 56px; }
+      #latest { padding: 44px 0 52px; }
 
-      /* Subscribe band */
+      /* Subscribe */
       .subscribe-form { flex-direction: column; }
-      #subscribe-band { padding: 56px 0; }
+      #subscribe-band { padding: 44px 0; }
       .subscribe-btn { min-height: 44px; }
       .subscribe-input { min-height: 44px; }
 
-      /* Section heading */
       .section-heading { font-size: 19px; }
 
       /* Footer */
       .footer-inner { flex-direction: column; align-items: flex-start; gap: 20px; }
       .footer-links { flex-wrap: wrap; gap: 16px; }
 
-      /* Prevent horizontal overflow */
       body { overflow-x: hidden; }
       main { overflow-x: hidden; }
     }
@@ -624,8 +641,10 @@
 </head>
 <body>
 
-<div class="blob blob-1" aria-hidden="true"></div>
-<div class="blob blob-2" aria-hidden="true"></div>
+<!-- ── KETCHUP DROP DECORATIONS ──────────────────────── -->
+<div class="drop" style="width:90px;height:140px;bottom:60px;left:30px;background:#7B5EA7;border-radius:50% 50% 30% 30% / 60% 60% 40% 40%;"></div>
+<div class="drop" style="width:65px;height:100px;top:80px;right:30px;background:#7B5EA7;border-radius:50% 50% 30% 30% / 60% 60% 40% 40%;"></div>
+<div class="drop" style="width:45px;height:72px;top:48%;right:90px;background:#7B5EA7;border-radius:50% 50% 30% 30% / 60% 60% 40% 40%;"></div>
 
 <!-- ── NAV ─────────────────────────────────────────── -->
 <nav>
@@ -655,31 +674,40 @@
   <!-- ── HERO CAROUSEL ──────────────────────────────── -->
   <section id="hero">
     <div class="section-wrap">
-      <p class="hero-label">Curated For You</p>
+      <p class="hero-label">Today's Picks</p>
       <h1 class="hero-heading" id="hero-date-heading">Loading…</h1>
 
       <div class="carousel-viewport">
         <div class="carousel-track" id="carouselTrack">
 
           <article class="carousel-card" data-pos="center" data-index="0">
-            <span class="pill">K-Pop</span>
-            <h2 class="card-headline">BLACKPINK Announces Surprise World Tour Dates Across Asia and North America</h2>
-            <p class="card-summary">YG Entertainment has confirmed a 42-city run spanning 14 countries, with pre-sale tickets available exclusively to Weverse members starting this Friday.</p>
-            <a href="#" class="card-link">Read original →</a>
+            <img class="card-img" src="https://wimg.heraldcorp.com/news/cms/2026/03/27/news-p.v1.20260327.7fcedfb413674b1ea47fde5947522fd5_T1.jpg" alt="Taemin" loading="lazy" onerror="this.style.display='none'">
+            <div class="card-body">
+              <span class="pill">K-Pop</span>
+              <h2 class="card-headline">Taemin Drops First English-Language Single Ahead of Coachella Debut</h2>
+              <p class="card-summary">SM Entertainment's Taemin is set to perform at Coachella this April, marking a significant milestone for K-pop artists at the festival.</p>
+              <a href="#" class="card-link">Read original →</a>
+            </div>
           </article>
 
           <article class="carousel-card" data-pos="right" data-index="1">
-            <span class="pill">K-Drama</span>
-            <h2 class="card-headline">Netflix's "When Stars Align" Breaks Platform Record with 38M Views in Opening Week</h2>
-            <p class="card-summary">The psychological thriller starring Lee Jun-ki and Han So-hee has topped Netflix charts in 54 countries, cementing Korean drama's global dominance heading into Q2.</p>
-            <a href="#" class="card-link">Read original →</a>
+            <img class="card-img" src="https://kpopofficial.com/wp-content/uploads/2026/03/cover3-IRENE-Teaser-for-Biggest-Fan-Album.webp" alt="IRENE" loading="lazy" onerror="this.style.display='none'">
+            <div class="card-body">
+              <span class="pill">K-Pop</span>
+              <h2 class="card-headline">IRENE's First Solo Album "Biggest Fan Is Here"</h2>
+              <p class="card-summary">Red Velvet's IRENE has released her debut solo album, marking a major milestone in her solo career.</p>
+              <a href="#" class="card-link">Read original →</a>
+            </div>
           </article>
 
           <article class="carousel-card" data-pos="left" data-index="2">
-            <span class="pill">Lifestyle</span>
-            <h2 class="card-headline">Seoul's Hannam-dong Becomes the New Epicentre of Quiet Luxury Dining in 2025</h2>
-            <p class="card-summary">Five new tasting-menu restaurants have opened in the neighbourhood since January, drawing food critics from Tokyo, London, and New York — here's what the fuss is about.</p>
-            <a href="#" class="card-link">Read original →</a>
+            <img class="card-img" src="https://wimg.heraldcorp.com/news/cms/2026/03/05/news-p.v1.20260305.d780ba5f010d4be897fe9c054137d501_T1.jpg" alt="K-Royal Culture Festival" loading="lazy" onerror="this.style.display='none'">
+            <div class="card-body">
+              <span class="pill">Lifestyle</span>
+              <h2 class="card-headline">Spring Returns to the Palaces — K-Royal Culture Festival Opens in April</h2>
+              <p class="card-summary">Korea's annual palace spring festival returns with lantern displays, traditional performances, and night tours across five royal palaces in Seoul.</p>
+              <a href="#" class="card-link">Read original →</a>
+            </div>
           </article>
 
         </div>
@@ -703,27 +731,36 @@
       <div class="latest-grid">
 
         <article class="latest-card">
-          <span class="pill">K-Pop</span>
-          <h3 class="card-headline">Foreign Spending Jumps on BTS Weekend, Locals Pull Back</h3>
-          <p class="card-summary">Seoul's BTS comeback weekend drove a sharp spike in foreign card spending across restaurants, hotels, and retail, while domestic consumers pulled back.</p>
-          <span class="card-date">Mar 30, 2026</span>
-          <a href="archive.html" class="card-link">Read more →</a>
+          <img class="card-img" src="https://wimg.heraldcorp.com/news/cms/2026/03/30/news-p.v1.20260330.298b6f2fc3054ceeb5c3eaa7c7dbad9e_T1.jpg" alt="BTS Weekend" loading="lazy" onerror="this.style.display='none'">
+          <div class="card-body">
+            <span class="pill">K-Pop</span>
+            <h3 class="card-headline">Foreign Spending Jumps on BTS Weekend, Locals Pull Back</h3>
+            <p class="card-summary">Seoul's BTS comeback weekend drove a sharp spike in foreign card spending across restaurants, hotels, and retail, while domestic consumers pulled back.</p>
+            <span class="card-date">Mar 30, 2026</span>
+            <a href="archive.html" class="card-link">Read more →</a>
+          </div>
         </article>
 
         <article class="latest-card">
-          <span class="pill">K-Content</span>
-          <h3 class="card-headline">JTBC Drops 2026 Drama Lineup — Fantasy, Romance, and Slice-of-Life Ahead</h3>
-          <p class="card-summary">JTBC unveiled its remaining 2026 slate including We Are All Trying Here (April 18, Koo Kyo Hwan and Go Youn Jung) and a soul-swap comedy.</p>
-          <span class="card-date">Mar 30, 2026</span>
-          <a href="archive.html" class="card-link">Read more →</a>
+          <img class="card-img" src="https://0.soompi.io/wp-content/uploads/2026/03/30004303/jtbc.png" alt="JTBC Drama Lineup" loading="lazy" onerror="this.style.display='none'">
+          <div class="card-body">
+            <span class="pill">K-Content</span>
+            <h3 class="card-headline">JTBC Drops 2026 Drama Lineup — Fantasy, Romance, and Slice-of-Life Ahead</h3>
+            <p class="card-summary">JTBC unveiled its remaining 2026 slate including We Are All Trying Here (April 18, Koo Kyo Hwan and Go Youn Jung) and a soul-swap comedy.</p>
+            <span class="card-date">Mar 30, 2026</span>
+            <a href="archive.html" class="card-link">Read more →</a>
+          </div>
         </article>
 
         <article class="latest-card">
-          <span class="pill">Beauty</span>
-          <h3 class="card-headline">7 K-Beauty Trends Shaping 2026, According to Vogue</h3>
-          <p class="card-summary">Vogue's experts flag slow aging, glass skin 2.0, and sensory-first skincare as defining K-beauty directions for 2026. PDRN and barrier-repair formulas lead.</p>
-          <span class="card-date">Mar 30, 2026</span>
-          <a href="archive.html" class="card-link">Read more →</a>
+          <img class="card-img" src="https://assets.vogue.com/photos/69431da006086c4a89d1939d/16:9/w_1280,c_limit/GettyImages-504708913%20(1).jpg" alt="K-Beauty Trends" loading="lazy" onerror="this.style.display='none'">
+          <div class="card-body">
+            <span class="pill">Beauty</span>
+            <h3 class="card-headline">7 K-Beauty Trends Shaping 2026, According to Vogue</h3>
+            <p class="card-summary">Vogue's experts flag slow aging, glass skin 2.0, and sensory-first skincare as defining K-beauty directions for 2026. PDRN and barrier-repair formulas lead.</p>
+            <span class="card-date">Mar 30, 2026</span>
+            <a href="archive.html" class="card-link">Read more →</a>
+          </div>
         </article>
 
       </div>
