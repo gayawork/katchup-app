@@ -35,7 +35,7 @@
     }
 
     body {
-      background: #F5F5F5;
+      background: var(--bg);
       color: var(--text-primary);
       font-family: 'Inter', sans-serif;
       font-size: 16px;
@@ -141,7 +141,7 @@
       font-weight: 600;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--text-secondary);
       margin-bottom: 14px;
     }
 
@@ -224,7 +224,7 @@
       transform: translateX(0) scale(1);
       opacity: 1;
       z-index: 3;
-      box-shadow: 0 12px 48px rgba(123,94,167,0.16), 0 0 0 1px rgba(123,94,167,0.10);
+      box-shadow: 0 12px 48px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.06);
     }
 
     /* left: overlaps behind center's left edge */
@@ -249,7 +249,7 @@
 
     .carousel-card[data-pos="center"]:hover {
       transform: translateX(0) translateY(-6px);
-      box-shadow: 0 16px 48px rgba(123,94,167,0.22), 0 0 0 1.5px rgba(123,94,167,0.3);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.14), 0 0 0 1.5px rgba(0,0,0,0.10);
     }
 
     .carousel-card[data-pos="center"]:hover .card-img { transform: scale(1.04); }
@@ -266,7 +266,7 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: rgba(123,94,167,0.25);
+      background: rgba(0,0,0,0.18);
       border: none;
       cursor: pointer;
       padding: 0;
@@ -281,16 +281,20 @@
     /* ── SHARED CARD ELEMENTS ────────────────────────── */
     .pill {
       display: inline-block;
-      background: var(--accent);
-      color: #fff;
+      background: rgba(0,0,0,0.07);
+      color: var(--text-secondary);
       font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.05em;
+      font-weight: 700;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
       padding: 4px 10px;
       border-radius: 100px;
       width: fit-content;
     }
+    .pill-kpop      { background: var(--cat-kpop-bg);      color: var(--cat-kpop);      }
+    .pill-kcontent  { background: var(--cat-kcontent-bg);  color: var(--cat-kcontent);  }
+    .pill-lifestyle { background: var(--cat-lifestyle-bg); color: var(--cat-lifestyle); }
+    .pill-beauty    { background: var(--cat-beauty-bg);    color: var(--cat-beauty);    }
 
     .card-headline {
       font-size: 1.0625rem;
@@ -371,7 +375,7 @@
 
     .latest-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 16px 48px rgba(123,94,167,0.22), 0 0 0 1.5px rgba(123,94,167,0.3);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.14), 0 0 0 1.5px rgba(0,0,0,0.10);
     }
 
     .latest-card:hover .card-img { transform: scale(1.04); }
@@ -408,6 +412,12 @@
       padding: 3px 10px;
     }
 
+    /* Category top-border on latest cards */
+    .latest-card[data-category="k-pop"]      { border-top: 3px solid var(--cat-kpop); }
+    .latest-card[data-category="k-content"]  { border-top: 3px solid var(--cat-kcontent); }
+    .latest-card[data-category="lifestyle"]  { border-top: 3px solid var(--cat-lifestyle); }
+    .latest-card[data-category="beauty"]     { border-top: 3px solid var(--cat-beauty); }
+
     .card-date {
       font-size: 0.75rem;
       color: #999;
@@ -416,9 +426,9 @@
 
     /* ── SUBSCRIBE BAND ──────────────────────────────── */
     #subscribe-band {
-      background: #F5F5F5;
-      border-top: 1px solid rgba(123,94,167,0.1);
-      border-bottom: 1px solid rgba(123,94,167,0.1);
+      background: #FFFFFF;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
       padding: 40px 0;
     }
 
@@ -438,7 +448,7 @@
       font-size: clamp(22px, 3vw, 30px);
       font-weight: 700;
       letter-spacing: -0.5px;
-      color: var(--accent);
+      color: var(--text-primary);
     }
 
     .subscribe-inner p {
@@ -541,7 +551,7 @@
       transition: background 0.2s;
       flex-shrink: 0;
     }
-    .hamburger:hover { background: rgba(123,94,167,0.08); }
+    .hamburger:hover { background: rgba(0,0,0,0.06); }
     .hamburger span {
       display: block;
       height: 2px;
@@ -705,7 +715,7 @@
           <article class="carousel-card" data-pos="center" data-index="0">
             <img class="card-img" src="https://wimg.heraldcorp.com/news/cms/2026/03/27/news-p.v1.20260327.7fcedfb413674b1ea47fde5947522fd5_T1.jpg" alt="Taemin" loading="lazy" onerror="this.style.display='none'">
             <div class="card-body">
-              <span class="pill">K-Pop</span>
+              <span class="pill pill-kpop">K-Pop</span>
               <h2 class="card-headline">Taemin Drops First English-Language Single Ahead of Coachella Debut</h2>
               <p class="card-summary">SM Entertainment's Taemin is set to perform at Coachella this April, marking a significant milestone for K-pop artists at the festival.</p>
               <a href="#" class="card-link">Read original →</a>
@@ -715,7 +725,7 @@
           <article class="carousel-card" data-pos="right" data-index="1">
             <img class="card-img" src="https://kpopofficial.com/wp-content/uploads/2026/03/cover3-IRENE-Teaser-for-Biggest-Fan-Album.webp" alt="IRENE" loading="lazy" onerror="this.style.display='none'">
             <div class="card-body">
-              <span class="pill">K-Pop</span>
+              <span class="pill pill-kpop">K-Pop</span>
               <h2 class="card-headline">IRENE's First Solo Album "Biggest Fan Is Here"</h2>
               <p class="card-summary">Red Velvet's IRENE has released her debut solo album, marking a major milestone in her solo career.</p>
               <a href="#" class="card-link">Read original →</a>
@@ -725,7 +735,7 @@
           <article class="carousel-card" data-pos="left" data-index="2">
             <img class="card-img" src="https://wimg.heraldcorp.com/news/cms/2026/03/05/news-p.v1.20260305.d780ba5f010d4be897fe9c054137d501_T1.jpg" alt="K-Royal Culture Festival" loading="lazy" onerror="this.style.display='none'">
             <div class="card-body">
-              <span class="pill">Lifestyle</span>
+              <span class="pill pill-lifestyle">Lifestyle</span>
               <h2 class="card-headline">Spring Returns to the Palaces — K-Royal Culture Festival Opens in April</h2>
               <p class="card-summary">Korea's annual palace spring festival returns with lantern displays, traditional performances, and night tours across five royal palaces in Seoul.</p>
               <a href="#" class="card-link">Read original →</a>
@@ -752,10 +762,10 @@
       </div>
       <div class="latest-grid">
 
-        <article class="latest-card">
+        <article class="latest-card" data-category="k-pop">
           <img class="card-img" src="https://wimg.heraldcorp.com/news/cms/2026/03/30/news-p.v1.20260330.298b6f2fc3054ceeb5c3eaa7c7dbad9e_T1.jpg" alt="BTS Weekend" loading="lazy" onerror="this.style.display='none'">
           <div class="card-body">
-            <span class="pill">K-Pop</span>
+            <span class="pill pill-kpop">K-Pop</span>
             <h3 class="card-headline">Foreign Spending Jumps on BTS Weekend, Locals Pull Back</h3>
             <p class="card-summary">Seoul's BTS comeback weekend drove a sharp spike in foreign card spending across restaurants, hotels, and retail, while domestic consumers pulled back.</p>
             <span class="card-date">Mar 30, 2026</span>
@@ -763,10 +773,10 @@
           </div>
         </article>
 
-        <article class="latest-card">
+        <article class="latest-card" data-category="k-content">
           <img class="card-img" src="https://0.soompi.io/wp-content/uploads/2026/03/30004303/jtbc.png" alt="JTBC Drama Lineup" loading="lazy" onerror="this.style.display='none'">
           <div class="card-body">
-            <span class="pill">K-Content</span>
+            <span class="pill pill-kcontent">K-Content</span>
             <h3 class="card-headline">JTBC Drops 2026 Drama Lineup — Fantasy, Romance, and Slice-of-Life Ahead</h3>
             <p class="card-summary">JTBC unveiled its remaining 2026 slate including We Are All Trying Here (April 18, Koo Kyo Hwan and Go Youn Jung) and a soul-swap comedy.</p>
             <span class="card-date">Mar 30, 2026</span>
@@ -774,10 +784,10 @@
           </div>
         </article>
 
-        <article class="latest-card">
+        <article class="latest-card" data-category="beauty">
           <img class="card-img" src="https://assets.vogue.com/photos/69431da006086c4a89d1939d/16:9/w_1280,c_limit/GettyImages-504708913%20(1).jpg" alt="K-Beauty Trends" loading="lazy" onerror="this.style.display='none'">
           <div class="card-body">
-            <span class="pill">Beauty</span>
+            <span class="pill pill-beauty">Beauty</span>
             <h3 class="card-headline">7 K-Beauty Trends Shaping 2026, According to Vogue</h3>
             <p class="card-summary">Vogue's experts flag slow aging, glass skin 2.0, and sensory-first skincare as defining K-beauty directions for 2026. PDRN and barrier-repair formulas lead.</p>
             <span class="card-date">Mar 30, 2026</span>
