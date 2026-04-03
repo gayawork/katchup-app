@@ -133,7 +133,7 @@
 
     /* ── HERO ────────────────────────────────────────── */
     #hero {
-      padding: 48px 0 0;
+      padding: 60px 0 0;
     }
 
     .hero-label {
@@ -259,7 +259,7 @@
       display: flex;
       justify-content: center;
       gap: 8px;
-      margin-top: 20px;
+      margin-top: 32px;
     }
 
     .carousel-dot {
@@ -327,14 +327,14 @@
 
     /* ── THE LATEST ──────────────────────────────────── */
     #latest {
-      padding: 32px 0 48px;
+      padding: 64px 0 72px;
     }
 
     .section-header {
       display: flex;
       align-items: baseline;
       justify-content: space-between;
-      margin-bottom: 24px;
+      margin-bottom: 32px;
     }
 
     .section-heading {
@@ -356,7 +356,7 @@
     .latest-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      gap: 24px;
       align-items: start;
     }
 
@@ -382,7 +382,7 @@
 
     .latest-card .card-img {
       width: 100%;
-      height: 120px;
+      height: 160px;
       object-fit: cover;
       display: block;
       border-radius: var(--card-radius) var(--card-radius) 0 0;
@@ -390,10 +390,10 @@
     }
 
     .latest-card .card-body {
-      padding: 14px;
+      padding: 18px 20px 20px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
       flex: 1;
     }
 
@@ -429,7 +429,7 @@
       background: #FFFFFF;
       border-top: 1px solid rgba(0,0,0,0.06);
       border-bottom: 1px solid rgba(0,0,0,0.06);
-      padding: 40px 0;
+      padding: 72px 0;
     }
 
     .subscribe-inner {
@@ -440,7 +440,7 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      gap: 12px;
+      gap: 20px;
     }
 
     .subscribe-inner h2 {
@@ -454,7 +454,6 @@
     .subscribe-inner p {
       font-size: 15px;
       color: var(--text-secondary);
-      margin-bottom: 4px;
     }
 
     .subscribe-form {
@@ -647,16 +646,16 @@
     @media (max-width: 480px) {
       .section-wrap { padding: 0 16px; }
 
-      #hero { padding: 44px 0 36px; }
+      #hero { padding: 44px 0 0; }
       .hero-heading { font-size: 2.5rem; letter-spacing: -1px; margin-bottom: 24px; }
 
       /* Latest: 1-col on mobile */
       .latest-grid { grid-template-columns: 1fr; }
-      #latest { padding: 44px 0 52px; }
+      #latest { padding: 48px 0 56px; }
 
       /* Subscribe */
       .subscribe-form { flex-direction: column; }
-      #subscribe-band { padding: 44px 0; }
+      #subscribe-band { padding: 56px 0; }
       .subscribe-btn { min-height: 44px; }
       .subscribe-input { min-height: 44px; }
 
