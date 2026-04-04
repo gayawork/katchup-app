@@ -11,36 +11,28 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:             #F7F5F2;
-      --surface:        #FFFFFF;
-      --accent:         #7B5EA7;
-      --accent-dark:    #6a4e92;
-      --text-primary:   #111111;
-      --text-secondary: #444444;
-      --card-shadow:    0 2px 12px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.05);
-      --card-border:    1px solid rgba(0,0,0,0.08);
-      --card-radius:    16px;
-      --max-w:          1100px;
-      /* Category palette */
-      --cat-kpop:          #7B5EA7;
-      --cat-kpop-bg:       rgba(123,94,167,0.12);
-      --cat-kcontent:      #2E6CB8;
-      --cat-kcontent-bg:   rgba(46,108,184,0.10);
-      --cat-lifestyle:     #C45E7A;
-      --cat-lifestyle-bg:  rgba(196,94,122,0.10);
-      --cat-beauty:        #A8601E;
-      --cat-beauty-bg:     rgba(168,96,30,0.10);
-      --text-muted:        #999999;
+      --bg: #0d0d1a;
+      --bg-card: rgba(255, 255, 255, 0.06);
+      --border: rgba(255, 255, 255, 0.08);
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255, 255, 255, 0.55);
+      --accent: #D6BAFF;
+      --accent-glow: rgba(214, 186, 255, 0.2);
+      --brand: #7B5EA7;
+      --card-radius: 20px;
+      --max-w: 1100px;
+      --cat-kpop:          #c49ef5;
+      --cat-kpop-bg:       rgba(196,158,245,0.15);
+      --cat-kcontent:      #7db3f5;
+      --cat-kcontent-bg:   rgba(125,179,245,0.12);
+      --cat-lifestyle:     #f59eb5;
+      --cat-lifestyle-bg:  rgba(245,158,181,0.12);
+      --cat-beauty:        #f5c87d;
+      --cat-beauty-bg:     rgba(245,200,125,0.12);
+      --text-muted:        rgba(255,255,255,0.3);
     }
 
-    body {
-      background: var(--bg);
-      color: var(--text-primary);
-      font-family: 'Inter', sans-serif;
-      font-size: 16px;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+    body { background: var(--bg); color: var(--text-primary); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.6; overflow-x: hidden; }
 
     a { text-decoration: none; color: inherit; }
 
@@ -48,100 +40,65 @@
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: rgba(255,255,255,0.9);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(0,0,0,0.07);
-      height: 60px;
-    }
-
-    .nav-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 24px;
-      height: 100%;
+      z-index: 1000;
+      height: 72px;
       display: flex;
       align-items: center;
+      padding: 0 6%;
       justify-content: space-between;
-      gap: 24px;
+      background: rgba(13,13,26,0.4);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: background 0.3s ease;
     }
+
+    nav.scrolled { background: rgba(13,13,26,0.85); }
 
     .logo {
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 900;
       font-size: 22px;
-      color: var(--accent-dark);
+      color: var(--accent);
       letter-spacing: -1px;
       flex-shrink: 0;
     }
 
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      list-style: none;
-    }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
 
     .nav-links a {
       font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
+      font-weight: 600;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
-      color: var(--text-secondary);
-      position: relative;
-      padding-bottom: 2px;
-      transition: color 0.2s cubic-bezier(0.25, 0, 0, 1);
+      color: rgba(255,255,255,0.5);
+      transition: color 0.2s ease;
     }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -2px; left: 0; right: 0;
-      height: 2px;
-      background: var(--accent);
-      transform: scaleX(0);
-      transform-origin: right;
-      transition: transform 0.25s cubic-bezier(0.25, 0, 0, 1);
-    }
-
-    .nav-links a:hover { color: var(--accent); }
-    .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
-    .nav-links a.active { color: var(--accent); }
-    .nav-links a.active::after { transform: scaleX(1); transform-origin: left; }
+    .nav-links a:hover { color: white; }
+    .nav-links a.active { color: white; }
 
     .btn-subscribe {
       background: var(--accent);
-      color: #fff;
+      color: #0d0d1a;
       font-size: 13px;
-      font-weight: 600;
-      padding: 8px 18px;
-      border-radius: 8px;
+      font-weight: 800;
+      padding: 8px 22px;
+      border-radius: 999px;
       border: none;
       cursor: pointer;
-      transition: background 0.2s cubic-bezier(0.25, 0, 0, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       flex-shrink: 0;
     }
-    .btn-subscribe:hover { background: var(--accent-dark); transform: translateY(-2px); }
-    .btn-subscribe:active { transform: translateY(0); transition-duration: 0.08s; }
+    .btn-subscribe:hover { opacity: 0.85; transform: translateY(-2px); }
+    .btn-subscribe:active { transform: translateY(0); }
 
     /* ── LAYOUT ──────────────────────────────────────── */
-    .section-wrap {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 24px;
-    }
+    .section-wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
 
-    main {
-      padding-top: 60px;
-      min-height: 100vh;
-      position: relative;
-      z-index: 1;
-    }
+    main { padding-top: 72px; min-height: 100vh; position: relative; z-index: 1; }
 
     /* ── PAGE HEADER ─────────────────────────────────── */
-    .page-header {
-      padding: 72px 0 60px;
-    }
+    .page-header { padding: 72px 0 60px; }
 
     .page-title {
       font-family: 'Space Grotesk', sans-serif;
@@ -155,24 +112,16 @@
     .page-title-line {
       width: 40px;
       height: 4px;
-      background: var(--text-primary);
+      background: var(--accent);
       border-radius: 2px;
       margin-top: 16px;
       margin-bottom: 16px;
     }
 
-    .page-subtitle {
-      font-size: 1rem;
-      color: var(--text-secondary);
-    }
+    .page-subtitle { font-size: 1rem; color: var(--text-secondary); }
 
     /* ── FILTER TABS ─────────────────────────────────── */
-    .filter-tabs {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-    }
+    .filter-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 40px; }
 
     .tab-btn {
       font-family: 'Inter', sans-serif;
@@ -180,83 +129,76 @@
       font-weight: 600;
       letter-spacing: 0.04em;
       padding: 8px 18px;
-      border-radius: 8px;
-      border: none;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.1);
       cursor: pointer;
       background: transparent;
       color: var(--text-secondary);
-      transition: background 0.2s cubic-bezier(0.25, 0, 0, 1), color 0.2s cubic-bezier(0.25, 0, 0, 1);
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
     }
+    .tab-btn:hover { background: rgba(255,255,255,0.08); color: white; border-color: rgba(255,255,255,0.2); }
+    .tab-btn.active { background: var(--accent); color: #0d0d1a; border-color: var(--accent); font-weight: 800; }
 
-    .tab-btn:hover {
-      background: rgba(0,0,0,0.06);
-      color: var(--text-primary);
-    }
+    /* ── ISSUE GRID ──────────────────────────────────── */
+    .issue-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; padding-bottom: 48px; }
 
-    .tab-btn.active {
-      background: var(--text-primary);
-      color: #fff;
-    }
-    .tab-btn[data-tab="k-pop"].active    { background: var(--cat-kpop); }
-    .tab-btn[data-tab="k-content"].active{ background: var(--cat-kcontent); }
-    .tab-btn[data-tab="lifestyle"].active{ background: var(--cat-lifestyle); }
-    .tab-btn[data-tab="beauty"].active   { background: var(--cat-beauty); }
-
-    /* ── ISSUE GRID — 2-column ───────────────────────── */
-    .issue-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-      padding-bottom: 48px;
-    }
-
-    /* ── CARD ────────────────────────────────────────── */
+    /* ── ARTICLE CARD ────────────────────────────────── */
     .issue-card {
-      background: var(--surface);
-      box-shadow: var(--card-shadow);
-      border: var(--card-border);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
       border-radius: var(--card-radius);
-      padding: 0;
       overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+      opacity: 0;
+      transform: translateY(28px);
       display: flex;
       flex-direction: column;
-      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-      opacity: 0;
-      transform: translateY(16px);
-      animation: cardIn 0.35s ease forwards;
     }
 
-    /* Category top-border on archive cards */
-    .issue-card[data-category="k-pop"]      { border-top: 3px solid var(--cat-kpop); }
-    .issue-card[data-category="k-content"]  { border-top: 3px solid var(--cat-kcontent); }
-    .issue-card[data-category="lifestyle"]  { border-top: 3px solid var(--cat-lifestyle); }
-    .issue-card[data-category="beauty"]     { border-top: 3px solid var(--cat-beauty); }
-
-    @keyframes cardIn {
-      to { opacity: 1; transform: translateY(0); }
+    .issue-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.35s ease, border-color 0.35s ease;
     }
 
     .issue-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 16px 48px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.06);
+      transform: translateY(-10px) scale(1.01);
+      box-shadow: 0 20px 60px rgba(123,94,167,0.25);
+      border-color: rgba(214,186,255,0.2);
     }
 
-    .card-img {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-      display: block;
-      flex-shrink: 0;
-      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    .issue-card.visible:hover {
+      transform: translateY(-10px) scale(1.01);
     }
-    .issue-card:hover .card-img { transform: scale(1.04); }
+
+    /* Category accent top border */
+    .issue-card[data-category="k-pop"]      { border-top: 2px solid var(--cat-kpop); }
+    .issue-card[data-category="k-content"]  { border-top: 2px solid var(--cat-kcontent); }
+    .issue-card[data-category="lifestyle"]  { border-top: 2px solid var(--cat-lifestyle); }
+    .issue-card[data-category="beauty"]     { border-top: 2px solid var(--cat-beauty); }
+
+    .card-image {
+      position: relative;
+      height: 240px;
+      overflow: hidden;
+    }
+
+    .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+      display: block;
+    }
+
+    .issue-card:hover .card-image img { transform: scale(1.08); }
 
     .card-img-credit {
       font-size: 11px;
       color: var(--text-muted);
-      padding: 4px 24px;
-      background: rgba(0,0,0,0.02);
-      border-bottom: 1px solid rgba(0,0,0,0.04);
+      padding: 4px 20px;
+      background: rgba(0,0,0,0.3);
     }
 
     .card-body {
@@ -267,11 +209,7 @@
       flex: 1;
     }
 
-    .issue-meta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+    .issue-meta { display: flex; align-items: center; justify-content: space-between; }
 
     .issue-number {
       font-size: 12px;
@@ -281,30 +219,19 @@
       color: var(--text-secondary);
     }
 
-    .issue-date {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
+    .issue-date { font-size: 12px; color: var(--text-muted); }
 
-    .issue-pills {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
+    .issue-pills { display: flex; gap: 6px; flex-wrap: wrap; }
 
     .pill {
       display: inline-block;
-      background: rgba(0,0,0,0.07);
-      color: var(--text-secondary);
       font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       padding: 3px 9px;
       border-radius: 100px;
-      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .pill:hover { transform: scale(1.05); }
     .pill-kpop      { background: var(--cat-kpop-bg);      color: var(--cat-kpop);      }
     .pill-kcontent  { background: var(--cat-kcontent-bg);  color: var(--cat-kcontent);  }
     .pill-lifestyle { background: var(--cat-lifestyle-bg); color: var(--cat-lifestyle); }
@@ -336,13 +263,13 @@
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      transition: gap 0.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s cubic-bezier(0.25, 0, 0, 1);
+      transition: gap 0.2s ease, color 0.2s ease;
       margin-top: 4px;
       align-self: flex-start;
     }
-    .issue-link:hover { gap: 10px; color: var(--accent-dark); }
+    .issue-link:hover { gap: 10px; color: white; }
 
-    /* ── INFINITE SCROLL LOADER ──────────────────────── */
+    /* ── LOADER ──────────────────────────────────────── */
     .scroll-loader {
       display: flex;
       justify-content: center;
@@ -352,8 +279,7 @@
     }
 
     .scroll-loader span {
-      width: 8px;
-      height: 8px;
+      width: 8px; height: 8px;
       border-radius: 50%;
       background: var(--accent);
       opacity: 0.3;
@@ -364,26 +290,17 @@
 
     @keyframes bounce {
       0%, 80%, 100% { opacity: 0.3; transform: scale(1); }
-      40% { opacity: 1; transform: scale(1.3); }
+      40%           { opacity: 1;   transform: scale(1.3); }
     }
 
     .scroll-loader.hidden { display: none; }
-
-    .end-message {
-      text-align: center;
-      padding: 40px 0 64px;
-      font-size: 13px;
-      color: #bbb;
-      display: none;
-    }
+    .end-message { text-align: center; padding: 40px 0 64px; font-size: 13px; color: var(--text-muted); display: none; }
     .end-message.visible { display: block; }
 
     /* ── FOOTER ──────────────────────────────────────── */
     footer {
-      background: rgba(255,255,255,0.9);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(0,0,0,0.07);
+      background: rgba(13,13,26,0.8);
+      border-top: 1px solid rgba(255,255,255,0.06);
       padding: 36px 0;
       position: relative;
       z-index: 1;
@@ -400,23 +317,10 @@
       gap: 16px;
     }
 
-    .footer-links {
-      display: flex;
-      gap: 24px;
-      list-style: none;
-    }
-
-    .footer-links a {
-      font-size: 14px;
-      color: var(--text-secondary);
-      transition: color 0.2s cubic-bezier(0.25, 0, 0, 1);
-    }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a { font-size: 14px; color: var(--text-secondary); transition: color 0.2s ease; }
     .footer-links a:hover { color: var(--accent); }
-
-    .footer-copy {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
+    .footer-copy { font-size: 13px; color: var(--text-muted); }
 
     /* ── HAMBURGER ───────────────────────────────────── */
     .hamburger {
@@ -424,8 +328,7 @@
       flex-direction: column;
       justify-content: center;
       gap: 5px;
-      width: 44px;
-      height: 44px;
+      width: 44px; height: 44px;
       padding: 10px;
       background: none;
       border: none;
@@ -434,131 +337,93 @@
       transition: background 0.2s;
       flex-shrink: 0;
     }
-    .hamburger:hover { background: rgba(0,0,0,0.06); }
-    .hamburger span {
-      display: block;
-      height: 2px;
-      width: 20px;
-      background: var(--text-primary);
-      border-radius: 2px;
-      transition: transform 0.25s cubic-bezier(0.25, 0, 0, 1), opacity 0.25s cubic-bezier(0.25, 0, 0, 1);
-    }
+    .hamburger:hover { background: rgba(255,255,255,0.08); }
+    .hamburger span { display: block; height: 2px; width: 20px; background: white; border-radius: 2px; transition: transform 0.25s ease, opacity 0.25s ease; }
     .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-    /* Mobile menu drawer */
     .mobile-menu {
       display: none;
       position: fixed;
-      top: 60px; left: 0; right: 0;
-      background: rgba(255,255,255,0.97);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(0,0,0,0.07);
+      top: 72px; left: 0; right: 0;
+      background: rgba(13,13,26,0.97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
       padding: 16px 24px 20px;
-      z-index: 99;
+      z-index: 999;
       flex-direction: column;
       gap: 4px;
     }
     .mobile-menu.open { display: flex; }
     .mobile-menu a {
       font-size: 15px;
-      font-weight: 500;
+      font-weight: 600;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       color: var(--text-secondary);
       padding: 12px 0;
-      border-bottom: 1px solid rgba(0,0,0,0.05);
-      transition: color 0.2s cubic-bezier(0.25, 0, 0, 1);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: color 0.2s ease;
       min-height: 44px;
       display: flex;
       align-items: center;
     }
     .mobile-menu a:last-child { border-bottom: none; }
-    .mobile-menu a:hover { color: var(--accent); }
+    .mobile-menu a:hover { color: white; }
 
-    /* ── RESPONSIVE: 1100px ───────────────────────────── */
-    @media (max-width: 1100px) {
-      .section-wrap { padding: 0 20px; }
-    }
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 1100px) { .section-wrap { padding: 0 20px; } }
 
-    /* ── RESPONSIVE: 640px ───────────────────────────── */
-    @media (max-width: 640px) {
-      .issue-grid { grid-template-columns: 1fr; }
-    }
-
-    /* ── RESPONSIVE: 768px (tablet) ──────────────────── */
     @media (max-width: 768px) {
+      nav { padding: 0 5%; }
       .nav-links { display: none; }
       .hamburger { display: flex; }
-
       .page-header { padding: 48px 0 36px; }
       .page-title { font-size: 2.75rem; letter-spacing: -1.5px; }
-
-      /* Touch targets */
       .btn-subscribe { min-height: 44px; padding: 10px 18px; }
       .tab-btn { min-height: 44px; }
     }
 
-    /* ── RESPONSIVE: 480px (mobile) ──────────────────── */
+    @media (max-width: 640px) { .issue-grid { grid-template-columns: 1fr; } }
+
     @media (max-width: 480px) {
       .section-wrap { padding: 0 16px; }
-
       .page-header { padding: 40px 0 28px; }
       .page-title { font-size: 2.25rem; letter-spacing: -1px; }
-      .page-subtitle { font-size: 14px; }
-
-      /* Filter tabs: wrap and fill */
       .filter-tabs { gap: 6px; }
-      .tab-btn {
-        font-size: 12px;
-        padding: 8px 14px;
-        min-height: 44px;
-      }
-
-      /* Grid: 1-column */
+      .tab-btn { font-size: 12px; padding: 8px 14px; }
       .issue-grid { grid-template-columns: 1fr; gap: 20px; }
-
-      /* Cards */
-      .card-img { height: 140px; }
-      .issue-headline { font-size: 1.0625rem; }
-
-      /* Footer */
+      .card-image { height: 180px; }
       .footer-inner { flex-direction: column; align-items: flex-start; gap: 20px; }
       .footer-links { flex-wrap: wrap; gap: 16px; }
-
-      /* Prevent horizontal overflow */
       body { overflow-x: hidden; }
       main { overflow-x: hidden; }
     }
 
-    /* ── REDUCED MOTION ─────────────────────────────── */
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        transition-duration: 0.01ms !important;
-        animation-duration: 0.01ms !important;
-      }
+      *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
     }
   </style>
 </head>
 <body>
 
+<!-- Spotlight -->
+<div id="spotlight" style="pointer-events:none;position:fixed;inset:0;z-index:9999;opacity:0.4;transition:background 0.1s ease;"></div>
+
 <!-- ── NAV ─────────────────────────────────────────── -->
 <nav>
-  <div class="nav-inner">
-    <a href="index.html" class="logo">Katchup</a>
-    <ul class="nav-links">
-      <li><a href="archive.html?tab=k-pop">K-Pop</a></li>
-      <li><a href="archive.html?tab=k-content">K-Content</a></li>
-      <li><a href="archive.html?tab=lifestyle">Lifestyle</a></li>
-      <li><a href="archive.html?tab=beauty">Beauty</a></li>
-    </ul>
-    <button class="btn-subscribe">Subscribe</button>
-    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
+  <a href="index.html" class="logo">Katchup</a>
+  <ul class="nav-links">
+    <li><a href="archive.html?tab=k-pop">K-Pop</a></li>
+    <li><a href="archive.html?tab=k-content">K-Content</a></li>
+    <li><a href="archive.html?tab=lifestyle">Lifestyle</a></li>
+    <li><a href="archive.html?tab=beauty">Beauty</a></li>
+  </ul>
+  <button class="btn-subscribe">Subscribe</button>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
   <a href="archive.html?tab=k-pop">K-Pop</a>
@@ -616,6 +481,24 @@
 </footer>
 
 <script>
+  // ── Spotlight ─────────────────────────────────────────
+  const spotlight = document.getElementById('spotlight');
+  let tx = window.innerWidth/2, ty = window.innerHeight/2;
+  let cx = tx, cy = ty;
+  window.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
+  (function animate() {
+    cx += (tx - cx) * 0.08;
+    cy += (ty - cy) * 0.08;
+    spotlight.style.background =
+      `radial-gradient(600px circle at ${cx}px ${cy}px, rgba(214,186,255,0.13), transparent 80%)`;
+    requestAnimationFrame(animate);
+  })();
+
+  // ── Nav scroll ────────────────────────────────────────
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 60);
+  });
+
   // ── All issue data (newest first) ────────────────────
   const ALL_ISSUES = [
     {
@@ -623,7 +506,7 @@
       category: 'Lifestyle',
       date: 'Mar 4, 2026',
       tags: ['lifestyle'],
-      pills: [{ label: 'Lifestyle', muted: false }],
+      pills: [{ label: 'Lifestyle' }],
       image: 'https://newsimg.koreatimes.co.kr/2026/03/04/1229fe4a-41c5-4f11-abbe-62961df55630.jpg',
       credit: '© Korea Times',
       headline: "Korea's 11 Traditional Markets Are Getting a Global Makeover",
@@ -635,7 +518,7 @@
       category: 'Lifestyle',
       date: 'Mar 5, 2026',
       tags: ['lifestyle'],
-      pills: [{ label: 'Lifestyle', muted: false }],
+      pills: [{ label: 'Lifestyle' }],
       image: 'https://wimg.heraldcorp.com/news/cms/2026/03/05/news-p.v1.20260305.d780ba5f010d4be897fe9c054137d501_T1.jpg',
       credit: '© Korea Herald',
       headline: 'Spring Returns to the Palaces — K-Royal Culture Festival Opens in April',
@@ -647,7 +530,7 @@
       category: 'Beauty',
       date: 'Jan 16, 2026',
       tags: ['beauty'],
-      pills: [{ label: 'Beauty', muted: false }],
+      pills: [{ label: 'Beauty' }],
       image: 'https://assets.vogue.com/photos/69431da006086c4a89d1939d/16:9/w_1280,c_limit/GettyImages-504708913%20(1).jpg',
       credit: '© Vogue',
       headline: '7 K-Beauty Trends Shaping 2026, According to Vogue',
@@ -659,7 +542,7 @@
       category: 'K-Content',
       date: 'Mar 30, 2026',
       tags: ['k-content'],
-      pills: [{ label: 'K-Content', muted: false }],
+      pills: [{ label: 'K-Content' }],
       image: 'https://wimg.heraldcorp.com/news/cms/2026/03/30/news-p.v1.20251226.eb9dd82a05ce44f39ad408c65f485e24_T1.jpg',
       credit: '© Korea Herald',
       headline: "Korean Culture Is No Longer a Trend — It's a Global Lifestyle",
@@ -671,7 +554,7 @@
       category: 'K-Content',
       date: 'Mar 30, 2026',
       tags: ['k-content'],
-      pills: [{ label: 'K-Content', muted: false }],
+      pills: [{ label: 'K-Content' }],
       image: 'https://0.soompi.io/wp-content/uploads/2026/03/30004303/jtbc.png',
       credit: '© Soompi',
       headline: 'JTBC Drops 2026 Drama Lineup — Fantasy, Romance, and Slice-of-Life Ahead',
@@ -683,7 +566,7 @@
       category: 'K-Pop',
       date: 'Mar 30, 2026',
       tags: ['k-pop'],
-      pills: [{ label: 'K-Pop', muted: false }],
+      pills: [{ label: 'K-Pop' }],
       image: 'https://kpopofficial.com/wp-content/uploads/2026/03/cover3-IRENE-Teaser-for-Biggest-Fan-Album.webp',
       credit: '© Kpop Official',
       headline: "IRENE's First Solo Album Biggest Fan Is Here",
@@ -695,7 +578,7 @@
       category: 'K-Pop',
       date: 'Mar 27, 2026',
       tags: ['k-pop'],
-      pills: [{ label: 'K-Pop', muted: false }],
+      pills: [{ label: 'K-Pop' }],
       image: 'https://wimg.heraldcorp.com/news/cms/2026/03/27/news-p.v1.20260327.7fcedfb413674b1ea47fde5947522fd5_T1.jpg',
       credit: '© Korea Herald',
       headline: 'Taemin Drops First English-Language Single Ahead of Coachella Debut',
@@ -707,7 +590,7 @@
       category: 'K-Pop',
       date: 'Mar 21, 2026',
       tags: ['k-pop'],
-      pills: [{ label: 'K-Pop', muted: false }],
+      pills: [{ label: 'K-Pop' }],
       image: 'https://wimg.heraldcorp.com/news/cms/2026/03/30/news-p.v1.20260330.298b6f2fc3054ceeb5c3eaa7c7dbad9e_T1.jpg',
       credit: '© Korea Herald',
       headline: 'Foreign Spending Jumps on BTS Weekend, Locals Pull Back',
@@ -717,19 +600,42 @@
   ];
 
   // ── State ─────────────────────────────────────────────
-  const BATCH = 6; // cards per load
+  const BATCH = 6;
   let activeTab = 'all';
   let rendered = 0;
   let loading = false;
   let filtered = [];
 
-  const grid = document.getElementById('issueGrid');
+  const grid   = document.getElementById('issueGrid');
   const loader = document.getElementById('scrollLoader');
   const endMsg = document.getElementById('endMessage');
 
-  // ── Build card HTML ───────────────────────────────────
   const CAT_CLASS = { 'k-pop': 'kpop', 'k-content': 'kcontent', 'lifestyle': 'lifestyle', 'beauty': 'beauty' };
 
+  // ── Scroll entrance observer ──────────────────────────
+  const entranceObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+
+  // ── Glare setup on a card ─────────────────────────────
+  function attachGlare(card) {
+    const imgWrap = card.querySelector('.card-image');
+    if (!imgWrap) return;
+    imgWrap.style.position = 'relative';
+    const glare = document.createElement('div');
+    glare.style.cssText = `position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity 0.2s;mix-blend-mode:overlay;border-radius:inherit;`;
+    imgWrap.appendChild(glare);
+    card.addEventListener('mousemove', e => {
+      const r = imgWrap.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width * 100).toFixed(1);
+      const y = ((e.clientY - r.top)  / r.height * 100).toFixed(1);
+      glare.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(255,255,255,0.4) 0%, transparent 65%)`;
+      glare.style.opacity = '1';
+    });
+    card.addEventListener('mouseleave', () => { glare.style.opacity = '0'; });
+  }
+
+  // ── Build card HTML ───────────────────────────────────
   function cardHTML(issue, index) {
     const catKey   = issue.tags[0] || '';
     const catClass = CAT_CLASS[catKey] || '';
@@ -737,11 +643,13 @@
       `<span class="pill${catClass ? ' pill-' + catClass : ''}">${p.label}</span>`
     ).join('');
     const imgHTML = issue.image
-      ? `<img class="card-img" src="${issue.image}" alt="${issue.headline}" loading="lazy" onerror="this.parentElement.querySelector('.card-img-credit')&&(this.parentElement.querySelector('.card-img-credit').style.display='none');this.style.display='none'">
+      ? `<div class="card-image">
+           <img src="${issue.image}" alt="${issue.headline}" loading="lazy" onerror="this.style.display='none'">
+         </div>
          <p class="card-img-credit">${issue.credit || ''}</p>`
       : '';
     return `
-      <article class="issue-card" data-category="${catKey}" style="animation-delay:${(index % BATCH) * 60}ms">
+      <article class="issue-card" data-category="${catKey}">
         ${imgHTML}
         <div class="card-body">
           <div class="issue-meta">
@@ -766,9 +674,19 @@
     batch.forEach((issue, i) => {
       const div = document.createElement('div');
       div.innerHTML = cardHTML(issue, i);
-      fragment.appendChild(div.firstElementChild);
+      const card = div.firstElementChild;
+      card.style.transitionDelay = `${(rendered + i) * 70}ms`;
+      fragment.appendChild(card);
     });
     grid.appendChild(fragment);
+
+    // Attach glare + entrance observer to newly added cards
+    Array.from(grid.querySelectorAll('.issue-card:not([data-observed])')).forEach(card => {
+      card.setAttribute('data-observed', '1');
+      attachGlare(card);
+      entranceObserver.observe(card);
+    });
+
     rendered += batch.length;
 
     if (rendered >= filtered.length) {
@@ -796,12 +714,12 @@
     renderBatch();
   }
 
-  // ── Infinite scroll observer ──────────────────────────
-  const observer = new IntersectionObserver((entries) => {
+  // ── Infinite scroll ───────────────────────────────────
+  const scrollObserver = new IntersectionObserver((entries) => {
     if (entries[0].isIntersecting) renderBatch();
   }, { rootMargin: '200px' });
 
-  observer.observe(loader);
+  scrollObserver.observe(loader);
 
   // ── Hamburger menu ───────────────────────────────────
   (function () {
