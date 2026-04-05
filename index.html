@@ -630,6 +630,42 @@
       .card-stack:hover .stack-card {
         transform: none !important;
       }
+
+      /* Problem 1 — logo size */
+      nav .logo { font-size: 18px !important; }
+
+      /* Problem 2 — subscribe button */
+      nav .btn-subscribe {
+        font-size: 13px !important;
+        padding: 8px 16px !important;
+        height: auto !important;
+      }
+
+      /* Problem 3 — first card clipped, right padding */
+      .card-stack {
+        padding: 0 8px 20px 8px !important;
+        scroll-padding-left: 8px !important;
+        margin-left: 0 !important;
+        width: 100% !important;
+      }
+      .card-stack .stack-card:first-child {
+        margin-left: 8px !important;
+      }
+
+      /* Problem 4 — hero centering */
+      .hero {
+        align-items: center !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+      }
+      .hero-text {
+        padding: 0 20px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        text-align: center !important;
+      }
     }
 
     @media (max-width: 480px) {
