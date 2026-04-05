@@ -632,32 +632,28 @@
       }
 
       /* Nav logo + button */
-      nav .logo { font-size: 18px !important; }
+      nav .logo { font-size: 20px !important; letter-spacing: normal !important; }
       nav .btn-subscribe {
         font-size: 13px !important;
-        padding: 7px 14px !important;
-        border-radius: 999px !important;
+        padding: 8px 18px !important;
         height: auto !important;
+        line-height: 1.4 !important;
+        border-radius: 999px !important;
       }
 
-      /* Hero centering */
+      /* Hero centering + overflow unblock */
       .hero {
+        flex-direction: column !important;
         align-items: center !important;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-        /* .hero has overflow:hidden on desktop — unblock scroll on mobile */
+        text-align: center !important;
+        padding: 80px 24px 40px !important;
         overflow: visible !important;
       }
       .hero-right { overflow: visible !important; }
       .hero-visual { overflow: visible !important; }
-      .hero-text {
-        padding: 0 20px !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-        text-align: center !important;
-      }
+      .hero-text { text-align: center !important; width: 100% !important; }
+      .hero-heading, .hero-subtitle, .hero-badge { text-align: center !important; }
+      .hero-ctas { justify-content: center !important; }
 
       /* Horizontal scroll strip */
       .card-stack {
@@ -981,6 +977,40 @@
       input.placeholder = 'you@example.com';
     }, 3500);
   }
+</script>
+
+<script>
+(function() {
+  function isMobile() { return window.innerWidth <= 768; }
+
+  function buildMobileScroll() {
+    if (!isMobile()) return;
+    var stack = document.querySelector('.card-stack');
+    if (!stack || stack.dataset.mobileDone) return;
+    stack.dataset.mobileDone = '1';
+
+    // Create scroll wrapper
+    var wrapper = document.createElement('div');
+    wrapper.style.cssText = 'width:100vw;overflow-x:scroll;-webkit-overflow-scrolling:touch;display:flex;flex-direction:row;gap:12px;padding:0 16px 20px 16px;box-sizing:border-box;scroll-snap-type:x mandatory;';
+
+    // Move all stack-cards into wrapper
+    var cards = Array.from(stack.querySelectorAll('.stack-card'));
+    cards.forEach(function(card) {
+      card.style.cssText = 'position:static!important;transform:none!important;flex:0 0 180px;width:180px;height:250px;scroll-snap-align:start;';
+      wrapper.appendChild(card);
+    });
+
+    // Replace stack content
+    stack.style.cssText = 'position:static!important;width:100%!important;height:auto!important;overflow:visible!important;display:block!important;';
+    stack.appendChild(wrapper);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', buildMobileScroll);
+  } else {
+    buildMobileScroll();
+  }
+})();
 </script>
 </body>
 </html>
