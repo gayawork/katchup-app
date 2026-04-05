@@ -164,6 +164,24 @@
     .cta-ghost { color: rgba(255,255,255,0.7); font-size: 15px; font-weight: 600; transition: color 0.2s ease; }
     .cta-ghost:hover { color: white; }
 
+    /* ── HERO RIGHT WRAPPER ─────────────────────────── */
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .hero-stack-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+      margin-right: 40px;
+    }
+
     /* ── CARD STACK ──────────────────────────────────── */
     .card-stack {
       position: relative;
@@ -493,6 +511,10 @@
     @media (max-width: 768px) {
       .hero { flex-direction: column; text-align: center; padding: 80px 24px 60px; gap: 48px; }
       .hero-text { max-width: 100%; }
+      .hero-right { align-items: center; }
+      .hero-stack-label { margin-right: 0; margin-bottom: 12px; }
+      .carousel-card-title { font-size: 15px; font-weight: 600; }
+      .carousel-card-source { color: rgba(255,255,255,0.28); }
       .card-stack { display: none !important; }
       .hero-carousel {
         display: flex;
@@ -577,90 +599,74 @@
       </div>
     </div>
 
-    <!-- Stacked cards (desktop) -->
-    <div class="card-stack">
-      <div class="stack-card">
-        <img class="stack-card-img" src="https://imageio.forbes.com/specials-images/imageserve/69d02b8ed915ba123fd5c7d6/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds" alt="BTS" loading="lazy" onerror="this.style.display='none'">
-        <div class="stack-card-body">
-          <a href="https://www.forbes.com/sites/hughmcintyre/2026/04/04/bts-bests-taylor-swifts-global-record-with-a-complete-top-10-takeover/" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit;cursor:pointer;">
-            <p class="stack-card-cat">K-Pop</p>
-            <p class="stack-card-title">BTS Makes History: ARIRANG Sweeps the Global Charts</p>
-            <p class="stack-card-source">Forbes · Apr 4</p>
-          </a>
-        </div>
-      </div>
-      <div class="stack-card">
-        <img class="stack-card-img" src="https://s.yimg.com/ny/api/res/1.2/rizRslL9_F3vSy3sRHh.8Q--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA7Y2Y9d2VicA--/https://media.zenfs.com/en/entertainment_weekly_785/deac432b9beb8ce8dfd544aec53ed53f" alt="XO Kitty" loading="lazy" onerror="this.style.display='none'">
-        <div class="stack-card-body">
-          <a href="https://www.yahoo.com/entertainment/tv/articles/season-4-xo-kitty-whats-220029814.html" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit;cursor:pointer;">
-            <p class="stack-card-cat">K-Content</p>
-            <p class="stack-card-title">XO, Kitty Season 3 Is Here — Will There Be a Season 4?</p>
-            <p class="stack-card-source">Yahoo Entertainment · Apr 2</p>
-          </a>
-        </div>
-      </div>
-      <div class="stack-card">
-        <img class="stack-card-img" src="https://img7.yna.co.kr/etc/inner/EN/2026/04/03/AEN20260403004200315_01_i_P4.jpg" alt="T.O.P" loading="lazy" onerror="this.style.display='none'">
-        <div class="stack-card-body">
-          <a href="https://en.yna.co.kr/view/AEN20260403004200315?section=culture/k-pop" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit;cursor:pointer;">
-            <p class="stack-card-cat">K-Pop</p>
-            <p class="stack-card-title">T.O.P Drops First Solo Album After 20 Years</p>
-            <p class="stack-card-source">Yonhap · Apr 3</p>
-          </a>
-        </div>
-      </div>
-      <div class="stack-card">
-        <img class="stack-card-img" src="https://wimg.heraldcorp.com/news/cms/2026/04/02/news-p.v1.20260325.7f7fbf60d2dd44cea4410023cb7ca9fc_T1.png" alt="Korea Palaces" loading="lazy" onerror="this.style.display='none'">
-        <div class="stack-card-body">
-          <a href="https://www.koreaherald.com/article/10708627" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit;cursor:pointer;">
-            <p class="stack-card-cat">Lifestyle</p>
-            <p class="stack-card-title">Spring Returns to Korea's Palaces and Parks</p>
-            <p class="stack-card-source">Korea Herald · Apr 2</p>
-          </a>
-        </div>
-      </div>
-    </div>
+    <!-- Right side: label + stacked cards (desktop) + carousel (mobile) -->
+    <div class="hero-right">
+      <p class="hero-stack-label">This Week in K-Culture</p>
 
-    <!-- Hero carousel (mobile only) -->
-    <div class="hero-carousel">
-      <div class="carousel-card">
-        <img class="carousel-card-img" src="https://imageio.forbes.com/specials-images/imageserve/69d02b8ed915ba123fd5c7d6/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds" alt="BTS" loading="lazy" onerror="this.style.display='none'">
-        <div class="carousel-card-body">
-          <a href="https://www.forbes.com/sites/hughmcintyre/2026/04/04/bts-bests-taylor-swifts-global-record-with-a-complete-top-10-takeover/" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit;cursor:pointer;">
-            <p class="carousel-card-cat">K-Pop</p>
-            <p class="carousel-card-title">BTS Makes History: ARIRANG Sweeps the Global Charts</p>
-            <p class="carousel-card-source">Forbes · Apr 4</p>
-          </a>
+      <div class="card-stack">
+        <div class="stack-card">
+          <img class="stack-card-img" src="https://imageio.forbes.com/specials-images/imageserve/69d02b8ed915ba123fd5c7d6/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds" alt="BTS" loading="lazy" onerror="this.style.display='none'">
+          <div class="stack-card-body">
+            <a href="https://www.forbes.com/sites/hughmcintyre/2026/04/04/bts-bests-taylor-swifts-global-record-with-a-complete-top-10-takeover/" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit;cursor:pointer;">
+              <p class="stack-card-cat">K-Pop</p>
+              <p class="stack-card-title">BTS Makes History: ARIRANG Sweeps the Global Charts</p>
+              <p class="stack-card-source">Forbes · Apr 4</p>
+            </a>
+          </div>
+        </div>
+        <div class="stack-card">
+          <img class="stack-card-img" src="https://s.yimg.com/ny/api/res/1.2/rizRslL9_F3vSy3sRHh.8Q--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA7Y2Y9d2VicA--/https://media.zenfs.com/en/entertainment_weekly_785/deac432b9beb8ce8dfd544aec53ed53f" alt="XO Kitty" loading="lazy" onerror="this.style.display='none'">
+          <div class="stack-card-body">
+            <a href="https://www.yahoo.com/entertainment/tv/articles/season-4-xo-kitty-whats-220029814.html" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit;cursor:pointer;">
+              <p class="stack-card-cat">K-Content</p>
+              <p class="stack-card-title">XO, Kitty Season 3 Is Here — Will There Be a Season 4?</p>
+              <p class="stack-card-source">Yahoo Entertainment · Apr 2</p>
+            </a>
+          </div>
+        </div>
+        <div class="stack-card">
+          <img class="stack-card-img" src="https://kpopofficial.com/wp-content/uploads/2026/03/cover3-IRENE-Teaser-for-Biggest-Fan-Album.webp" alt="IRENE" loading="lazy" onerror="this.style.display='none'">
+          <div class="stack-card-body">
+            <a href="https://kpopofficial.com/album/irene-biggest-fan/" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit;cursor:pointer;">
+              <p class="stack-card-cat">K-Pop</p>
+              <p class="stack-card-title">IRENE's First Solo Album Biggest Fan Is Here</p>
+              <p class="stack-card-source">Kpop Official · Mar 30</p>
+            </a>
+          </div>
         </div>
       </div>
-      <div class="carousel-card">
-        <img class="carousel-card-img" src="https://s.yimg.com/ny/api/res/1.2/rizRslL9_F3vSy3sRHh.8Q--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA7Y2Y9d2VicA--/https://media.zenfs.com/en/entertainment_weekly_785/deac432b9beb8ce8dfd544aec53ed53f" alt="XO Kitty" loading="lazy" onerror="this.style.display='none'">
-        <div class="carousel-card-body">
-          <a href="https://www.yahoo.com/entertainment/tv/articles/season-4-xo-kitty-whats-220029814.html" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit;cursor:pointer;">
-            <p class="carousel-card-cat">K-Content</p>
-            <p class="carousel-card-title">XO, Kitty Season 3 Is Here — Will There Be a Season 4?</p>
-            <p class="carousel-card-source">Yahoo Entertainment · Apr 2</p>
-          </a>
+
+      <!-- Hero carousel (mobile only) -->
+      <div class="hero-carousel">
+        <div class="carousel-card">
+          <img class="carousel-card-img" src="https://imageio.forbes.com/specials-images/imageserve/69d02b8ed915ba123fd5c7d6/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds" alt="BTS" loading="lazy" onerror="this.style.display='none'">
+          <div class="carousel-card-body">
+            <a href="https://www.forbes.com/sites/hughmcintyre/2026/04/04/bts-bests-taylor-swifts-global-record-with-a-complete-top-10-takeover/" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit;cursor:pointer;">
+              <p class="carousel-card-cat">K-Pop</p>
+              <p class="carousel-card-title">BTS Makes History: ARIRANG Sweeps the Global Charts</p>
+              <p class="carousel-card-source">Forbes · Apr 4</p>
+            </a>
+          </div>
         </div>
-      </div>
-      <div class="carousel-card">
-        <img class="carousel-card-img" src="https://img7.yna.co.kr/etc/inner/EN/2026/04/03/AEN20260403004200315_01_i_P4.jpg" alt="T.O.P" loading="lazy" onerror="this.style.display='none'">
-        <div class="carousel-card-body">
-          <a href="https://en.yna.co.kr/view/AEN20260403004200315?section=culture/k-pop" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit;cursor:pointer;">
-            <p class="carousel-card-cat">K-Pop</p>
-            <p class="carousel-card-title">T.O.P Drops First Solo Album After 20 Years</p>
-            <p class="carousel-card-source">Yonhap · Apr 3</p>
-          </a>
+        <div class="carousel-card">
+          <img class="carousel-card-img" src="https://s.yimg.com/ny/api/res/1.2/rizRslL9_F3vSy3sRHh.8Q--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA7Y2Y9d2VicA--/https://media.zenfs.com/en/entertainment_weekly_785/deac432b9beb8ce8dfd544aec53ed53f" alt="XO Kitty" loading="lazy" onerror="this.style.display='none'">
+          <div class="carousel-card-body">
+            <a href="https://www.yahoo.com/entertainment/tv/articles/season-4-xo-kitty-whats-220029814.html" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit;cursor:pointer;">
+              <p class="carousel-card-cat">K-Content</p>
+              <p class="carousel-card-title">XO, Kitty Season 3 Is Here — Will There Be a Season 4?</p>
+              <p class="carousel-card-source">Yahoo Entertainment · Apr 2</p>
+            </a>
+          </div>
         </div>
-      </div>
-      <div class="carousel-card">
-        <img class="carousel-card-img" src="https://wimg.heraldcorp.com/news/cms/2026/04/02/news-p.v1.20260325.7f7fbf60d2dd44cea4410023cb7ca9fc_T1.png" alt="Korea Palaces" loading="lazy" onerror="this.style.display='none'">
-        <div class="carousel-card-body">
-          <a href="https://www.koreaherald.com/article/10708627" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit;cursor:pointer;">
-            <p class="carousel-card-cat">Lifestyle</p>
-            <p class="carousel-card-title">Spring Returns to Korea's Palaces and Parks</p>
-            <p class="carousel-card-source">Korea Herald · Apr 2</p>
-          </a>
+        <div class="carousel-card">
+          <img class="carousel-card-img" src="https://kpopofficial.com/wp-content/uploads/2026/03/cover3-IRENE-Teaser-for-Biggest-Fan-Album.webp" alt="IRENE" loading="lazy" onerror="this.style.display='none'">
+          <div class="carousel-card-body">
+            <a href="https://kpopofficial.com/album/irene-biggest-fan/" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit;cursor:pointer;">
+              <p class="carousel-card-cat">K-Pop</p>
+              <p class="carousel-card-title">IRENE's First Solo Album Biggest Fan Is Here</p>
+              <p class="carousel-card-source">Kpop Official · Mar 30</p>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -695,23 +701,13 @@
           </div>
         </article>
 
-        <article class="latest-card" data-category="k-pop" onclick="window.open('https://en.yna.co.kr/view/AEN20260403004200315?section=culture/k-pop','_blank','noopener')" style="cursor:pointer;">
-          <img class="card-img" src="https://img7.yna.co.kr/etc/inner/EN/2026/04/03/AEN20260403004200315_01_i_P4.jpg" alt="T.O.P" loading="lazy" onerror="this.style.display='none'">
+        <article class="latest-card" data-category="k-pop" onclick="window.open('https://kpopofficial.com/album/irene-biggest-fan/','_blank','noopener')" style="cursor:pointer;">
+          <img class="card-img" src="https://kpopofficial.com/wp-content/uploads/2026/03/cover3-IRENE-Teaser-for-Biggest-Fan-Album.webp" alt="IRENE" loading="lazy" onerror="this.style.display='none'">
           <div class="card-body">
             <span class="pill pill-kpop">K-Pop</span>
-            <h3 class="card-headline">T.O.P Drops First Solo Album After 20 Years</h3>
-            <span class="card-date">Yonhap · Apr 3, 2026</span>
-            <a href="https://en.yna.co.kr/view/AEN20260403004200315?section=culture/k-pop" target="_blank" rel="noopener" class="card-link">Read more →</a>
-          </div>
-        </article>
-
-        <article class="latest-card" data-category="lifestyle" onclick="window.open('https://www.koreaherald.com/article/10708627','_blank','noopener')" style="cursor:pointer;">
-          <img class="card-img" src="https://wimg.heraldcorp.com/news/cms/2026/04/02/news-p.v1.20260325.7f7fbf60d2dd44cea4410023cb7ca9fc_T1.png" alt="Korea Palaces" loading="lazy" onerror="this.style.display='none'">
-          <div class="card-body">
-            <span class="pill pill-lifestyle">Lifestyle</span>
-            <h3 class="card-headline">Spring Returns to Korea's Palaces and Parks</h3>
-            <span class="card-date">Korea Herald · Apr 2, 2026</span>
-            <a href="https://www.koreaherald.com/article/10708627" target="_blank" rel="noopener" class="card-link">Read more →</a>
+            <h3 class="card-headline">IRENE's First Solo Album Biggest Fan Is Here</h3>
+            <span class="card-date">Kpop Official · Mar 30, 2026</span>
+            <a href="https://kpopofficial.com/album/irene-biggest-fan/" target="_blank" rel="noopener" class="card-link">Read more →</a>
           </div>
         </article>
 
