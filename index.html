@@ -436,17 +436,28 @@
     /* ── RESPONSIVE ──────────────────────────────────── */
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; padding: 120px 6% 60px; min-height: auto; }
-      .card-stack { display: none; }
     }
 
     @media (max-width: 768px) {
+      .hero { flex-direction: column; text-align: center; padding: 80px 24px 60px; gap: 48px; }
+      .hero-text { max-width: 100%; }
+      .card-stack { width: 280px; height: 340px; margin: 0 auto; }
+      .stack-card { width: 180px; height: 240px; }
       nav { padding: 0 5%; }
-      .nav-links { display: none; }
+      nav .nav-links { display: none; }
       .hamburger { display: flex; }
       .latest-grid { grid-template-columns: repeat(2, 1fr); }
+      .archive-grid { grid-template-columns: 1fr; }
+      .newsletter-section { padding: 60px 24px; }
+      .pill-input { flex-direction: column; gap: 12px; }
+      .pill-input input { width: 100%; border-radius: 40px; }
+      .pill-input button { width: 100%; border-radius: 40px; }
     }
 
     @media (max-width: 480px) {
+      .hero h1 { font-size: clamp(2rem, 8vw, 3rem); }
+      .card-stack { width: 240px; height: 300px; }
+      .stack-card { width: 160px; height: 210px; }
       .section-wrap { padding: 0 16px; }
       .latest-grid { grid-template-columns: 1fr; }
       #latest { padding: 56px 0; }
