@@ -641,20 +641,34 @@
         border-radius: 999px !important;
       }
 
-      /* Hero centering + overflow unblock */
+      /* Hero layout — independent stacked blocks */
       .hero {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        width: 100% !important;
+        padding: 0 !important;
+        overflow: visible !important;
+      }
+      .hero-text {
+        width: 100% !important;
+        max-width: 100% !important;
+        display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
         text-align: center !important;
-        padding: 80px 24px 40px !important;
-        overflow: visible !important;
+        padding: 0 24px !important;
+        box-sizing: border-box !important;
       }
+      .hero-subtitle {
+        max-width: 100% !important;
+        width: 100% !important;
+        text-align: center !important;
+      }
+      .hero-heading, .hero-badge { text-align: center !important; }
+      .hero-ctas { justify-content: center !important; }
       .hero-right { overflow: visible !important; }
       .hero-visual { overflow: visible !important; }
-      .hero-text { text-align: center !important; width: 100% !important; }
-      .hero-heading, .hero-subtitle, .hero-badge { text-align: center !important; }
-      .hero-subtitle { max-width: 100% !important; width: 100% !important; }
-      .hero-ctas { justify-content: center !important; }
 
       /* Horizontal scroll strip */
       .card-stack {
