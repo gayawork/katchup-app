@@ -532,8 +532,9 @@
       .hero-carousel { display: none; }
       .carousel-card-title { font-size: 15px; font-weight: 600; }
       .carousel-card-source { color: rgba(255,255,255,0.28); }
-      nav { padding: 0 5%; }
-      nav .nav-links { display: none; }
+      nav { padding: 0 16px !important; }
+      nav .logo { font-size: 16px !important; }
+      nav .nav-links { display: none !important; }
       .hamburger { display: flex; }
       .latest-grid { grid-template-columns: repeat(2, 1fr); }
       .archive-grid { grid-template-columns: 1fr; }
@@ -581,6 +582,53 @@
       .hero-text {
         text-align: center !important;
         padding: 0 24px !important;
+      }
+
+      /* Problem 2 — label clipping: target actual class */
+      .hero-stack-label {
+        font-size: 11px !important;
+        letter-spacing: 0.05em !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        max-width: 100% !important;
+        padding: 0 16px !important;
+        box-sizing: border-box !important;
+      }
+
+      /* Problem 3 — allow overflow so scroll strip works */
+      .hero-visual, .hero-right {
+        width: 100% !important;
+        overflow: visible !important;
+      }
+
+      .card-stack {
+        position: static !important;
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: scroll !important;
+        -webkit-overflow-scrolling: touch !important;
+        scroll-snap-type: x mandatory !important;
+        gap: 12px !important;
+        padding: 0 24px 20px !important;
+        width: 100vw !important;
+        box-sizing: border-box !important;
+        margin-left: -24px !important;
+        height: auto !important;
+      }
+
+      .card-stack .stack-card {
+        position: static !important;
+        transform: none !important;
+        flex: 0 0 150px !important;
+        width: 150px !important;
+        height: 210px !important;
+        scroll-snap-align: start !important;
+      }
+
+      .card-stack:hover .stack-card {
+        transform: none !important;
       }
     }
 
