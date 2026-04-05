@@ -631,41 +631,60 @@
         transform: none !important;
       }
 
-      /* Problem 1 — logo size */
+      /* Nav logo + button */
       nav .logo { font-size: 18px !important; }
-
-      /* Problem 2 — subscribe button */
       nav .btn-subscribe {
         font-size: 13px !important;
-        padding: 8px 16px !important;
+        padding: 7px 14px !important;
+        border-radius: 999px !important;
         height: auto !important;
       }
 
-      /* Problem 3 — first card clipped, right padding */
-      .card-stack {
-        padding: 0 8px 20px 8px !important;
-        scroll-padding-left: 8px !important;
-        margin-left: 0 !important;
-        width: 100% !important;
-      }
-      .card-stack .stack-card:first-child {
-        margin-left: 8px !important;
-      }
-
-      /* Problem 4 — hero centering */
+      /* Hero centering */
       .hero {
         align-items: center !important;
         padding-left: 0 !important;
         padding-right: 0 !important;
         width: 100% !important;
         box-sizing: border-box !important;
+        /* .hero has overflow:hidden on desktop — unblock scroll on mobile */
+        overflow: visible !important;
       }
+      .hero-right { overflow: visible !important; }
+      .hero-visual { overflow: visible !important; }
       .hero-text {
         padding: 0 20px !important;
         width: 100% !important;
         box-sizing: border-box !important;
         text-align: center !important;
       }
+
+      /* Horizontal scroll strip */
+      .card-stack {
+        overflow-x: scroll !important;
+        -webkit-overflow-scrolling: touch !important;
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        width: 100vw !important;
+        margin-left: calc(-1 * var(--page-padding, 24px)) !important;
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+        box-sizing: border-box !important;
+        height: auto !important;
+        position: static !important;
+        scroll-snap-type: x mandatory !important;
+        gap: 12px !important;
+      }
+      .card-stack .stack-card {
+        position: static !important;
+        transform: none !important;
+        flex: 0 0 190px !important;
+        width: 190px !important;
+        height: 260px !important;
+        scroll-snap-align: start !important;
+      }
+      .card-stack:hover .stack-card { transform: none !important; }
     }
 
     @media (max-width: 480px) {
