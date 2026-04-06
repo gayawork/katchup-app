@@ -91,6 +91,7 @@
     }
     .btn-subscribe:hover { opacity: 0.85; transform: translateY(-2px); }
     .btn-subscribe:active { transform: translateY(0); }
+    nav .btn-subscribe { display: inline-block; font-size: 13px; padding: 8px 22px; height: auto; }
 
     /* ── LAYOUT ──────────────────────────────────────── */
     .section-wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
@@ -321,6 +322,7 @@
     .footer-links a { font-size: 14px; color: var(--text-secondary); transition: color 0.2s ease; }
     .footer-links a:hover { color: var(--accent); }
     .footer-copy { font-size: 13px; color: var(--text-muted); }
+    .footer-disclaimer { font-size: 11px; color: var(--text-muted); opacity: 0.6; line-height: 1.6; width: 100%; margin: 0; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.05); }
 
     /* ── HAMBURGER ───────────────────────────────────── */
     .hamburger {
@@ -407,6 +409,8 @@
       *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
     }
   </style>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline';">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
 </head>
 <body>
 
@@ -422,7 +426,7 @@
     <li><a href="archive.html?tab=lifestyle">Lifestyle</a></li>
     <li><a href="archive.html?tab=beauty">Beauty</a></li>
   </ul>
-  <button class="btn-subscribe">Subscribe</button>
+  <a href="mailto:YOUR_EMAIL@gmail.com?subject=Subscribe to Katchup" class="btn-subscribe">Subscribe</a>
   <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
@@ -479,6 +483,8 @@
       <li><a href="#">Subscribe</a></li>
     </ul>
     <span class="footer-copy">© 2026 Katchup. Made with care in Seoul.</span>
+    <p class="footer-disclaimer">All news content featured on Katchup is sourced from third-party publications and remains the property of the respective copyright holders. Katchup does not claim ownership of any external content. All article links redirect to original sources. This site is operated for educational and informational purposes only.</p>
+    <p style="font-size: 10px; opacity: 0.4; text-align: center; margin-top: 12px; width: 100%;">© 2026 Katchup by Gaya Kim. All featured content belongs to respective publishers. Article summaries are provided for informational purposes only. All links redirect to original sources.</p>
   </div>
 </footer>
 

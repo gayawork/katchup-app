@@ -119,6 +119,7 @@
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 999px;
       padding: 6px 16px;
+      padding-top: 2px;
       font-size: 11px;
       letter-spacing: 0.2em;
       color: var(--accent);
@@ -517,6 +518,7 @@
         min-height: 100vh;
       }
       .hero-text { text-align: center; max-width: 100%; }
+
       .hero-right { align-items: center; }
       .hero-stack-label { margin-right: 0; margin-bottom: 12px; }
       .hero-visual {
@@ -657,7 +659,9 @@
         flex-direction: column !important;
         align-items: center !important;
         text-align: center !important;
+        margin: 0 auto !important;
         padding: 0 24px !important;
+        padding-top: 12px !important;
         box-sizing: border-box !important;
       }
       .hero-subtitle {
@@ -679,8 +683,9 @@
         flex-wrap: nowrap !important;
         width: 100vw !important;
         margin-left: calc(-1 * var(--page-padding, 24px)) !important;
-        padding-left: 8px !important;
+        padding-left: 16px !important;
         padding-right: 8px !important;
+        scroll-padding-left: 16px !important;
         box-sizing: border-box !important;
         height: auto !important;
         position: static !important;
@@ -704,7 +709,7 @@
       .latest-grid { grid-template-columns: 1fr; }
       #latest { padding: 56px 0; }
       #newsletter { padding: 72px 0; }
-      .footer-inner { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .footer-inner { flex-direction: column; align-items: center; gap: 20px; }
       .footer-links { flex-wrap: wrap; gap: 16px; }
       body { overflow-x: hidden; }
       main { overflow-x: hidden; }
@@ -714,6 +719,8 @@
       *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
     }
   </style>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline';">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
 </head>
 <body>
 
@@ -913,6 +920,7 @@
       <li><a href="#newsletter">Subscribe</a></li>
     </ul>
     <span class="footer-copy">© 2026 Katchup. Made with care in Seoul.</span>
+    <p style="font-size: 10px; opacity: 0.4; text-align: center; margin-top: 12px; width: 100%;">© 2026 Katchup by Gaya Kim. All featured content belongs to respective publishers. Article summaries are provided for informational purposes only. All links redirect to original sources.</p>
   </div>
 </footer>
 
