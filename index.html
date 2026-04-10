@@ -165,6 +165,10 @@
     .cta-ghost { color: rgba(255,255,255,0.7); font-size: 15px; font-weight: 600; transition: color 0.2s ease; }
     .cta-ghost:hover { color: white; }
 
+    /* ── HERO GRID PLACEMENT ── */
+    .hero-text  { grid-column: 1; grid-row: 1; }
+    .hero-right { grid-column: 2; grid-row: 1; }
+
     /* ── HERO RIGHT WRAPPER ─────────────────────────── */
     .hero-right {
       display: flex;
@@ -453,6 +457,7 @@
     .footer-links a { font-size: 14px; color: var(--text-secondary); transition: color 0.2s ease; }
     .footer-links a:hover { color: var(--accent); }
     .footer-copy { font-size: 13px; color: var(--text-muted); }
+    .footer-disclaimer { font-size: 11px; color: var(--text-muted); opacity: 0.6; line-height: 1.6; width: 100%; margin: 0; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
 
     /* ── HAMBURGER ───────────────────────────────────── */
     .hamburger {
@@ -701,6 +706,7 @@
         scroll-snap-align: start !important;
       }
       .card-stack:hover .stack-card { transform: none !important; }
+      .footer-disclaimer { font-size: 9px; opacity: 0.3; }
     }
 
     @media (max-width: 480px) {
@@ -709,10 +715,9 @@
       .latest-grid { grid-template-columns: 1fr; }
       #latest { padding: 56px 0; }
       #newsletter { padding: 72px 0; }
-      .footer-inner { flex-direction: column; align-items: center; gap: 20px; }
-      .footer-links { flex-wrap: wrap; gap: 16px; }
       body { overflow-x: hidden; }
       main { overflow-x: hidden; }
+      .footer-disclaimer { display: block; font-size: 9px; text-align: center; opacity: 0.3; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -920,7 +925,7 @@
       <li><a href="#newsletter">Subscribe</a></li>
     </ul>
     <span class="footer-copy">© 2026 Katchup. Made with care in Seoul.</span>
-    <p style="font-size: 10px; opacity: 0.4; text-align: center; margin-top: 12px; width: 100%;">© 2026 Katchup by Gaya Kim. All featured content belongs to respective publishers. Article summaries are provided for informational purposes only. All links redirect to original sources.</p>
+    <p class="footer-disclaimer">© 2026 Katchup by Gaya Kim. All featured content belongs to respective publishers. Article summaries are provided for informational purposes only. All links redirect to original sources.</p>
   </div>
 </footer>
 
@@ -936,6 +941,44 @@
     spotlight.style.background =
       `radial-gradient(600px circle at ${cx}px ${cy}px, rgba(214,186,255,0.13), transparent 80%)`;
     requestAnimationFrame(animate);
+  })();
+
+  // ── Hero glow (hero-scoped, stronger) ─────────────────
+  const heroSection = document.querySelector('.hero');
+  const heroGlow = document.createElement('div');
+  heroGlow.style.cssText = 'position:absolute;pointer-events:none;width:600px;height:600px;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle, rgba(214,186,255,0.2) 0%, rgba(123,94,167,0.08) 50%, transparent 70%);opacity:0;transition:opacity 0.3s ease;z-index:2;top:50%;left:50%;';
+  heroSection.appendChild(heroGlow);
+
+  let heroActive = false;
+  let hgx = 0, hgy = 0, hcx = 0, hcy = 0;
+
+  heroSection.addEventListener('mouseenter', (e) => {
+    const rect = heroSection.getBoundingClientRect();
+    hgx = e.clientX - rect.left;
+    hgy = e.clientY - rect.top;
+    hcx = hgx;
+    hcy = hgy;
+    heroActive = true;
+    heroGlow.style.opacity = '1';
+  });
+  heroSection.addEventListener('mouseleave', () => {
+    heroActive = false;
+    heroGlow.style.opacity = '0';
+  });
+  heroSection.addEventListener('mousemove', (e) => {
+    const rect = heroSection.getBoundingClientRect();
+    hgx = e.clientX - rect.left;
+    hgy = e.clientY - rect.top;
+  });
+
+  (function heroAnimate() {
+    if (heroActive) {
+      hcx += (hgx - hcx) * 0.1;
+      hcy += (hgy - hcy) * 0.1;
+      heroGlow.style.left = hcx + 'px';
+      heroGlow.style.top  = hcy + 'px';
+    }
+    requestAnimationFrame(heroAnimate);
   })();
 
   // ── Nav scroll ────────────────────────────────────────
