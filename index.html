@@ -916,10 +916,39 @@
       </form>
       <style>
         .mc-email-input::placeholder { color: rgba(255,255,255,0.4); }
+        #mc-embedded-subscribe-form input[type="email"] {
+          background: transparent !important;
+          border: 1px solid rgba(255,255,255,0.2) !important;
+          border-radius: 50px !important;
+          padding: 12px 20px !important;
+          color: #fff !important;
+          width: 280px !important;
+          font-size: 14px !important;
+          font-family: 'Inter', sans-serif !important;
+          outline: none !important;
+          box-shadow: none !important;
+          -webkit-appearance: none !important;
+        }
+        #mc-embedded-subscribe-form input[type="submit"] {
+          background: #D6BAFF !important;
+          color: #0d0d1a !important;
+          font-weight: 700 !important;
+          border-radius: 50px !important;
+          padding: 12px 24px !important;
+          border: none !important;
+          cursor: pointer !important;
+          margin-left: 8px !important;
+          font-size: 14px !important;
+          font-family: 'Inter', sans-serif !important;
+          width: auto !important;
+          -webkit-appearance: none !important;
+        }
         @media (max-width: 480px) {
           #mc-embedded-subscribe-form { flex-direction: column; gap: 10px; }
           .mc-email-input { width: 100% !important; box-sizing: border-box; }
           .mc-submit-btn { width: 100%; margin-left: 0 !important; }
+          #mc-embedded-subscribe-form input[type="email"] { width: 100% !important; }
+          #mc-embedded-subscribe-form input[type="submit"] { width: 100% !important; margin-left: 0 !important; }
         }
       </style>
     </div>
