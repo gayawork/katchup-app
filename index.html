@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Katchup — K-Culture News Curated For You</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Katchup â K-Culture News Curated For You</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;900&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -36,7 +35,7 @@
 
     a { text-decoration: none; color: inherit; }
 
-    /* ── NAV ─────────────────────────────────────────── */
+    /* ââ NAV âââââââââââââââââââââââââââââââââââââââââââ */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -91,11 +90,11 @@
     .btn-subscribe:hover { opacity: 0.85; transform: translateY(-2px); }
     .btn-subscribe:active { transform: translateY(0); }
 
-    /* ── LAYOUT ──────────────────────────────────────── */
+    /* ââ LAYOUT ââââââââââââââââââââââââââââââââââââââââ */
     .section-wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
     main { padding-top: 72px; position: relative; z-index: 1; }
 
-    /* ── HERO ────────────────────────────────────────── */
+    /* ââ HERO ââââââââââââââââââââââââââââââââââââââââââ */
     .hero {
       min-height: 100vh;
       background: linear-gradient(135deg, #0d0d1a 0%, #1a0a2e 40%, #2d1b4e 70%);
@@ -165,11 +164,11 @@
     .cta-ghost { color: rgba(255,255,255,0.7); font-size: 15px; font-weight: 600; transition: color 0.2s ease; }
     .cta-ghost:hover { color: white; }
 
-    /* ── HERO GRID PLACEMENT ── */
+    /* ââ HERO GRID PLACEMENT ââ */
     .hero-text  { grid-column: 1; grid-row: 1; }
     .hero-right { grid-column: 2; grid-row: 1; }
 
-    /* ── HERO RIGHT WRAPPER ─────────────────────────── */
+    /* ââ HERO RIGHT WRAPPER âââââââââââââââââââââââââââ */
     .hero-right {
       display: flex;
       flex-direction: column;
@@ -187,7 +186,7 @@
       margin-right: 40px;
     }
 
-    /* ── CARD STACK ──────────────────────────────────── */
+    /* ââ CARD STACK ââââââââââââââââââââââââââââââââââââ */
     .card-stack {
       position: relative;
       width: 480px;
@@ -225,7 +224,7 @@
       box-shadow: 0 30px 60px rgba(0,0,0,0.5);
     }
 
-    /* ── GLARE ANIMATION ─────────────────────────────── */
+    /* ââ GLARE ANIMATION âââââââââââââââââââââââââââââââ */
     @keyframes glare-sweep {
       0%   { transform: translateX(-200%) skewX(-20deg); }
       100% { transform: translateX(350%) skewX(-20deg); }
@@ -253,7 +252,7 @@
     .carousel-card:nth-child(3)::after { animation-delay: 1.2s; }
     .carousel-card:nth-child(4)::after { animation-delay: 1.8s; }
 
-    /* ── MOBILE HERO CAROUSEL ────────────────────────── */
+    /* ââ MOBILE HERO CAROUSEL ââââââââââââââââââââââââââ */
     .hero-carousel { display: none; }
 
     .carousel-card {
@@ -302,7 +301,7 @@
 
     .stack-card-source { font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 6px; }
 
-    /* ── SHARED CARD ELEMENTS ────────────────────────── */
+    /* ââ SHARED CARD ELEMENTS ââââââââââââââââââââââââââ */
     .pill {
       display: inline-block;
       font-size: 10px;
@@ -323,7 +322,7 @@
     .card-link     { font-size: 13px; font-weight: 600; color: var(--accent); margin-top: auto; display: inline-flex; align-items: center; gap: 4px; transition: gap 0.2s ease; }
     .card-link:hover { gap: 10px; }
 
-    /* ── THE LATEST ──────────────────────────────────── */
+    /* ââ THE LATEST ââââââââââââââââââââââââââââââââââââ */
     #latest { padding: 80px 0; }
 
     .section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 32px; }
@@ -370,7 +369,7 @@
     .latest-card[data-category="beauty"]    { border-top: 2px solid var(--cat-beauty); }
     .card-date { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
 
-    /* ── NEWSLETTER ──────────────────────────────────── */
+    /* ââ NEWSLETTER ââââââââââââââââââââââââââââââââââââ */
     #newsletter {
       border-top: 1px solid rgba(255,255,255,0.06);
       padding: 100px 0;
@@ -433,7 +432,7 @@
     }
     .newsletter-btn:hover { opacity: 0.85; }
 
-    /* ── FOOTER ──────────────────────────────────────── */
+    /* ââ FOOTER ââââââââââââââââââââââââââââââââââââââââ */
     footer {
       background: rgba(13,13,26,0.8);
       border-top: 1px solid rgba(255,255,255,0.06);
@@ -459,7 +458,7 @@
     .footer-copy { font-size: 13px; color: var(--text-muted); }
     .footer-disclaimer { font-size: 11px; color: var(--text-muted); opacity: 0.6; line-height: 1.6; width: 100%; margin: 0; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
 
-    /* ── HAMBURGER ───────────────────────────────────── */
+    /* ââ HAMBURGER âââââââââââââââââââââââââââââââââââââ */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -509,7 +508,7 @@
     .mobile-menu a:last-child { border-bottom: none; }
     .mobile-menu a:hover { color: white; }
 
-    /* ── RESPONSIVE ──────────────────────────────────── */
+    /* ââ RESPONSIVE ââââââââââââââââââââââââââââââââââââ */
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; padding: 120px 6% 60px; min-height: auto; }
     }
@@ -550,7 +549,7 @@
       .pill-input input { width: 100%; border-radius: 40px; }
       .pill-input button { width: 100%; border-radius: 40px; }
 
-      /* Hide the fan-out stack on mobile — horizontal scroll strip */
+      /* Hide the fan-out stack on mobile â horizontal scroll strip */
       .card-stack {
         position: static !important;
         width: 100% !important;
@@ -591,7 +590,7 @@
         padding: 0 24px !important;
       }
 
-      /* Problem 2 — label clipping: target actual class */
+      /* Problem 2 â label clipping: target actual class */
       .hero-stack-label {
         font-size: 11px !important;
         letter-spacing: 0.05em !important;
@@ -603,7 +602,7 @@
         box-sizing: border-box !important;
       }
 
-      /* Problem 3 — allow overflow so scroll strip works */
+      /* Problem 3 â allow overflow so scroll strip works */
       .hero-visual, .hero-right {
         width: 100% !important;
         overflow: visible !important;
@@ -648,7 +647,7 @@
         border-radius: 999px !important;
       }
 
-      /* Hero layout — independent stacked blocks */
+      /* Hero layout â independent stacked blocks */
       .hero {
         display: flex !important;
         flex-direction: column !important;
@@ -769,7 +768,7 @@
 <!-- Spotlight -->
 <div id="spotlight" style="pointer-events:none;position:fixed;inset:0;z-index:9999;opacity:0.4;transition:background 0.1s ease;"></div>
 
-<!-- ── NAV ─────────────────────────────────────────── -->
+<!-- ââ NAV âââââââââââââââââââââââââââââââââââââââââââ -->
 <nav>
   <a href="#" class="logo">Katchup</a>
   <ul class="nav-links">
@@ -792,19 +791,19 @@
 
 <main>
 
-  <!-- ── HERO ──────────────────────────────────────── -->
+  <!-- ââ HERO ââââââââââââââââââââââââââââââââââââââââ -->
   <section class="hero">
     <!-- Ambient orb -->
     <div style="position:absolute;top:20%;right:20%;width:500px;height:500px;background:rgba(123,94,167,0.12);border-radius:50%;filter:blur(120px);pointer-events:none;animation:orb-drift 12s ease-in-out infinite alternate;"></div>
 
     <!-- Left content -->
     <div class="hero-text">
-      <span class="hero-badge">EST. 2026 · EVERY FRIDAY</span>
+      <span class="hero-badge">EST. 2026 Â· EVERY FRIDAY</span>
       <h1 class="hero-heading">Your Weekly<br><em>K-Culture</em> Brief</h1>
-      <p class="hero-subtitle">Curated by a Korean insider — K-Pop, K-Drama, beauty, and lifestyle stories worth knowing, delivered every Friday.</p>
+      <p class="hero-subtitle">Curated by a Korean insider â K-Pop, K-Drama, beauty, and lifestyle stories worth knowing, delivered every Friday.</p>
       <div class="hero-ctas">
         <a href="#newsletter" class="cta-primary" onclick="event.preventDefault();document.getElementById('newsletter').scrollIntoView({behavior:'smooth'})">Subscribe Free</a>
-        <a href="archive.html" class="cta-ghost">Browse archive →</a>
+        <a href="archive.html" class="cta-ghost">Browse archive â</a>
       </div>
     </div>
 
@@ -814,23 +813,32 @@
 
       <div class="hero-visual">
       <div class="card-stack">
-        <div class="stack-card" onclick="window.open('https://kpopofficial.com/album/irene-biggest-fan/','_blank','noopener')">
+        <div class="stack-card" onclick="window.open('https://www.nc.press/news/articleView.html?idxno=611946','_blank','noopener')">
+  <img class="stack-card-img" src="https://images.unsplash.com/photo-1619983081593-e2ba5b543168?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w5MjIzMTV8MHwxfHNlYXJjaHw0fHx2aW55bCUyMHJlY29yZCUyMGFsYnVtfGVufDB8MHx8fDE3NzU5Njk1NDB8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="yellow round plastic round table" loading="lazy" onerror="this.style.display='none'">
+  <div class="stack-card-body">
+    <a href="https://www.nc.press/news/articleView.html?idxno=611946" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit;cursor:pointer;">
+      <p class="stack-card-cat">K-Pop</p>
+      <p class="stack-card-title">BTS "ARIRANG" Reigns for 2 Weeks on Billboard 200, Breaks K-pop Barrier</p>
+      <p class="stack-card-source">News Culture · Apr 6, 2026</p>
+    </a>
+  </div>
+</div><div class="stack-card" onclick="window.open('https://kpopofficial.com/album/irene-biggest-fan/','_blank','noopener')">
           <img class="stack-card-img" src="https://kpopofficial.com/wp-content/uploads/2026/03/cover3-IRENE-Teaser-for-Biggest-Fan-Album.webp" alt="IRENE" loading="lazy" onerror="this.style.display='none'">
           <div class="stack-card-body">
             <a href="https://kpopofficial.com/album/irene-biggest-fan/" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit;cursor:pointer;">
               <p class="stack-card-cat">K-Pop</p>
               <p class="stack-card-title">IRENE's First Solo Album Biggest Fan Is Here</p>
-              <p class="stack-card-source">Kpop Official · Mar 30</p>
+              <p class="stack-card-source">Kpop Official Â· Mar 30</p>
             </a>
           </div>
         </div>
         <div class="stack-card" onclick="window.open('https://www.forbes.com/sites/hughmcintyre/2026/04/04/bts-bests-taylor-swifts-global-record-with-a-complete-top-10-takeover/','_blank','noopener')">
-          <img class="stack-card-img" src="https://imageio.forbes.com/specials-images/imageserve/69d02b8ed915ba123fd5c7d6/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds" alt="BTS" loading="lazy" onerror="this.style.display='none'">
+          <img class="stack-card-img" src="https://imageio.forbes.com/specials-images/imageserve/69d02b8ed915ba123fd5c7d6/0x0.jpg?format=jpg&amp;height=900&amp;width=1600&amp;fit=bounds" alt="BTS" loading="lazy" onerror="this.style.display='none'">
           <div class="stack-card-body">
             <a href="https://www.forbes.com/sites/hughmcintyre/2026/04/04/bts-bests-taylor-swifts-global-record-with-a-complete-top-10-takeover/" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit;cursor:pointer;">
               <p class="stack-card-cat">K-Pop</p>
               <p class="stack-card-title">BTS Makes History: ARIRANG Sweeps the Global Charts</p>
-              <p class="stack-card-source">Forbes · Apr 4</p>
+              <p class="stack-card-source">Forbes Â· Apr 4</p>
             </a>
           </div>
         </div>
@@ -839,33 +847,24 @@
           <div class="stack-card-body">
             <a href="https://www.yahoo.com/entertainment/tv/articles/season-4-xo-kitty-whats-220029814.html" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit;cursor:pointer;">
               <p class="stack-card-cat">K-Content</p>
-              <p class="stack-card-title">XO, Kitty Season 3 Is Here — Will There Be a Season 4?</p>
-              <p class="stack-card-source">Yahoo Entertainment · Apr 2</p>
+              <p class="stack-card-title">XO, Kitty Season 3 Is Here â Will There Be a Season 4?</p>
+              <p class="stack-card-source">Yahoo Entertainment Â· Apr 2</p>
             </a>
           </div>
         </div>
-        <div class="stack-card" onclick="window.open('https://www.koreaherald.com/article/10708627','_blank','noopener')">
-          <img class="stack-card-img" src="https://wimg.heraldcorp.com/news/cms/2026/04/02/news-p.v1.20260325.7f7fbf60d2dd44cea4410023cb7ca9fc_T1.png" alt="Korea Palaces" loading="lazy" onerror="this.style.display='none'">
-          <div class="stack-card-body">
-            <a href="https://www.koreaherald.com/article/10708627" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit;cursor:pointer;">
-              <p class="stack-card-cat">Lifestyle</p>
-              <p class="stack-card-title">Spring Returns to Korea's Palaces and Parks</p>
-              <p class="stack-card-source">Korea Herald · Apr 2</p>
-            </a>
-          </div>
-        </div>
+        
       </div>
       </div><!-- /.hero-visual -->
 
       <!-- Hero carousel (mobile only) -->
       <div class="hero-carousel">
         <div class="carousel-card">
-          <img class="carousel-card-img" src="https://imageio.forbes.com/specials-images/imageserve/69d02b8ed915ba123fd5c7d6/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds" alt="BTS" loading="lazy" onerror="this.style.display='none'">
+          <img class="carousel-card-img" src="https://imageio.forbes.com/specials-images/imageserve/69d02b8ed915ba123fd5c7d6/0x0.jpg?format=jpg&amp;height=900&amp;width=1600&amp;fit=bounds" alt="BTS" loading="lazy" onerror="this.style.display='none'">
           <div class="carousel-card-body">
             <a href="https://www.forbes.com/sites/hughmcintyre/2026/04/04/bts-bests-taylor-swifts-global-record-with-a-complete-top-10-takeover/" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit;cursor:pointer;">
               <p class="carousel-card-cat">K-Pop</p>
               <p class="carousel-card-title">BTS Makes History: ARIRANG Sweeps the Global Charts</p>
-              <p class="carousel-card-source">Forbes · Apr 4</p>
+              <p class="carousel-card-source">Forbes Â· Apr 4</p>
             </a>
           </div>
         </div>
@@ -874,8 +873,8 @@
           <div class="carousel-card-body">
             <a href="https://www.yahoo.com/entertainment/tv/articles/season-4-xo-kitty-whats-220029814.html" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit;cursor:pointer;">
               <p class="carousel-card-cat">K-Content</p>
-              <p class="carousel-card-title">XO, Kitty Season 3 Is Here — Will There Be a Season 4?</p>
-              <p class="carousel-card-source">Yahoo Entertainment · Apr 2</p>
+              <p class="carousel-card-title">XO, Kitty Season 3 Is Here â Will There Be a Season 4?</p>
+              <p class="carousel-card-source">Yahoo Entertainment Â· Apr 2</p>
             </a>
           </div>
         </div>
@@ -885,7 +884,7 @@
             <a href="https://www.koreaherald.com/article/10708627" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit;cursor:pointer;">
               <p class="carousel-card-cat">Lifestyle</p>
               <p class="carousel-card-title">Spring Returns to Korea's Palaces and Parks</p>
-              <p class="carousel-card-source">Korea Herald · Apr 2</p>
+              <p class="carousel-card-source">Korea Herald Â· Apr 2</p>
             </a>
           </div>
         </div>
@@ -893,22 +892,36 @@
     </div>
   </section>
 
-  <!-- ── THE LATEST ──────────────────────────────────── -->
+  <!-- ââ THE LATEST ââââââââââââââââââââââââââââââââââââ -->
   <section id="latest">
     <div class="section-wrap">
       <div class="section-header">
         <h2 class="section-heading">The Latest</h2>
-        <a href="archive.html" class="see-all">See all →</a>
+        <a href="archive.html" class="see-all">See all â</a>
       </div>
       <div class="latest-grid">
 
-        <article class="latest-card" data-category="k-pop" onclick="window.open('https://www.forbes.com/sites/hughmcintyre/2026/04/04/bts-bests-taylor-swifts-global-record-with-a-complete-top-10-takeover/','_blank','noopener')" style="cursor:pointer;">
-          <img class="card-img" src="https://imageio.forbes.com/specials-images/imageserve/69d02b8ed915ba123fd5c7d6/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds" alt="BTS" loading="lazy" onerror="this.style.display='none'">
+        <article class="latest-card" data-category="k-pop" onclick="window.open('https://www.nc.press/news/articleView.html?idxno=611946','_blank','noopener')" style="cursor:pointer;">
+  <img class="card-img" src="https://images.unsplash.com/photo-1619983081593-e2ba5b543168?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w5MjIzMTV8MHwxfHNlYXJjaHw0fHx2aW55bCUyMHJlY29yZCUyMGFsYnVtfGVufDB8MHx8fDE3NzU5Njk1NDB8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="yellow round plastic round table" loading="lazy" onerror="this.style.display='none'">
+  <div class="card-body">
+    <span class="pill pill-kpop">K-Pop</span>
+    <h3 class="card-headline">BTS "ARIRANG" Reigns for 2 Weeks on Billboard 200, Breaks K-pop Barrier</h3>
+    <p class="card-summary">BTS made history with ARIRANG hitting No.1 for two consecutive weeks on Billboard 200, the first back-to-back chart reign for any Korean artist.
+BTS가 신곡 "ARIRANG"으로 빌보드 200 차트에서 2주 연속 1위를 차지하며 한국 아티스트 사상 처음으로 이런 성과를 달성했다.</p>
+    <span class="card-date">News Culture · Apr 6, 2026</span>
+    <a href="https://www.nc.press/news/articleView.html?idxno=611946" target="_blank" rel="noopener" class="card-link">Read more →</a>
+    <span class="card-credit" style="font-size:9px;color:rgba(255,255,255,0.2);margin-top:auto;">
+      Photo: <a href="https://unsplash.com/@introspectivedsgn?utm_source=katchup&amp;utm_medium=referral" target="_blank" rel="noopener" style="color:inherit;">Erik Mclean</a> /
+      <a href="https://unsplash.com/photos/yellow-round-plastic-round-table-9y1cTVKe1IY?utm_source=katchup&amp;utm_medium=referral" target="_blank" rel="noopener" style="color:inherit;">Unsplash</a>
+    </span>
+  </div>
+</article><article class="latest-card" data-category="k-pop" onclick="window.open('https://www.forbes.com/sites/hughmcintyre/2026/04/04/bts-bests-taylor-swifts-global-record-with-a-complete-top-10-takeover/','_blank','noopener')" style="cursor:pointer;">
+          <img class="card-img" src="https://imageio.forbes.com/specials-images/imageserve/69d02b8ed915ba123fd5c7d6/0x0.jpg?format=jpg&amp;height=900&amp;width=1600&amp;fit=bounds" alt="BTS" loading="lazy" onerror="this.style.display='none'">
           <div class="card-body">
             <span class="pill pill-kpop">K-Pop</span>
             <h3 class="card-headline">BTS Makes History: ARIRANG Sweeps the Global Charts</h3>
-            <span class="card-date">Forbes · Apr 4, 2026</span>
-            <a href="https://www.forbes.com/sites/hughmcintyre/2026/04/04/bts-bests-taylor-swifts-global-record-with-a-complete-top-10-takeover/" target="_blank" rel="noopener" class="card-link">Read more →</a>
+            <span class="card-date">Forbes Â· Apr 4, 2026</span>
+            <a href="https://www.forbes.com/sites/hughmcintyre/2026/04/04/bts-bests-taylor-swifts-global-record-with-a-complete-top-10-takeover/" target="_blank" rel="noopener" class="card-link">Read more â</a>
           </div>
         </article>
 
@@ -917,20 +930,12 @@
           <div class="card-body">
             <span class="pill pill-kpop">K-Pop</span>
             <h3 class="card-headline">T.O.P Drops First Solo Album After 20 Years</h3>
-            <span class="card-date">Yonhap · Apr 3, 2026</span>
-            <a href="https://en.yna.co.kr/view/AEN20260403004200315?section=culture/k-pop" target="_blank" rel="noopener" class="card-link">Read more →</a>
+            <span class="card-date">Yonhap Â· Apr 3, 2026</span>
+            <a href="https://en.yna.co.kr/view/AEN20260403004200315?section=culture/k-pop" target="_blank" rel="noopener" class="card-link">Read more â</a>
           </div>
         </article>
 
-        <article class="latest-card" data-category="k-content" onclick="window.open('https://www.yahoo.com/entertainment/tv/articles/season-4-xo-kitty-whats-220029814.html','_blank','noopener')" style="cursor:pointer;">
-          <img class="card-img" src="https://s.yimg.com/ny/api/res/1.2/rizRslL9_F3vSy3sRHh.8Q--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA7Y2Y9d2VicA--/https://media.zenfs.com/en/entertainment_weekly_785/deac432b9beb8ce8dfd544aec53ed53f" alt="XO Kitty" loading="lazy" onerror="this.style.display='none'">
-          <div class="card-body">
-            <span class="pill pill-kcontent">K-Content</span>
-            <h3 class="card-headline">XO, Kitty Season 3 Is Here — Will There Be a Season 4?</h3>
-            <span class="card-date">Yahoo Entertainment · Apr 2, 2026</span>
-            <a href="https://www.yahoo.com/entertainment/tv/articles/season-4-xo-kitty-whats-220029814.html" target="_blank" rel="noopener" class="card-link">Read more →</a>
-          </div>
-        </article>
+        
 
       </div>
     </div>
@@ -938,14 +943,14 @@
 
 </main>
 
-<!-- ── NEWSLETTER ─────────────────────────────────────── -->
+<!-- ââ NEWSLETTER âââââââââââââââââââââââââââââââââââââââ -->
 <section id="newsletter">
   <div class="newsletter-inner">
     <h2>Stay in the <em>Loop</em></h2>
-    <p>Curated by a Korean insider. No noise, just the good stuff — every Friday.</p>
+    <p>Curated by a Korean insider. No noise, just the good stuff â every Friday.</p>
     <div class="newsletter-form-wrap">
-  <form action="https://yahoo.us4.list-manage.com/subscribe/post?u=b8d172ba12c2f90bedcb571aa&id=93fc87c546&f_id=000651e2f0" method="post" target="_blank" style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;">
-    <input type="email" name="EMAIL" required placeholder="your@email.com" autocomplete="off" style="all:unset;box-sizing:border-box;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.2);border-radius:50px;padding:12px 20px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;width:280px;">
+  <form action="https://yahoo.us4.list-manage.com/subscribe/post?u=b8d172ba12c2f90bedcb571aa&amp;id=93fc87c546&amp;f_id=000651e2f0" method="post" target="_blank" style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;">
+    <input type="email" name="EMAIL" required="" placeholder="your@email.com" autocomplete="off" style="all:unset;box-sizing:border-box;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.2);border-radius:50px;padding:12px 20px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;width:280px;">
     <div style="display:none;"><input type="text" name="b_b8d172ba12c2f90bedcb571aa_93fc87c546" tabindex="-1" value=""></div>
     <input type="submit" value="Subscribe" style="all:unset;box-sizing:border-box;background:#D6BAFF;color:#0d0d1a;font-weight:700;border-radius:50px;padding:12px 24px;cursor:pointer;font-size:14px;font-family:'Inter',sans-serif;">
   </form>
@@ -953,7 +958,7 @@
   </div>
 </section>
 
-<!-- ── FOOTER ────────────────────────────────────────── -->
+<!-- ââ FOOTER ââââââââââââââââââââââââââââââââââââââââââ -->
 <footer>
   <div class="footer-inner">
     <a href="#" class="logo">Katchup</a>
@@ -962,13 +967,13 @@
       <li><a href="#">About</a></li>
       <li><a href="#newsletter">Subscribe</a></li>
     </ul>
-    <span class="footer-copy">© 2026 Katchup. Made with care in Seoul.</span>
-    <p class="footer-disclaimer">© 2026 Katchup by Gaya Kim. All featured content belongs to respective publishers. Article summaries are provided for informational purposes only. All links redirect to original sources.</p>
+    <span class="footer-copy">Â© 2026 Katchup. Made with care in Seoul.</span>
+    <p class="footer-disclaimer">Â© 2026 Katchup by Gaya Kim. All featured content belongs to respective publishers. Article summaries are provided for informational purposes only. All links redirect to original sources.</p>
   </div>
 </footer>
 
 <script>
-  // ── Spotlight ─────────────────────────────────────────
+  // ââ Spotlight âââââââââââââââââââââââââââââââââââââââââ
   const spotlight = document.getElementById('spotlight');
   let tx = window.innerWidth/2, ty = window.innerHeight/2;
   let cx = tx, cy = ty;
@@ -981,7 +986,7 @@
     requestAnimationFrame(animate);
   })();
 
-  // ── Hero glow (hero-scoped, stronger) ─────────────────
+  // ââ Hero glow (hero-scoped, stronger) âââââââââââââââââ
   const heroSection = document.querySelector('.hero');
   const heroGlow = document.createElement('div');
   heroGlow.style.cssText = 'position:absolute;pointer-events:none;width:600px;height:600px;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle, rgba(214,186,255,0.2) 0%, rgba(123,94,167,0.08) 50%, transparent 70%);opacity:0;transition:opacity 0.3s ease;z-index:2;top:50%;left:50%;';
@@ -1019,12 +1024,12 @@
     requestAnimationFrame(heroAnimate);
   })();
 
-  // ── Nav scroll ────────────────────────────────────────
+  // ââ Nav scroll ââââââââââââââââââââââââââââââââââââââââ
   window.addEventListener('scroll', () => {
     document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 60);
   });
 
-  // ── Hamburger menu ───────────────────────────────────
+  // ââ Hamburger menu âââââââââââââââââââââââââââââââââââ
   (function () {
     const btn  = document.getElementById('hamburger');
     const menu = document.getElementById('mobileMenu');
@@ -1052,7 +1057,7 @@
     });
   })();
 
-  // ── Card stack hover z-index ──────────────────────────
+  // ââ Card stack hover z-index ââââââââââââââââââââââââââ
   const stackCards = document.querySelectorAll('.card-stack .stack-card');
   stackCards.forEach(card => {
     card.addEventListener('mouseenter', () => {
@@ -1064,12 +1069,12 @@
     });
   });
 
-  // ── Subscribe form ────────────────────────────────────
+  // ââ Subscribe form ââââââââââââââââââââââââââââââââââââ
   function handleSubscribe(e) {
     e.preventDefault();
     const input = e.target.querySelector('input');
     const btn   = e.target.querySelector('button');
-    btn.textContent = "You're in ✓";
+    btn.textContent = "You're in â";
     btn.style.background = '#4ade80';
     btn.style.color = '#052e16';
     input.value = '';
@@ -1116,5 +1121,6 @@
   }
 })();
 </script>
-</body>
-</html>
+
+
+</body></html>
