@@ -120,13 +120,18 @@ function trim(html,re,max){
 }
 async function ghGet(f,tok){
   const r=await fetch(API+f+'?ref='+BR,{headers:{Authorization:'token '+tok,Accept:'application/vnd.github.v3+json'}});
-  if(!r.ok)throw new Error((await r.json()).message||r.status);
-  return r.json();
+  if(!r.ok){const e=await r.json();console.error(`[ghGet] ${f} → ${r.status}`,e);throw new Error(e.message||r.status);}
+  const data=await r.json();
+  console.log(`[ghGet] ${f} → sha:${data.sha} size:${data.size}`);
+  return data;
 }
 async function ghPut(f,body,tok){
+  console.log(`[ghPut] → ${f} | sha:${body.sha} | msg:"${body.message}" | content-len:${body.content?.length}`);
   const r=await fetch(API+f,{method:'PUT',headers:{Authorization:'token '+tok,Accept:'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify({...body,branch:BR})});
-  if(!r.ok)throw new Error((await r.json()).message||r.status);
-  return r.json();
+  let json;try{json=await r.json();}catch(e){json={parseError:e.message};}
+  console.log(`[ghPut] ← ${f} | ${r.status} ${r.statusText}`,json);
+  if(!r.ok)throw new Error(json.message||r.status);
+  return json;
 }
 const si=i=>document.querySelectorAll('#st .si')[i];
 function setS(i,c,m){si(i).className='si '+c;si(i).textContent=m}
@@ -197,12 +202,16 @@ async function pushAll(){
     let f=await ghGet('index.html',tok),txt=dec(f.content.replace(/\n/g,''));
     if(addHero){
       setS(0,'pe','index.html (hero): applying…');
+      const before=txt.length;
       txt=txt.replace(/(<div class="card-stack">)/,(_,g)=>g+'\n'+scCard(d)+'\n');
+      console.log(`[push] card-stack insert: ${txt.length>before?'matched':'NO MATCH'} (${before}→${txt.length} chars)`);
       txt=trim(txt,SC,4);
     }else{
       setS(0,'sk','index.html (hero): skipped');
     }
+    const beforeLC=txt.length;
     txt=txt.replace(/(<div class="latest-grid">)/,(_,g)=>g+'\n'+lcCard(d)+'\n');
+    console.log(`[push] latest-grid insert: ${txt.length>beforeLC?'matched':'NO MATCH'} (${beforeLC}→${txt.length} chars)`);
     txt=trim(txt,LC,3);
     const sha=(await ghGet('index.html',tok)).sha;
     const msg=(addHero?'add stack+latest card: ':'add latest card: ')+d.t;
@@ -217,7 +226,10 @@ async function pushAll(){
   try{
     setS(2,'pe','archive.html: fetching…');
     let f=await ghGet('archive.html',tok),txt=dec(f.content.replace(/\n/g,''));
+    console.log(`[push] archive decoded length: ${txt.length}`);
+    const beforeIC=txt.length;
     txt=txt.replace(/(<div\b[^>]*\bid="issueGrid"[^>]*>)/,(_,g)=>g+'\n'+icCard(d)+'\n');
+    console.log(`[push] issueGrid insert: ${txt.length>beforeIC?'matched':'NO MATCH'} (${beforeIC}→${txt.length} chars)`);
     const sha=(await ghGet('archive.html',tok)).sha;
     await ghPut('archive.html',{message:'add issue-card: '+d.t,content:enc(txt),sha},tok);
     setS(2,'ok','archive.html: ✓');
