@@ -215,55 +215,67 @@ async function deleteCard(){
   const issNum=document.getElementById('del-iss').value.trim();
   if(!issNum)return alert('Enter Issue #');
   const delBtn=document.getElementById('delBtn');delBtn.disabled=true;
-  document.getElementById('dst').innerHTML=['index.html (hero)','index.html (latest)','archive.html'].map(l=>`<div class="si pe">${l}: pending…</div>`).join('');
-  // Step 1: archive.html — find issue-card by number, extract title for index.html matching
+  document.getElementById('dst').innerHTML=['index.html (hero)','index.html (latest)','archive.html'].map(l=>`<div class="si pe">${l}: fetching…</div>`).join('');
+  // Fetch both files in parallel so each can be processed independently
+  const[ir,ar]=await Promise.allSettled([ghGet('index.html',tok),ghGet('archive.html',tok)]);
+  const indexFile=ir.status==='fulfilled'?ir.value:null;
+  const archiveFile=ar.status==='fulfilled'?ar.value:null;
+  if(!indexFile){setDS(0,'er','index.html (hero): ✗ '+ir.reason?.message);setDS(1,'er','index.html (latest): ✗ '+ir.reason?.message);}
+  if(!archiveFile)setDS(2,'er','archive.html: ✗ '+ar.reason?.message);
+  // Extract title from archive content — decoupled from the write step
   let articleTitle=null;
-  try{
-    setDS(2,'pe','archive.html: fetching…');
-    let f=await ghGet('archive.html',tok),txt=dec(f.content.replace(/\n/g,''));
+  if(archiveFile){
     const IC=/<article class="issue-card"[\s\S]*?<\/article>/g;
-    let m,found=false;
-    while((m=IC.exec(txt))!==null){
+    const at=dec(archiveFile.content.replace(/\n/g,''));
+    let m;
+    while((m=IC.exec(at))!==null){
       if(m[0].includes(`Issue #${issNum}<`)){
         const tm=m[0].match(/<h2 class="issue-headline">([\s\S]*?)<\/h2>/);
         if(tm)articleTitle=tm[1];
-        txt=txt.slice(0,m.index)+txt.slice(m.index+m[0].length);
-        found=true;break;
+        break;
       }
     }
-    if(!found){setDS(2,'sk',`archive.html: Issue #${issNum} not found`);}
-    else{
-      const sha=(await ghGet('archive.html',tok)).sha;
-      await ghPut('archive.html',{message:`delete card: issue #${issNum}`,content:enc(txt),sha},tok);
-      setDS(2,'ok','archive.html: ✓ removed');
-    }
-  }catch(e){setDS(2,'er','archive.html: ✗ '+e.message);delBtn.disabled=false;return;}
-  // Step 2: index.html — remove latest-card and stack-card matching the extracted title
-  try{
-    setDS(1,'pe','index.html (latest): fetching…');
-    setDS(0,'pe','index.html (hero): searching…');
-    let f=await ghGet('index.html',tok),txt=dec(f.content.replace(/\n/g,''));
-    let latestFound=false,heroFound=false;
-    if(articleTitle){
-      const LC=/<article class="latest-card"[\s\S]*?<\/article>/g;
-      let m;
-      while((m=LC.exec(txt))!==null){
-        if(m[0].includes(articleTitle)){txt=txt.slice(0,m.index)+txt.slice(m.index+m[0].length);latestFound=true;break;}
+  }
+  // index.html — independent, no early return on failure
+  if(indexFile){
+    try{
+      let txt=dec(indexFile.content.replace(/\n/g,''));
+      let latestFound=false,heroFound=false;
+      if(articleTitle){
+        const LC=/<article class="latest-card"[\s\S]*?<\/article>/g;
+        let m;
+        while((m=LC.exec(txt))!==null){
+          if(m[0].includes(articleTitle)){txt=txt.slice(0,m.index)+txt.slice(m.index+m[0].length);latestFound=true;break;}
+        }
+        const SC=/<div class="stack-card"[\s\S]*?<\/div>\s*<\/div>/g;
+        while((m=SC.exec(txt))!==null){
+          if(m[0].includes(articleTitle)){txt=txt.slice(0,m.index)+txt.slice(m.index+m[0].length);heroFound=true;break;}
+        }
       }
-      const SC=/<div class="stack-card"[\s\S]*?<\/div>\s*<\/div>/g;
-      while((m=SC.exec(txt))!==null){
-        if(m[0].includes(articleTitle)){txt=txt.slice(0,m.index)+txt.slice(m.index+m[0].length);heroFound=true;break;}
+      if(latestFound||heroFound){
+        const sha=(await ghGet('index.html',tok)).sha;
+        await ghPut('index.html',{message:`delete card: issue #${issNum}`,content:enc(txt),sha},tok);
       }
-    }
-    if(latestFound||heroFound){
-      const sha=(await ghGet('index.html',tok)).sha;
-      await ghPut('index.html',{message:`delete card: issue #${issNum}`,content:enc(txt),sha},tok);
-    }
-    setDS(0,heroFound?'ok':'sk',`index.html (hero): ${heroFound?'✓ removed':'not found'}`);
-    setDS(1,latestFound?'ok':'sk',`index.html (latest): ${latestFound?'✓ removed':'not found'}`);
-  }catch(e){
-    setDS(0,'er','index.html (hero): ✗ '+e.message);
-    setDS(1,'er','index.html (latest): ✗ '+e.message);
+      setDS(0,heroFound?'ok':'sk',`index.html (hero): ${heroFound?'✓ removed':'not found'}`);
+      setDS(1,latestFound?'ok':'sk',`index.html (latest): ${latestFound?'✓ removed':'not found'}`);
+    }catch(e){setDS(0,'er','index.html (hero): ✗ '+e.message);setDS(1,'er','index.html (latest): ✗ '+e.message);}
+  }
+  // archive.html — independent, no early return on failure
+  if(archiveFile){
+    try{
+      let txt=dec(archiveFile.content.replace(/\n/g,''));
+      const IC=/<article class="issue-card"[\s\S]*?<\/article>/g;
+      let m,found=false;
+      while((m=IC.exec(txt))!==null){
+        if(m[0].includes(`Issue #${issNum}<`)){txt=txt.slice(0,m.index)+txt.slice(m.index+m[0].length);found=true;break;}
+      }
+      if(!found){setDS(2,'sk','archive.html: not found');}
+      else{
+        const sha=(await ghGet('archive.html',tok)).sha;
+        await ghPut('archive.html',{message:`delete card: issue #${issNum}`,content:enc(txt),sha},tok);
+        setDS(2,'ok','archive.html: ✓ removed');
+      }
+    }catch(e){setDS(2,'er','archive.html: ✗ '+e.message);}
   }
   delBtn.disabled=false;
 }
