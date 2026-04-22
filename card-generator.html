@@ -139,7 +139,7 @@ async function fetchNextIssueNum(){
     const f=await ghGet('archive.html',tok);
     const txt=dec(f.content.replace(/\n/g,''));
     const re=/<span class="issue-number">Issue #(\d+)<\/span>/g;
-    let m,max=0;
+    let m,max=15;
     while((m=re.exec(txt))!==null){const n=parseInt(m[1],10);if(n>max)max=n;}
     document.getElementById('iss').value=max+1;
     updatePreview();
