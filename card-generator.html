@@ -53,6 +53,14 @@ button:hover{background:#9b7ec8}button:disabled{opacity:.5;cursor:default}
 </label>
 <button id="btn" onclick="pushAll()">Push to GitHub</button>
 <div class="s" id="st"></div>
+<hr style="border:none;border-top:1px solid #2a2a4a;margin:28px 0 20px">
+<h2 style="font-size:15px;margin-bottom:14px;color:#e05c7a">Delete Card</h2>
+<div class="g" style="margin-bottom:10px">
+  <div><label>Issue #</label><input id="del-iss" type="number" placeholder="12"></div>
+  <div><label>Category</label><select id="del-cat"><option value="k-pop">K-Pop</option><option value="k-content">K-Content</option><option value="lifestyle">Lifestyle</option><option value="beauty">Beauty</option></select></div>
+</div>
+<button id="delBtn" onclick="deleteCard()" style="background:#7a2a3a">Delete Card</button>
+<div class="s" id="dst"></div>
 <div id="pv" style="margin-top:20px"></div>
 <script>
 const REPO='gayawork/katchup-app',BR='main';
@@ -117,8 +125,10 @@ async function ghPut(f,body,tok){
   if(!r.ok)throw new Error((await r.json()).message||r.status);
   return r.json();
 }
-const si=i=>document.querySelectorAll('.si')[i];
+const si=i=>document.querySelectorAll('#st .si')[i];
 function setS(i,c,m){si(i).className='si '+c;si(i).textContent=m}
+const dsi=i=>document.querySelectorAll('#dst .si')[i];
+function setDS(i,c,m){dsi(i).className='si '+c;dsi(i).textContent=m}
 async function fetchMeta(){
   const url=document.getElementById('url').value.trim();
   if(!url)return;
@@ -198,6 +208,64 @@ async function pushAll(){
     setS(2,'ok','archive.html: ✓');
   }catch(e){setS(2,'er','archive.html: ✗ '+e.message)}
   btn.disabled=false;
+}
+async function deleteCard(){
+  const tok=document.getElementById('tok').value.trim();
+  if(!tok)return alert('Enter GitHub token');
+  const issNum=document.getElementById('del-iss').value.trim();
+  if(!issNum)return alert('Enter Issue #');
+  const delBtn=document.getElementById('delBtn');delBtn.disabled=true;
+  document.getElementById('dst').innerHTML=['index.html (hero)','index.html (latest)','archive.html'].map(l=>`<div class="si pe">${l}: pending…</div>`).join('');
+  // Step 1: archive.html — find issue-card by number, extract title for index.html matching
+  let articleTitle=null;
+  try{
+    setDS(2,'pe','archive.html: fetching…');
+    let f=await ghGet('archive.html',tok),txt=dec(f.content.replace(/\n/g,''));
+    const IC=/<article class="issue-card"[\s\S]*?<\/article>/g;
+    let m,found=false;
+    while((m=IC.exec(txt))!==null){
+      if(m[0].includes(`Issue #${issNum}<`)){
+        const tm=m[0].match(/<h2 class="issue-headline">([\s\S]*?)<\/h2>/);
+        if(tm)articleTitle=tm[1];
+        txt=txt.slice(0,m.index)+txt.slice(m.index+m[0].length);
+        found=true;break;
+      }
+    }
+    if(!found){setDS(2,'sk',`archive.html: Issue #${issNum} not found`);}
+    else{
+      const sha=(await ghGet('archive.html',tok)).sha;
+      await ghPut('archive.html',{message:`delete card: issue #${issNum}`,content:enc(txt),sha},tok);
+      setDS(2,'ok','archive.html: ✓ removed');
+    }
+  }catch(e){setDS(2,'er','archive.html: ✗ '+e.message);delBtn.disabled=false;return;}
+  // Step 2: index.html — remove latest-card and stack-card matching the extracted title
+  try{
+    setDS(1,'pe','index.html (latest): fetching…');
+    setDS(0,'pe','index.html (hero): searching…');
+    let f=await ghGet('index.html',tok),txt=dec(f.content.replace(/\n/g,''));
+    let latestFound=false,heroFound=false;
+    if(articleTitle){
+      const LC=/<article class="latest-card"[\s\S]*?<\/article>/g;
+      let m;
+      while((m=LC.exec(txt))!==null){
+        if(m[0].includes(articleTitle)){txt=txt.slice(0,m.index)+txt.slice(m.index+m[0].length);latestFound=true;break;}
+      }
+      const SC=/<div class="stack-card"[\s\S]*?<\/div>\s*<\/div>/g;
+      while((m=SC.exec(txt))!==null){
+        if(m[0].includes(articleTitle)){txt=txt.slice(0,m.index)+txt.slice(m.index+m[0].length);heroFound=true;break;}
+      }
+    }
+    if(latestFound||heroFound){
+      const sha=(await ghGet('index.html',tok)).sha;
+      await ghPut('index.html',{message:`delete card: issue #${issNum}`,content:enc(txt),sha},tok);
+    }
+    setDS(0,heroFound?'ok':'sk',`index.html (hero): ${heroFound?'✓ removed':'not found'}`);
+    setDS(1,latestFound?'ok':'sk',`index.html (latest): ${latestFound?'✓ removed':'not found'}`);
+  }catch(e){
+    setDS(0,'er','index.html (hero): ✗ '+e.message);
+    setDS(1,'er','index.html (latest): ✗ '+e.message);
+  }
+  delBtn.disabled=false;
 }
 const UKEY='18eQlDzkgzOaLj6YVFCar2VBoL1Xgtl8tHrS7wnmfvE';
 async function searchUnsplash(){
