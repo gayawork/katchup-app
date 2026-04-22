@@ -18,14 +18,20 @@ button{background:#7b5ea7;color:#fff;border:none;border-radius:8px;padding:10px 
 button:hover{background:#9b7ec8}button:disabled{opacity:.5;cursor:default}
 .s{margin-top:12px;display:flex;flex-direction:column;gap:5px}
 .si{padding:7px 12px;border-radius:6px;font-size:12px;background:#1a1a2e;border:1px solid #2a2a4a}
-.ok{border-color:#4caf7d!important;color:#4caf7d}.er{border-color:#e05c7a!important;color:#e05c7a}.pe{color:#9b89c4}
+.ok{border-color:#4caf7d!important;color:#4caf7d}.er{border-color:#e05c7a!important;color:#e05c7a}.pe{color:#9b89c4}.sk{border-color:#3a3a5a!important;color:#5a5a8a}
 </style>
 </head>
 <body>
 <h1>Katchup Card Generator v2</h1>
 <div class="g">
   <div class="f"><label>GitHub Token (session only)</label><input id="tok" type="password" placeholder="ghp_..." oninput="sessionStorage.setItem('gt',this.value)"></div>
-  <div><label>Article URL</label><input id="url" placeholder="https://..."></div>
+  <div class="f">
+    <label>Article URL</label>
+    <div style="display:flex;gap:8px">
+      <input id="url" placeholder="https://..." style="flex:1" onkeydown="if(event.key==='Enter')fetchMeta()">
+      <button type="button" id="fetchBtn" onclick="fetchMeta()" style="margin:0;padding:7px 16px;white-space:nowrap;flex-shrink:0">Fetch</button>
+    </div>
+  </div>
   <div><label>Title</label><input id="ttl" placeholder="Article headline"></div>
   <div><label>Source · Date</label><input id="src" placeholder="Forbes · Apr 13, 2026"></div>
   <div><label>Category</label><select id="cat"><option value="k-pop">K-Pop</option><option value="k-content">K-Content</option><option value="lifestyle">Lifestyle</option><option value="beauty">Beauty</option></select></div>
@@ -42,6 +48,9 @@ button:hover{background:#9b7ec8}button:disabled{opacity:.5;cursor:default}
   </div>
   <div id="uGrid" style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px"></div>
 </div>
+<label style="display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:12px;color:#9b89c4;cursor:pointer">
+  <input type="checkbox" id="addHero" checked style="width:auto;margin:0;cursor:pointer"> Add to Hero stack
+</label>
 <button id="btn" onclick="pushAll()">Push to GitHub</button>
 <div class="s" id="st"></div>
 <div id="pv" style="margin-top:20px"></div>
@@ -110,9 +119,29 @@ async function ghPut(f,body,tok){
 }
 const si=i=>document.querySelectorAll('.si')[i];
 function setS(i,c,m){si(i).className='si '+c;si(i).textContent=m}
+async function fetchMeta(){
+  const url=document.getElementById('url').value.trim();
+  if(!url)return;
+  const btn=document.getElementById('fetchBtn');
+  btn.disabled=true;btn.textContent='Fetching…';
+  try{
+    const r=await fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(url));
+    if(!r.ok)throw new Error(r.status);
+    const html=await r.text();
+    const doc=new DOMParser().parseFromString(html,'text/html');
+    const og=n=>doc.querySelector(`meta[property="${n}"]`)?.getAttribute('content')||doc.querySelector(`meta[name="${n}"]`)?.getAttribute('content')||'';
+    const title=og('og:title')||doc.querySelector('title')?.textContent||'';
+    const desc=og('og:description');
+    if(title)document.getElementById('ttl').value=title.trim();
+    if(desc)document.getElementById('sum').value=desc.trim();
+    updatePreview();
+  }catch(e){alert('Fetch failed: '+e.message)}
+  finally{btn.disabled=false;btn.textContent='Fetch'}
+}
 async function pushAll(){
   const tok=document.getElementById('tok').value.trim();
   if(!tok)return alert('Enter GitHub token');
+  const addHero=document.getElementById('addHero').checked;
   const sl=document.getElementById('cat').value;
   const d={
     u:document.getElementById('url').value.trim(),
@@ -130,28 +159,34 @@ async function pushAll(){
   document.getElementById('st').innerHTML=['index.html (hero)','index.html (latest)','archive.html'].map(l=>`<div class="si pe">${l}: pending…</div>`).join('');
   const SC=/<div class="stack-card"[\s\S]*?<\/div>\s*<\/div>/;
   const LC=/<article class="latest-card"[\s\S]*?<\/article>/;
-  const IC=/<article class="issue-card"[\s\S]*?<\/article>/;
-  try{
-    setS(0,'pe','index.html (hero): fetching…');
-    let f=await ghGet('index.html',tok),txt=dec(f.content.replace(/\n/g,''));
-    txt=txt.replace(/(<div class="card-stack">)/,'$1\n'+scCard(d)+'\n');
-    txt=trim(txt,SC,4);
-    await ghPut('index.html',{message:'add stack-card: '+d.t,content:enc(txt),sha:f.sha},tok);
-    setS(0,'ok','index.html (hero): ✓');
-  }catch(e){setS(0,'er','index.html (hero): ✗ '+e.message);btn.disabled=false;return}
+  if(addHero){
+    try{
+      setS(0,'pe','index.html (hero): fetching…');
+      let f=await ghGet('index.html',tok),txt=dec(f.content.replace(/\n/g,''));
+      txt=txt.replace(/(<div class="card-stack">)/,'$1\n'+scCard(d)+'\n');
+      txt=trim(txt,SC,4);
+      const sha=(await ghGet('index.html',tok)).sha;
+      await ghPut('index.html',{message:'add stack-card: '+d.t,content:enc(txt),sha},tok);
+      setS(0,'ok','index.html (hero): ✓');
+    }catch(e){setS(0,'er','index.html (hero): ✗ '+e.message);btn.disabled=false;return}
+  }else{
+    setS(0,'sk','index.html (hero): skipped');
+  }
   try{
     setS(1,'pe','index.html (latest): fetching…');
     let f=await ghGet('index.html',tok),txt=dec(f.content.replace(/\n/g,''));
     txt=txt.replace(/(<div class="latest-grid">)/,'$1\n'+lcCard(d)+'\n');
     txt=trim(txt,LC,3);
-    await ghPut('index.html',{message:'add latest-card: '+d.t,content:enc(txt),sha:f.sha},tok);
+    const sha=(await ghGet('index.html',tok)).sha;
+    await ghPut('index.html',{message:'add latest-card: '+d.t,content:enc(txt),sha},tok);
     setS(1,'ok','index.html (latest): ✓');
   }catch(e){setS(1,'er','index.html (latest): ✗ '+e.message);btn.disabled=false;return}
   try{
     setS(2,'pe','archive.html: fetching…');
     let f=await ghGet('archive.html',tok),txt=dec(f.content.replace(/\n/g,''));
     txt=txt.replace(/(<div[^>]*id="issueGrid"[^>]*>)/,'$1\n'+icCard(d)+'\n');
-    await ghPut('archive.html',{message:'add issue-card: '+d.t,content:enc(txt),sha:f.sha},tok);
+    const sha=(await ghGet('archive.html',tok)).sha;
+    await ghPut('archive.html',{message:'add issue-card: '+d.t,content:enc(txt),sha},tok);
     setS(2,'ok','archive.html: ✓');
   }catch(e){setS(2,'er','archive.html: ✗ '+e.message)}
   btn.disabled=false;
