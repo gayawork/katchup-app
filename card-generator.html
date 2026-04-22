@@ -78,7 +78,7 @@ function enc(s){const e=new TextEncoder().encode(s);let r='';for(let i=0;i<e.len
 function scCard(d){return`<div class="stack-card" onclick="window.open('${d.u}','_blank','noopener')">
   <img class="stack-card-img" src="${d.im}" alt="${d.t}" loading="lazy" onerror="this.style.display='none'">
   <div class="stack-card-body">
-    <a href="${d.u}" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit;cursor:pointer;">
+    <a href="${d.u}" target="_blank" rel="noopener">
       <p class="stack-card-cat">${d.cl}</p>
       <p class="stack-card-title">${d.t}</p>
       <p class="stack-card-source">${d.sr}</p>
@@ -86,7 +86,7 @@ function scCard(d){return`<div class="stack-card" onclick="window.open('${d.u}',
     </a>
   </div>
 </div>`}
-function lcCard(d){return`<article class="latest-card" data-category="${d.sl}" onclick="window.open('${d.u}','_blank','noopener')" style="cursor:pointer;">
+function lcCard(d){return`<article class="latest-card" data-category="${d.sl}" onclick="window.open('${d.u}','_blank','noopener')">
   <img class="card-img" src="${d.im}" alt="${d.t}" loading="lazy" onerror="this.style.display='none'">
   <div class="card-body">
     <span class="pill ${d.cp}">${d.cl}</span>
