@@ -159,28 +159,30 @@ async function pushAll(){
   document.getElementById('st').innerHTML=['index.html (hero)','index.html (latest)','archive.html'].map(l=>`<div class="si pe">${l}: pending…</div>`).join('');
   const SC=/<div class="stack-card"[\s\S]*?<\/div>\s*<\/div>/;
   const LC=/<article class="latest-card"[\s\S]*?<\/article>/;
-  if(addHero){
-    try{
-      setS(0,'pe','index.html (hero): fetching…');
-      let f=await ghGet('index.html',tok),txt=dec(f.content.replace(/\n/g,''));
-      txt=txt.replace(/(<div class="card-stack">)/,'$1\n'+scCard(d)+'\n');
-      txt=trim(txt,SC,4);
-      const sha=(await ghGet('index.html',tok)).sha;
-      await ghPut('index.html',{message:'add stack-card: '+d.t,content:enc(txt),sha},tok);
-      setS(0,'ok','index.html (hero): ✓');
-    }catch(e){setS(0,'er','index.html (hero): ✗ '+e.message);btn.disabled=false;return}
-  }else{
-    setS(0,'sk','index.html (hero): skipped');
-  }
+  // index.html: single fetch → single write (hero + latest in one pass to avoid SHA conflict)
   try{
     setS(1,'pe','index.html (latest): fetching…');
     let f=await ghGet('index.html',tok),txt=dec(f.content.replace(/\n/g,''));
+    if(addHero){
+      setS(0,'pe','index.html (hero): applying…');
+      txt=txt.replace(/(<div class="card-stack">)/,'$1\n'+scCard(d)+'\n');
+      txt=trim(txt,SC,4);
+    }else{
+      setS(0,'sk','index.html (hero): skipped');
+    }
     txt=txt.replace(/(<div class="latest-grid">)/,'$1\n'+lcCard(d)+'\n');
     txt=trim(txt,LC,3);
     const sha=(await ghGet('index.html',tok)).sha;
-    await ghPut('index.html',{message:'add latest-card: '+d.t,content:enc(txt),sha},tok);
+    const msg=(addHero?'add stack+latest card: ':'add latest card: ')+d.t;
+    await ghPut('index.html',{message:msg,content:enc(txt),sha},tok);
+    if(addHero)setS(0,'ok','index.html (hero): ✓');
     setS(1,'ok','index.html (latest): ✓');
-  }catch(e){setS(1,'er','index.html (latest): ✗ '+e.message);btn.disabled=false;return}
+  }catch(e){
+    if(addHero)setS(0,'er','index.html (hero): ✗ '+e.message);
+    setS(1,'er','index.html (latest): ✗ '+e.message);
+    btn.disabled=false;return;
+  }
+  // archive.html: always
   try{
     setS(2,'pe','archive.html: fetching…');
     let f=await ghGet('archive.html',tok),txt=dec(f.content.replace(/\n/g,''));
