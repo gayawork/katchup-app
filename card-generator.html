@@ -79,20 +79,24 @@ function scCard(d){return`<div class="stack-card" onclick="window.open('${d.u}',
   <img class="stack-card-img" src="${d.im}" alt="${d.t}" loading="lazy" onerror="this.style.display='none'">
   <div class="stack-card-body">
     <a href="${d.u}" target="_blank" rel="noopener">
-      <p class="stack-card-cat">${d.cl}</p>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+        <p class="stack-card-cat" style="margin-bottom:0">${d.cl}</p>
+        <span style="font-size:9px;font-weight:700;color:rgba(214,186,255,0.6);background:rgba(214,186,255,0.08);border-radius:999px;padding:2px 7px">Issue #${d.is}</span>
+      </div>
       <p class="stack-card-title">${d.t}</p>
       <p class="stack-card-source">${d.sr}</p>
-      <p class="stack-card-issue">Issue #${d.is}</p>
     </a>
   </div>
 </div>`}
 function lcCard(d){return`<article class="latest-card" data-category="${d.sl}" onclick="window.open('${d.u}','_blank','noopener')">
   <img class="card-img" src="${d.im}" alt="${d.t}" loading="lazy" onerror="this.style.display='none'">
   <div class="card-body">
-    <span class="pill ${d.cp}">${d.cl}</span>
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <span class="pill ${d.cp}">${d.cl}</span>
+      <span style="font-size:9px;font-weight:700;color:rgba(214,186,255,0.6);background:rgba(214,186,255,0.08);border-radius:999px;padding:2px 7px">Issue #${d.is}</span>
+    </div>
     <h3 class="card-headline">${d.t}</h3>
     <span class="card-date">${d.sr}</span>
-    <span class="card-issue">Issue #${d.is}</span>
     <a href="${d.u}" target="_blank" rel="noopener" class="card-link">Read more →</a>
   </div>
 </article>`}
@@ -143,8 +147,8 @@ async function fetchNextIssueNum(){
   try{
     const f=await ghGet('archive.html',tok);
     const txt=dec(f.content.replace(/\n/g,''));
-    const re=/<span class="issue-number">Issue #(\d+)<\/span>/g;
-    let m,max=15;
+    const re=/number:\s*'No\.(\d+)'/g;
+    let m,max=0;
     while((m=re.exec(txt))!==null){const n=parseInt(m[1],10);if(n>max)max=n;}
     document.getElementById('iss').value=max+1;
     updatePreview();
@@ -227,9 +231,13 @@ async function pushAll(){
     setS(2,'pe','archive.html: fetching…');
     let f=await ghGet('archive.html',tok),txt=dec(f.content.replace(/\n/g,''));
     console.log(`[push] archive decoded length: ${txt.length}`);
-    const beforeIC=txt.length;
-    txt=txt.replace(/(<div\b[^>]*\bid="issueGrid"[^>]*>)/,(_,g)=>g+'\n'+icCard(d)+'\n');
-    console.log(`[push] issueGrid insert: ${txt.length>beforeIC?'matched':'NO MATCH'} (${beforeIC}→${txt.length} chars)`);
+    const issNum=String(d.is).padStart(3,'0');
+    const dateStr=d.sr.includes('·')?d.sr.split('·').pop().trim():d.sr;
+    const esc=s=>s.replace(/'/g,"\\'");
+    const newEntry=`    {\n      number: 'No.${issNum}',\n      category: '${esc(d.cl)}',\n      date: '${esc(dateStr)}',\n      tags: ['${d.sl}'],\n      pills: [{ label: '${esc(d.cl)}' }],\n      image: '${esc(d.im)}',\n      credit: '${esc(d.cr)}',\n      headline: '${esc(d.t)}',\n      summary: '${esc(d.su)}',\n      link: '${esc(d.u)}'\n    },`;
+    const before=txt.length;
+    txt=txt.replace('const ALL_ISSUES = [','const ALL_ISSUES = [\n'+newEntry);
+    console.log(`[push] ALL_ISSUES inject: ${txt.length>before?'matched':'NO MATCH'} (${before}→${txt.length} chars)`);
     const sha=(await ghGet('archive.html',tok)).sha;
     await ghPut('archive.html',{message:'add issue-card: '+d.t,content:enc(txt),sha},tok);
     setS(2,'ok','archive.html: ✓');
@@ -279,14 +287,25 @@ async function deleteCard(){
       setDS(1,latestFound?'ok':'sk',`index.html (latest): ${latestFound?'✓ removed':'not found'}`);
     }catch(e){setDS(0,'er','index.html (hero): ✗ '+e.message);setDS(1,'er','index.html (latest): ✗ '+e.message);}
   }
-  // archive.html — match by issue number
+  // archive.html — match by issue number in ALL_ISSUES array
   if(archiveFile){
     try{
       let txt=dec(archiveFile.content.replace(/\n/g,''));
-      const IC=/<article class="issue-card"[\s\S]*?<\/article>/g;
-      let m,found=false;
-      while((m=IC.exec(txt))!==null){
-        if(m[0].includes(issTag)){txt=txt.slice(0,m.index)+txt.slice(m.index+m[0].length);found=true;break;}
+      const noStr='No.'+String(issNum).padStart(3,'0');
+      const numKey=`number: '${noStr}'`;
+      const idx=txt.indexOf(numKey);
+      let found=false;
+      if(idx!==-1){
+        const start=txt.lastIndexOf('{',idx);
+        let depth=0,end=start;
+        for(let i=start;i<txt.length;i++){
+          if(txt[i]==='{')depth++;
+          else if(txt[i]==='}'){depth--;if(depth===0){end=i;break;}}
+        }
+        let fullEnd=end+1;
+        while(fullEnd<txt.length&&(txt[fullEnd]===','||txt[fullEnd]==='\n'||txt[fullEnd]==='\r'||txt[fullEnd]===' '))fullEnd++;
+        txt=txt.slice(0,start)+txt.slice(fullEnd);
+        found=true;
       }
       if(!found){setDS(2,'sk','archive.html: not found');}
       else{
