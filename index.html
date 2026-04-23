@@ -729,46 +729,20 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
     }
+    .mc-form { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .mc-input { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius: 50px; padding: 12px 20px; color: #fff; font-size: 14px; font-family: 'Inter', sans-serif; width: 280px; outline: none; box-sizing: border-box; }
+    .mc-input::placeholder { color: rgba(255,255,255,0.4); }
+    .mc-input:focus { border-color: rgba(214,186,255,0.4); }
+    .mc-submit { background: #D6BAFF; color: #0d0d1a; font-weight: 700; border-radius: 50px; padding: 12px 24px; border: none; cursor: pointer; font-size: 14px; font-family: 'Inter', sans-serif; white-space: nowrap; }
+    .mc-submit:hover { opacity: 0.85; }
+    @media (max-width: 480px) {
+      .mc-form { flex-direction: column; }
+      .mc-input { width: 100%; }
+      .mc-submit { width: 100%; }
+    }
   </style>
   <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline';">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <style>
-    .mc-email-input::placeholder { color: rgba(255,255,255,0.4); }
-    #mc-embedded-subscribe-form input[type="email"] {
-      background: transparent !important;
-      border: 1px solid rgba(255,255,255,0.2) !important;
-      border-radius: 50px !important;
-      padding: 12px 20px !important;
-      color: #fff !important;
-      width: 280px !important;
-      font-size: 14px !important;
-      font-family: 'Inter', sans-serif !important;
-      outline: none !important;
-      box-shadow: none !important;
-      -webkit-appearance: none !important;
-    }
-    #mc-embedded-subscribe-form input[type="submit"] {
-      background: #D6BAFF !important;
-      color: #0d0d1a !important;
-      font-weight: 700 !important;
-      border-radius: 50px !important;
-      padding: 12px 24px !important;
-      border: none !important;
-      cursor: pointer !important;
-      margin-left: 8px !important;
-      font-size: 14px !important;
-      font-family: 'Inter', sans-serif !important;
-      width: auto !important;
-      -webkit-appearance: none !important;
-    }
-    @media (max-width: 480px) {
-      #mc-embedded-subscribe-form { flex-direction: column; gap: 10px; }
-      .mc-email-input { width: 100% !important; box-sizing: border-box; }
-      .mc-submit-btn { width: 100%; margin-left: 0 !important; }
-      #mc-embedded-subscribe-form input[type="email"] { width: 100% !important; }
-      #mc-embedded-subscribe-form input[type="submit"] { width: 100% !important; margin-left: 0 !important; }
-    }
-  </style>
 </head>
 <body>
 
@@ -972,12 +946,12 @@
     <h2>Stay in the <em>Loop</em></h2>
     <p>Curated by a Korean insider. No noise, just the good stuff — every Friday.</p>
     <div class="newsletter-form-wrap">
-  <form action="https://yahoo.us4.list-manage.com/subscribe/post?u=b8d172ba12c2f90bedcb571aa&id=93fc87c546&f_id=000651e2f0" method="post" target="_blank" style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;">
-    <input type="email" name="EMAIL" required placeholder="your@email.com" autocomplete="off" style="all:unset;box-sizing:border-box;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.2);border-radius:50px;padding:12px 20px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;width:280px;">
-    <div style="display:none;"><input type="text" name="b_b8d172ba12c2f90bedcb571aa_93fc87c546" tabindex="-1" value=""></div>
-    <input type="submit" value="Subscribe" style="all:unset;box-sizing:border-box;background:#D6BAFF;color:#0d0d1a;font-weight:700;border-radius:50px;padding:12px 24px;cursor:pointer;font-size:14px;font-family:'Inter',sans-serif;">
-  </form>
-</div>
+      <form action="https://yahoo.us4.list-manage.com/subscribe/post?u=b8d172ba12c2f90bedcb571aa&id=93fc87c546&f_id=000651e2f0" method="post" target="_blank" class="mc-form">
+        <input type="email" name="EMAIL" required placeholder="your@email.com" class="mc-input">
+        <div style="display:none"><input type="text" name="b_b8d172ba12c2f90bedcb571aa_93fc87c546" tabindex="-1" value=""></div>
+        <input type="submit" value="Subscribe" class="mc-submit">
+      </form>
+    </div>
   </div>
 </section>
 
