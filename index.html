@@ -371,6 +371,10 @@
     .latest-card[data-category="lifestyle"] { border-top: 2px solid var(--cat-lifestyle); }
     .latest-card[data-category="beauty"]    { border-top: 2px solid var(--cat-beauty); }
     .card-date { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+    .issue-meta { display: flex; align-items: center; justify-content: space-between; }
+    .issue-number { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-secondary); }
+    .issue-date { font-size: 12px; color: var(--text-muted); }
+    .issue-pills { display: flex; gap: 6px; flex-wrap: wrap; }
 
     /* ── NEWSLETTER ──────────────────────────────────── */
     #newsletter {
@@ -920,45 +924,42 @@
 <article class="latest-card" data-category="k-content" onclick="window.open('https://www.netflix.com/tudum/articles/korea-award-winner-movie-series','_blank','noopener')">
   <img class="card-img" src="https://images.unsplash.com/photo-1637363990764-de84fd247b7d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjIzMTV8MHwxfHNlYXJjaHw1fHxuZXRmbGl4fGVufDB8fHx8MTc3Njk0ODgyMXww&ixlib=rb-4.1.0&q=80&w=1080" alt="9 Award-Winning Korean Movies and Series to Stream Now" loading="lazy" onerror="this.style.display='none'">
   <div class="card-body">
-    <div style="display:flex;align-items:center;justify-content:space-between">
-      <span class="pill pill-kcontent">K-Content</span>
-      <span style="font-size:9px;font-weight:700;color:rgba(214,186,255,0.6);background:rgba(214,186,255,0.08);border-radius:999px;padding:2px 7px">Issue #13</span>
+    <div class="issue-meta" style="display:flex;justify-content:space-between;align-items:center">
+      <span class="issue-number">No.013</span>
+      <span class="issue-date">Netflix Tudum</span>
     </div>
+    <div class="issue-pills"><span class="pill pill-kcontent">K-Content</span></div>
     <h3 class="card-headline">9 Award-Winning Korean Movies and Series to Stream Now</h3>
-    <span class="card-date">Netflix Tudum</span>
-    <a href="https://www.netflix.com/tudum/articles/korea-award-winner-movie-series" target="_blank" rel="noopener" class="card-link">Read more →</a>
+    <p class="card-summary">A roundup of nine critically acclaimed Korean movies and series available now on Netflix, from Oscar winners to beloved K-dramas.</p>
+    <a href="https://www.netflix.com/tudum/articles/korea-award-winner-movie-series" target="_blank" rel="noopener" class="card-link">Read original →</a>
   </div>
 </article>
 
 <article class="latest-card" data-category="k-content" onclick="window.open('https://news.sbs.co.kr/news/endPage.do?news_id=N1008177412','_blank','noopener')">
   <img class="card-img" src="https://images.unsplash.com/photo-1584448097639-99cf648e8def?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjIzMTV8MHwxfHNlYXJjaHw2fHxpbGx1c3RyYXRpb258ZW58MHx8fHwxNzc2ODI4ODQ2fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Rising Star Jang Seo-yeon Cast in 'Beef' Season 2, Becomes Youn Yuh-jung's Interpreter" loading="lazy" onerror="this.style.display='none'">
   <div class="card-body">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-      <span class="pill pill-kcontent">K-Content</span>
-      <span style="font-size:9px;font-weight:700;color:rgba(214,186,255,0.6);background:rgba(214,186,255,0.08);border-radius:999px;padding:2px 7px">Issue #16</span>
+    <div class="issue-meta" style="display:flex;justify-content:space-between;align-items:center">
+      <span class="issue-number">No.016</span>
+      <span class="issue-date">Jul 15, 2025</span>
     </div>
+    <div class="issue-pills"><span class="pill pill-kcontent">K-Content</span></div>
     <h3 class="card-headline">Rising Star Jang Seo-yeon Cast in 'Beef' Season 2, Becomes Youn Yuh-jung's Interpreter</h3>
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px">
-      <span class="card-date">SBS NEWS</span>
-      <span class="card-date">Jul 15, 2025</span>
-    </div>
-    <a href="https://news.sbs.co.kr/news/endPage.do?news_id=N1008177412" target="_blank" rel="noopener" class="card-link">Read more →</a>
+    <p class="card-summary">Actress Jang Seo-yeon has been cast in Netflix's Beef Season 2, joining as interpreter for Youn Yuh-jung on the global stage.</p>
+    <a href="https://news.sbs.co.kr/news/endPage.do?news_id=N1008177412" target="_blank" rel="noopener" class="card-link">Read original →</a>
   </div>
 </article>
 
 <article class="latest-card" data-category="beauty" onclick="window.open('https://www.vogue.com/article/korean-scalp-tonic','_blank','noopener')">
   <img class="card-img" src="https://images.unsplash.com/photo-1552046122-03184de85e08?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjIzMTV8MHwxfHNlYXJjaHw1fHxza2luY2FyZXxlbnwwfHx8fDE3NzY4MjY3MjZ8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="The Secret to Glossy, Healthy Hair in Korea? Scalp Tonics, Explained" loading="lazy" onerror="this.style.display='none'">
   <div class="card-body">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-      <span class="pill pill-beauty">Beauty</span>
-      <span style="font-size:9px;font-weight:700;color:rgba(214,186,255,0.6);background:rgba(214,186,255,0.08);border-radius:999px;padding:2px 7px">Issue #—</span>
+    <div class="issue-meta" style="display:flex;justify-content:space-between;align-items:center">
+      <span class="issue-number">No.—</span>
+      <span class="issue-date">Apr 21, 2026</span>
     </div>
+    <div class="issue-pills"><span class="pill pill-beauty">Beauty</span></div>
     <h3 class="card-headline">The Secret to Glossy, Healthy Hair in Korea? Scalp Tonics, Explained</h3>
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px">
-      <span class="card-date">Vogue</span>
-      <span class="card-date">Apr 21, 2026</span>
-    </div>
-    <a href="https://www.vogue.com/article/korean-scalp-tonic" target="_blank" rel="noopener" class="card-link">Read more →</a>
+    <p class="card-summary">Thought of as an environmental enhancer by experts, scalp tonics help create the right conditions for healthy hair to grow.</p>
+    <a href="https://www.vogue.com/article/korean-scalp-tonic" target="_blank" rel="noopener" class="card-link">Read original →</a>
   </div>
 </article>
 
