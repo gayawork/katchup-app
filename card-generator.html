@@ -88,15 +88,22 @@ function scCard(d){return`<div class="stack-card" onclick="window.open('${d.u}',
     </a>
   </div>
 </div>`}
-function lcCard(d){return`<article class="latest-card" data-category="${d.sl}" onclick="window.open('${d.u}','_blank','noopener')">
+function lcCard(d){
+  const[src,...dateParts]=d.sr.split('·');
+  const srcLabel=src?.trim()||d.sr;
+  const dateLabel=dateParts.join('·').trim();
+  return`<article class="latest-card" data-category="${d.sl}" onclick="window.open('${d.u}','_blank','noopener')">
   <img class="card-img" src="${d.im}" alt="${d.t}" loading="lazy" onerror="this.style.display='none'">
   <div class="card-body">
-    <div style="display:flex;align-items:center;justify-content:space-between">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
       <span class="pill ${d.cp}">${d.cl}</span>
       <span style="font-size:9px;font-weight:700;color:rgba(214,186,255,0.6);background:rgba(214,186,255,0.08);border-radius:999px;padding:2px 7px">Issue #${d.is}</span>
     </div>
     <h3 class="card-headline">${d.t}</h3>
-    <span class="card-date">${d.sr}</span>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px">
+      <span class="card-date">${srcLabel}</span>
+      <span class="card-date">${dateLabel}</span>
+    </div>
     <a href="${d.u}" target="_blank" rel="noopener" class="card-link">Read more →</a>
   </div>
 </article>`}
