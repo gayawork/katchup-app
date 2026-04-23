@@ -159,25 +159,43 @@ async function fetchMeta(){
   if(!url)return;
   const btn=document.getElementById('fetchBtn');
   btn.disabled=true;btn.textContent='Fetching…';
-  try{
-    const r=await fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(url));
-    if(!r.ok)throw new Error(r.status);
-    const html=await r.text();
-    const doc=new DOMParser().parseFromString(html,'text/html');
-    const og=n=>doc.querySelector(`meta[property="${n}"]`)?.getAttribute('content')||doc.querySelector(`meta[name="${n}"]`)?.getAttribute('content')||'';
-    const title=og('og:title')||doc.querySelector('title')?.textContent||'';
-    const desc=og('og:description');
-    const site=og('og:site_name')||(()=>{try{return new URL(url).hostname.replace(/^www\./,'');}catch{return '';}})();
-    const rawDate=og('article:published_time')||og('article:modified_time')||og('og:updated_time')||'';
-    let fmtDate='';
-    if(rawDate){try{fmtDate=new Date(rawDate).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});}catch{}}
-    if(title)document.getElementById('ttl').value=title.trim();
-    if(desc)document.getElementById('sum').value=desc.trim();
-    const srcVal=[site,fmtDate].filter(Boolean).join(' · ');
-    if(srcVal)document.getElementById('src').value=srcVal;
-    updatePreview();
-  }catch(e){alert('Fetch failed: '+e.message)}
-  finally{btn.disabled=false;btn.textContent='Fetch'}
+  const proxies=[
+    'https://corsproxy.io/?',
+    'https://api.allorigins.win/raw?url=',
+    'https://api.codetabs.com/v1/proxy?quest='
+  ];
+  let html='';
+  for(const proxy of proxies){
+    try{
+      const r=await fetch(proxy+encodeURIComponent(url));
+      if(!r.ok)continue;
+      const text=await r.text();
+      if(text.trim())html=text;
+    }catch{}
+    if(html)break;
+  }
+  if(!html){
+    const st=document.getElementById('st');
+    const msg=document.createElement('div');
+    msg.className='si er';msg.textContent='Auto-fetch failed — please fill in fields manually.';
+    st.prepend(msg);
+    btn.disabled=false;btn.textContent='Fetch';
+    return;
+  }
+  const doc=new DOMParser().parseFromString(html,'text/html');
+  const og=n=>doc.querySelector(`meta[property="${n}"]`)?.getAttribute('content')||doc.querySelector(`meta[name="${n}"]`)?.getAttribute('content')||'';
+  const title=og('og:title')||doc.querySelector('title')?.textContent||'';
+  const desc=og('og:description');
+  const site=og('og:site_name')||(()=>{try{return new URL(url).hostname.replace(/^www\./,'');}catch{return '';}})();
+  const rawDate=og('article:published_time')||og('article:modified_time')||og('og:updated_time')||'';
+  let fmtDate='';
+  if(rawDate){try{fmtDate=new Date(rawDate).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});}catch{}}
+  if(title)document.getElementById('ttl').value=title.trim();
+  if(desc)document.getElementById('sum').value=desc.trim();
+  const srcVal=[site,fmtDate].filter(Boolean).join(' · ');
+  if(srcVal)document.getElementById('src').value=srcVal;
+  updatePreview();
+  btn.disabled=false;btn.textContent='Fetch';
 }
 async function pushAll(){
   const tok=document.getElementById('tok').value.trim();
