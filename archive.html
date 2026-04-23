@@ -410,6 +410,13 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
     }
+    /* ── NEWSLETTER ──────────────────────────────────── */
+    #newsletter { border-top: 1px solid rgba(255,255,255,0.06); padding: 100px 0; }
+    .newsletter-inner { max-width: 560px; margin: 0 auto; padding: 0 24px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px; }
+    .newsletter-inner h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 4vw, 44px); font-weight: 700; letter-spacing: -0.5px; line-height: 1.1; text-align: center; }
+    .newsletter-inner h2 em { color: var(--accent); font-style: italic; }
+    .newsletter-inner p { font-size: 15px; color: var(--text-secondary); text-align: center; }
+    .newsletter-form-wrap { position: relative; width: 100%; }
     .mc-form { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; }
     .mc-input { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius: 50px; padding: 12px 20px; color: #fff; font-size: 14px; font-family: 'Inter', sans-serif; width: 280px; outline: none; box-sizing: border-box; }
     .mc-input::placeholder { color: rgba(255,255,255,0.4); }
@@ -439,6 +446,7 @@
     <li><a href="archive.html?tab=lifestyle">Lifestyle</a></li>
     <li><a href="archive.html?tab=beauty">Beauty</a></li>
   </ul>
+  <button class="btn-subscribe" onclick="document.getElementById('newsletter').scrollIntoView({behavior:'smooth'})">Subscribe</button>
   <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
@@ -545,7 +553,7 @@
       <div style="display:flex;justify-content:center;width:100%">
         <form action="https://yahoo.us4.list-manage.com/subscribe/post?u=b8d172ba12c2f90bedcb571aa&id=93fc87c546&f_id=000651e2f0" method="post" target="_blank" class="mc-form">
           <input type="email" name="EMAIL" required placeholder="your@email.com" class="mc-input">
-          <div aria-hidden="true" style="position:absolute;left:-5000px;"><input type="text" name="b_b8d172ba12c2f90bedcb571aa_93fc87c546" tabindex="-1" value=""></div>
+          <div aria-hidden="true" style="display:none!important;"><input type="text" name="b_b8d172ba12c2f90bedcb571aa_93fc87c546" tabindex="-1" value=""></div>
           <input type="submit" value="Subscribe" class="mc-submit">
         </form>
       </div>
