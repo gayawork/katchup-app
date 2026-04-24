@@ -100,7 +100,7 @@
       min-height: 100vh;
       background: linear-gradient(135deg, #0d0d1a 0%, #1a0a2e 40%, #2d1b4e 70%);
       position: relative;
-      overflow: hidden;
+      overflow: visible;
       display: grid;
       grid-template-columns: 1fr 1fr;
       align-items: center;
@@ -182,6 +182,7 @@
       flex-direction: column;
       align-items: flex-end;
       justify-content: center;
+      overflow: visible;
     }
 
     .hero-stack-label {
@@ -197,9 +198,9 @@
     /* ── CARD STACK ──────────────────────────────────── */
     .card-stack {
       position: relative;
-      width: 100%;
-      height: 540px;
-      max-width: 580px;
+      width: 480px;
+      height: 520px;
+      overflow: visible;
       margin-left: auto;
       margin-right: 40px;
     }
@@ -217,10 +218,10 @@
       transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), z-index 0s;
     }
 
-    .card-stack .stack-card:nth-child(1) { position:absolute; top:30px; left:0px; transform:rotate(-8deg); z-index:1; }
-    .card-stack .stack-card:nth-child(2) { position:absolute; top:10px; left:150px; transform:rotate(3deg); z-index:2; }
-    .card-stack .stack-card:nth-child(3) { position:absolute; top:260px; left:70px; transform:rotate(-2deg); z-index:3; }
-    .card-stack .stack-card:nth-child(4) { position:absolute; top:110px; left:310px; transform:rotate(6deg); z-index:4; }
+    .card-stack .stack-card:nth-child(1) { position:absolute; top:80px; left:20px; transform:rotate(-8deg); z-index:1; }
+    .card-stack .stack-card:nth-child(2) { position:absolute; top:20px; left:120px; transform:rotate(3deg); z-index:2; }
+    .card-stack .stack-card:nth-child(3) { position:absolute; top:240px; left:60px; transform:rotate(-2deg); z-index:3; }
+    .card-stack .stack-card:nth-child(4) { position:absolute; top:100px; left:250px; transform:rotate(6deg); z-index:4; }
 
     .card-stack:hover .stack-card:nth-child(1) { transform:rotate(-8deg) translateY(4px); }
     .card-stack:hover .stack-card:nth-child(2) { transform:rotate(3deg) translateY(4px); }
