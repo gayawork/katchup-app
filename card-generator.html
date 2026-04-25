@@ -89,7 +89,7 @@ function lcCard(d){
   const issNum=String(d.is).padStart(3,'0');
   const srcLabel=d.sr.includes('·')?d.sr.split('·')[0].trim():d.sr;
   return`<article class="latest-card" data-category="${d.sl}" onclick="window.open('${d.u}','_blank','noopener')">
-  <img class="card-img" src="${d.im}" alt="${d.t}" loading="lazy" onerror="this.style.display='none'">
+  <div class="card-image"><img class="card-img" src="${d.im}" alt="${d.t}" loading="lazy" onerror="this.style.display='none'"></div>
   <div class="card-body">
     <div class="issue-meta"><span class="issue-number">No.${issNum}</span><span class="issue-date">${srcLabel}</span></div>
     <div class="issue-pills"><span class="pill ${d.cp}">${d.cl}</span></div>
