@@ -248,9 +248,8 @@ async function pushAll(){
     let f=await ghGet('archive.html',tok),txt=dec(f.content.replace(/\n/g,''));
     console.log(`[push] archive decoded length: ${txt.length}`);
     const issNum=String(d.is).padStart(3,'0');
-    const dateStr=d.sr.includes('·')?d.sr.split('·').pop().trim():d.sr;
     const esc=s=>s.replace(/'/g,"\\'");
-    const newEntry=`    {\n      number: 'No.${issNum}',\n      category: '${esc(d.cl)}',\n      date: '${esc(dateStr)}',\n      tags: ['${d.sl}'],\n      pills: [{ label: '${esc(d.cl)}' }],\n      image: '${esc(d.im)}',\n      credit: '${esc(d.cr)}',\n      headline: '${esc(d.t)}',\n      summary: '${esc(d.su)}',\n      link: '${esc(d.u)}'\n    },`;
+    const newEntry=`    {\n      number: 'No.${issNum}',\n      category: '${esc(d.cl)}',\n      date: '${esc(d.sr)}',\n      tags: ['${d.sl}'],\n      pills: [{ label: '${esc(d.cl)}' }],\n      image: '${esc(d.im)}',\n      credit: '${esc(d.cr)}',\n      headline: '${esc(d.t)}',\n      summary: '${esc(d.su)}',\n      link: '${esc(d.u)}'\n    },`;
     const before=txt.length;
     txt=txt.replace('const ALL_ISSUES = [','const ALL_ISSUES = [\n'+newEntry);
     console.log(`[push] ALL_ISSUES inject: ${txt.length>before?'matched':'NO MATCH'} (${before}→${txt.length} chars)`);
