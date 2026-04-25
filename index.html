@@ -112,6 +112,7 @@
         linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 52%, var(--bg-0) 100%);
       border-bottom: 1px solid rgba(255,255,255,0.06);
       overflow: visible;
+      overflow-x: clip;
       min-height: calc(100vh - 72px);
       display: grid;
       grid-template-columns: 1fr 1.05fr;
@@ -212,8 +213,7 @@
     /* ── CARD STACK ──────────────────────────────────── */
     .card-stack {
       position: relative;
-      width: 100%;
-      max-width: 560px;
+      width: 560px;
       height: 540px;
       margin-left: auto;
       margin-right: 0;
@@ -239,10 +239,10 @@
       box-shadow: 0 40px 80px -24px rgba(90,40,180,0.55), 0 0 0 1px rgba(201,168,255,0.15) inset;
     }
 
-    .stack-card:nth-child(1) { top: 30px; left: 0px; transform: rotate(-8deg); z-index: 1; }
-    .stack-card:nth-child(2) { top: 10px; left: 130px; transform: rotate(3deg); z-index: 2; }
-    .stack-card:nth-child(3) { top: 250px; left: 60px; transform: rotate(-2deg); z-index: 3; }
-    .stack-card:nth-child(4) { top: 100px; left: 270px; transform: rotate(6deg); z-index: 4; }
+    .stack-card:nth-child(1) { top: 30px; left: 0%; transform: rotate(-8deg); z-index: 1; }
+    .stack-card:nth-child(2) { top: 10px; left: 23%; transform: rotate(3deg); z-index: 2; }
+    .stack-card:nth-child(3) { top: 250px; left: 11%; transform: rotate(-2deg); z-index: 3; }
+    .stack-card:nth-child(4) { top: 100px; left: 48%; transform: rotate(6deg); z-index: 4; }
 
     /* ── GLARE ANIMATION ─────────────────────────────── */
     @keyframes glare-sweep {
