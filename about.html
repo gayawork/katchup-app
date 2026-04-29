@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; style-src 'self' https: 'unsafe-inline'; script-src 'self' 'unsafe-inline';">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>About · Katchup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  /* ---------- RESET / BASE ---------- */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: #0d0d1a;
+    color: #f4f1fa;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  img { display: block; max-width: 100%; }
+
+  :root {
+    --bg: #0d0d1a;
+    --bg-2: #14142a;
+    --accent: #D6BAFF;
+    --brand: #7B5EA7;
+    --kpop: #c49ef5;
+    --kcontent: #7db3f5;
+    --lifestyle: #f59eb5;
+    --beauty: #f5c87d;
+    --text: #f4f1fa;
+    --muted: rgba(244,241,250,0.6);
+    --muted-2: rgba(244,241,250,0.45);
+    --card-bg: rgba(255,255,255,0.03);
+    --card-border: rgba(255,255,255,0.08);
+    --max: 1100px;
+  }
+
+  /* ---------- SPOTLIGHT CURSOR GLOW ---------- */
+  .spotlight {
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 1;
+    background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(214,186,255,0.08), transparent 40%);
+    transition: background 80ms linear;
+  }
+
+  /* ---------- AMBIENT BG ---------- */
+  .ambient {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+  }
+  .ambient::before, .ambient::after {
+    content: ''; position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.35;
+  }
+  .ambient::before {
+    width: 520px; height: 520px;
+    background: radial-gradient(circle, rgba(123,94,167,0.6), transparent 70%);
+    top: -120px; left: -120px;
+  }
+  .ambient::after {
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(214,186,255,0.25), transparent 70%);
+    bottom: -200px; right: -150px;
+  }
+
+  /* ---------- NAV ---------- */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 50;
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    background: rgba(13,13,26,0.7);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 18px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 20px;
+  }
+  .logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 900;
+    font-size: 22px;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+  .logo span { color: var(--text); }
+  .nav-links {
+    display: flex; align-items: center; gap: 28px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 14px; font-weight: 500;
+    color: var(--muted);
+    transition: color 160ms ease;
+    position: relative;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a.active { color: var(--text); }
+  .nav-links a.active::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: -8px;
+    height: 2px; background: var(--accent); border-radius: 2px;
+  }
+  .subscribe-pill {
+    background: var(--accent);
+    color: #1a0f2e;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    transition: transform 160ms ease, box-shadow 160ms ease;
+    letter-spacing: 0.01em;
+  }
+  .subscribe-pill:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(214,186,255,0.25);
+  }
+  .hamburger {
+    display: none;
+    width: 28px; height: 28px;
+    flex-direction: column; justify-content: center; gap: 5px;
+  }
+  .hamburger span {
+    display: block; height: 2px; background: var(--text); border-radius: 2px;
+    transition: transform 200ms ease, opacity 200ms ease;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ---------- LAYOUT ---------- */
+  main { position: relative; z-index: 2; }
+  .wrap {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+  section { padding: 80px 0; position: relative; }
+
+  /* ---------- HEADER ---------- */
+  .header {
+    padding-top: 160px;
+    padding-bottom: 60px;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--accent);
+  }
+  .eyebrow::before {
+    content: ''; width: 28px; height: 1px; background: var(--accent);
+  }
+  h1.title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 900;
+    font-size: clamp(48px, 8vw, 104px);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    margin-top: 24px;
+    text-wrap: balance;
+  }
+  h1.title em {
+    font-family: 'Space Grotesk', sans-serif;
+    font-style: normal;
+    font-weight: 900;
+    color: var(--accent);
+    letter-spacing: -0.04em;
+  }
+  /* Inter-italic flavor for non-brand emphasis */
+  .ital-em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 400;
+  }
+  .subtitle {
+    margin-top: 24px;
+    font-size: clamp(17px, 1.6vw, 20px);
+    color: var(--muted);
+    max-width: 620px;
+    line-height: 1.5;
+  }
+  .manifesto {
+    margin-top: 18px;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(16px, 1.5vw, 18px);
+    color: var(--accent);
+    max-width: 620px;
+    line-height: 1.5;
+    letter-spacing: -0.005em;
+  }
+
+  /* ---------- BADGE NAV ---------- */
+  .badges {
+    margin-top: 44px;
+    display: flex; flex-wrap: wrap; gap: 10px;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    color: var(--text);
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-size: 13px; font-weight: 500;
+    transition: all 200ms ease;
+  }
+  .badge::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--accent); border-radius: 50%;
+    opacity: 0.6;
+    transition: opacity 200ms ease, transform 200ms ease;
+  }
+  .badge:hover {
+    border-color: rgba(214,186,255,0.4);
+    background: rgba(214,186,255,0.06);
+    transform: translateY(-1px);
+  }
+  .badge:hover::before { opacity: 1; transform: scale(1.3); }
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section-label {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--muted);
+    display: inline-flex; align-items: center; gap: 12px;
+    margin-bottom: 20px;
+  }
+  .section-label::before {
+    content: ''; width: 24px; height: 1px;
+    background: rgba(214,186,255,0.4);
+  }
+  h2.section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 900;
+    font-size: clamp(34px, 4.6vw, 56px);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+    max-width: 900px;
+  }
+  h2.section-title em {
+    font-family: 'Cormorant Garamond', 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: -0.005em;
+  }
+
+  /* ---------- ABOUT KATCHUP ---------- */
+  .about-grid {
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .pull-quote {
+    border-left: 3px solid var(--accent);
+    padding: 8px 0 8px 28px;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 400;
+    font-size: clamp(19px, 2vw, 23px);
+    line-height: 1.55;
+    letter-spacing: -0.005em;
+    color: var(--text);
+    text-wrap: pretty;
+  }
+  .pull-quote em {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-style: italic;
+    font-weight: 500;
+    color: var(--accent);
+  }
+  .pull-quote em.brand {
+    font-family: 'Cormorant Garamond', 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.1em;
+    letter-spacing: 0.005em;
+  }
+  .body-copy {
+    font-size: 17px;
+    line-height: 1.7;
+    color: rgba(244,241,250,0.82);
+  }
+  .body-copy p + p { margin-top: 18px; }
+  .tags {
+    margin-top: 36px;
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .tag {
+    background: rgba(214,186,255,0.06);
+    border: 1px solid rgba(214,186,255,0.2);
+    color: var(--accent);
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  /* ---------- FOUNDER ---------- */
+  .founder-grid {
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+  .founder-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 900;
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-top: 18px;
+  }
+  .founder-role {
+    margin-top: 14px;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 18px;
+    color: var(--accent);
+    letter-spacing: -0.005em;
+  }
+  .founder-bio {
+    margin-top: 28px;
+    font-size: 17px;
+    line-height: 1.7;
+    color: rgba(244,241,250,0.82);
+  }
+  .founder-bio p + p { margin-top: 16px; }
+  .social-proof {
+    margin-top: 24px;
+    font-size: 13px;
+    color: var(--muted-2);
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .social-proof::before {
+    content: ''; width: 6px; height: 6px;
+    background: #6ee7a7; border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(110,231,167,0.15);
+  }
+  .toggle-btn {
+    margin-top: 28px;
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-size: 14px; font-weight: 500;
+    color: var(--text);
+    transition: all 200ms ease;
+  }
+  .toggle-btn:hover {
+    border-color: rgba(214,186,255,0.4);
+    background: rgba(214,186,255,0.06);
+    transform: translateY(-1px);
+  }
+  .toggle-btn .arrow {
+    transition: transform 200ms ease;
+  }
+  .toggle-btn:hover .arrow { transform: translateX(3px); }
+
+  /* ---------- FLIP CARD ---------- */
+  .card-flip-wrapper {
+    perspective: 1200px;
+    position: relative;
+    aspect-ratio: 4 / 5;
+    width: 100%;
+  }
+  .card-inner {
+    position: relative;
+    width: 100%; height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 600ms ease-in-out;
+    border-radius: 24px;
+  }
+  .card-front, .card-back {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    position: absolute; inset: 0;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid var(--card-border);
+  }
+  .card-back {
+    transform: rotateY(180deg);
+    background: #1a0f2e;
+    border: 1px solid rgba(214,186,255,0.2);
+    padding: 44px 36px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .card-inner.flipped { transform: rotateY(180deg); }
+
+  .card-front {
+    background:
+      linear-gradient(160deg, rgba(13,13,26,0) 50%, rgba(13,13,26,0.6) 100%),
+      rgba(123,94,167,0.15);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .card-front .photo {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+  .card-front .overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(160deg, rgba(13,13,26,0) 50%, rgba(13,13,26,0.6) 100%);
+    z-index: 1;
+  }
+  .card-front .placeholder {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 10px;
+    background:
+      repeating-linear-gradient(135deg,
+        rgba(214,186,255,0.04) 0 12px,
+        rgba(214,186,255,0.08) 12px 24px),
+      rgba(123,94,167,0.15);
+    z-index: 0;
+    color: rgba(214,186,255,0.6);
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-align: center;
+    padding: 24px;
+  }
+  .card-front .placeholder-icon {
+    width: 48px; height: 48px;
+    border: 1.5px solid rgba(214,186,255,0.4);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--accent);
+  }
+  .card-caption {
+    position: absolute;
+    left: 24px; bottom: 22px;
+    font-size: 12px; font-weight: 500;
+    color: var(--text);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    z-index: 2;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .card-caption::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--accent); border-radius: 50%;
+  }
+
+  .card-back .korean-line {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+    font-size: clamp(20px, 2vw, 26px);
+    line-height: 1.5;
+    text-wrap: pretty;
+  }
+  .card-back .korean-line + .korean-line { margin-top: 18px; }
+  .card-back .back-caption {
+    margin-top: 36px;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-size: 12px;
+    color: var(--muted-2);
+    letter-spacing: 0.04em;
+  }
+
+  /* ---------- KOREAN CLASS ---------- */
+  .korean-card {
+    margin-top: 48px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 24px;
+    padding: 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .korean-card::before {
+    content: '한';
+    position: absolute;
+    right: -20px; top: -40px;
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 280px;
+    color: rgba(214,186,255,0.04);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .korean-body {
+    margin-top: 24px;
+    font-size: 17px;
+    line-height: 1.7;
+    color: rgba(244,241,250,0.82);
+    max-width: 640px;
+    position: relative; z-index: 1;
+  }
+  .feature-list {
+    margin-top: 36px;
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 32px;
+    position: relative; z-index: 1;
+  }
+  .feature-list li {
+    display: flex; gap: 14px;
+    padding: 16px 0;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: rgba(244,241,250,0.82);
+  }
+  .feature-list li strong {
+    display: block;
+    font-weight: 700;
+    color: var(--text);
+    font-size: 15px;
+    margin-bottom: 4px;
+    letter-spacing: -0.005em;
+  }
+  .feature-list .num {
+    flex-shrink: 0;
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    color: var(--accent);
+    font-size: 22px;
+    line-height: 1;
+    width: 28px;
+  }
+  .korean-footer {
+    margin-top: 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 20px;
+    position: relative; z-index: 1;
+  }
+  .note {
+    font-size: 13px;
+    color: var(--muted-2);
+  }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--accent);
+    color: #1a0f2e;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 14px 26px;
+    border-radius: 999px;
+    transition: transform 160ms ease, box-shadow 160ms ease;
+  }
+  .cta-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(214,186,255,0.25);
+  }
+
+  /* ---------- NEWSLETTER ---------- */
+  .newsletter {
+    text-align: center;
+    padding: 100px 0 80px;
+  }
+  .newsletter h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 900;
+    font-size: clamp(44px, 6vw, 76px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .newsletter h2 em {
+    font-family: 'Cormorant Garamond', 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 500;
+    color: var(--accent);
+  }
+  .newsletter .lead {
+    margin-top: 22px;
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 520px;
+    margin-left: auto; margin-right: auto;
+  }
+  .newsletter form {
+    margin-top: 36px;
+    display: flex; gap: 8px;
+    max-width: 480px;
+    margin-left: auto; margin-right: auto;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 999px;
+    padding: 6px;
+    transition: border-color 200ms ease;
+  }
+  .newsletter form:focus-within { border-color: rgba(214,186,255,0.4); }
+  .newsletter input[type="email"] {
+    flex: 1;
+    background: transparent;
+    border: none; outline: none;
+    color: var(--text);
+    font-family: inherit; font-size: 15px;
+    padding: 12px 18px;
+  }
+  .newsletter input[type="email"]::placeholder { color: var(--muted-2); }
+  .newsletter button[type="submit"] {
+    background: var(--accent);
+    color: #1a0f2e;
+    font-weight: 700; font-size: 14px;
+    padding: 12px 24px;
+    border-radius: 999px;
+    transition: transform 160ms ease;
+  }
+  .newsletter button[type="submit"]:hover { transform: translateY(-1px); }
+  .form-note {
+    margin-top: 18px;
+    font-size: 12px;
+    color: var(--muted-2);
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 56px 0 40px;
+    position: relative; z-index: 2;
+    margin-top: 40px;
+  }
+  .footer-top {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 20px;
+  }
+  .footer-links {
+    display: flex; gap: 28px;
+    list-style: none;
+    font-size: 14px;
+  }
+  .footer-links a { color: var(--muted); transition: color 160ms ease; }
+  .footer-links a:hover { color: var(--text); }
+  .footer-bottom {
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+  .copyright {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .disclaimer {
+    margin-top: 14px;
+    font-size: 11.5px;
+    line-height: 1.6;
+    color: var(--muted-2);
+    max-width: 800px;
+  }
+
+  /* ---------- REVEAL ANIMATION ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 700ms ease, transform 700ms ease;
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 860px) {
+    .nav-links { display: none; }
+    .nav-links.open {
+      display: flex;
+      position: absolute;
+      top: 100%; left: 0; right: 0;
+      flex-direction: column;
+      gap: 0;
+      background: rgba(13,13,26,0.95);
+      backdrop-filter: blur(18px);
+      padding: 12px 28px 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-links.open li {
+      width: 100%;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .nav-links.open li:last-child { border-bottom: none; }
+    .hamburger { display: flex; }
+    .nav .subscribe-pill { display: none; }
+
+    .header { padding-top: 130px; padding-bottom: 40px; }
+    section { padding: 60px 0; }
+    .about-grid, .founder-grid { grid-template-columns: 1fr; gap: 32px; }
+    .feature-list { grid-template-columns: 1fr; gap: 0; }
+    .korean-card { padding: 36px 28px; }
+    .korean-card::before { font-size: 200px; right: -30px; top: -20px; }
+    .korean-footer { flex-direction: column; align-items: flex-start; }
+    .card-flip-wrapper { aspect-ratio: 4 / 5; max-width: 420px; margin: 0 auto; }
+    .footer-top { flex-direction: column; align-items: flex-start; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ambient" aria-hidden="true"></div>
+<div class="spotlight" aria-hidden="true"></div>
+
+<!-- NAV -->
+<nav class="nav" aria-label="Main">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">Katchup<span>.</span></a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="archive.html?tab=k-pop">K-Pop</a></li>
+      <li><a href="archive.html?tab=k-content">K-Content</a></li>
+      <li><a href="archive.html?tab=lifestyle">Lifestyle</a></li>
+      <li><a href="archive.html?tab=beauty">Beauty</a></li>
+      <li><a href="korean.html">Korean</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+    </ul>
+    <a href="#newsletter" class="subscribe-pill">Subscribe</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<main>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="wrap">
+      <div class="eyebrow reveal">About</div>
+      <h1 class="title reveal">About <em>Katchup</em></h1>
+      <p class="subtitle reveal">Why it exists, who runs it, and how you can go deeper.</p>
+      <p class="manifesto reveal">&ldquo;K-Culture told by someone who actually grew up in it.&rdquo;</p>
+
+      <div class="badges reveal" role="navigation" aria-label="Page sections">
+        <a href="#about-katchup" class="badge">The Why</a>
+        <a href="#founder" class="badge">Gaya Kim</a>
+        <a href="#korean-class" class="badge">Korean Classes</a>
+        <a href="#newsletter" class="badge">Subscribe</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ABOUT KATCHUP -->
+  <section id="about-katchup">
+    <div class="wrap">
+      <div class="section-label reveal">The Why</div>
+      <h2 class="section-title reveal">K-Culture deserves better than <em>decontextualized noise.</em></h2>
+
+
+      <div class="about-grid">
+        <div class="pull-quote reveal">
+          There's a lot of K-Culture content out there. Most of it is <em>unverified, decontextualized,</em> or just plain confusing if you didn't grow up in Korea. <em class="brand">Katchup</em> exists to fix that.
+        </div>
+        <div class="body-copy reveal">
+          <p>Every week, a Korean insider reads through what actually matters, not just what went viral. Stories get verified against Korean-language sources. Context that non-Korean readers would miss gets added in. The result is a tight digest you can finish in three minutes and actually trust.</p>
+          <p>The newsletter started because K-Culture context is half the story, and most coverage skips it. Katchup is two things: the website is a curated link archive, always current. The newsletter is where the real value lives, social context, cultural nuance, and the occasional Korean expression that shows you what's really going on behind the headline.</p>
+        </div>
+      </div>
+
+      <div class="tags reveal">
+        <span class="tag">Korean-verified</span>
+        <span class="tag">Every Friday</span>
+        <span class="tag">3 minutes</span>
+        <span class="tag">No noise</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUNDER -->
+  <section id="founder">
+    <div class="wrap">
+      <div class="founder-grid">
+        <div>
+          <div class="section-label reveal">The Person Behind It</div>
+          <h2 class="founder-name reveal">Gaya <em style="font-family:'Cormorant Garamond','Instrument Serif',serif;font-style:italic;font-weight:500;color:var(--accent);letter-spacing:-0.005em">Kim</em></h2>
+          <p class="founder-role reveal">Korean insider. UX Designer. Educator.</p>
+
+          <div class="founder-bio reveal" id="bio-en">
+            <p>I'm Gaya, a Korean insider with 12 years of experience as an educator. Bridging Korean and English-speaking cultures from both sides.</p>
+            <p>Reading K-Culture news without the cultural background is genuinely hard. References land flat, jokes don't translate, and half the context lives between the lines. That's exactly why Katchup exists.</p>
+          </div>
+
+          <div class="social-proof reveal">Read by K-Culture fans in 12+ countries.</div>
+
+          <button class="toggle-btn reveal" id="flip-toggle" aria-pressed="false">
+            <span id="toggle-label">Try reading Korean 🇰🇷</span>
+            <span class="arrow">→</span>
+          </button>
+        </div>
+
+        <div class="reveal">
+          <div class="card-flip-wrapper" id="founder-card">
+            <div class="card-inner" id="card-inner">
+
+              <div class="card-front">
+                <div class="placeholder" id="card-placeholder">
+                  <div class="placeholder-icon">G</div>
+                  <div>PORTRAIT · GAYA KIM</div>
+                  <div style="font-size:10px;opacity:0.6">assets/gaya.jpg</div>
+                </div>
+                <img alt="Gaya Kim" class="photo" id="gaya-photo" data-src="assets/gaya.jpg" style="display:none">
+                <script>
+                  (function(){
+                    var img = document.getElementById('gaya-photo');
+                    var ph = document.getElementById('card-placeholder');
+                    if (!img) return;
+                    var src = img.getAttribute('data-src');
+                    // Probe quietly via fetch HEAD; only assign src if it exists.
+                    fetch(src, { method: 'HEAD' })
+                      .then(function(r){
+                        if (r && r.ok) {
+                          img.addEventListener('load', function(){
+                            img.style.display = 'block';
+                            if (ph) ph.style.display = 'none';
+                          });
+                          img.src = src;
+                        }
+                      })
+                      .catch(function(){ /* keep placeholder */ });
+                  })();
+                </script>
+                <div class="overlay"></div>
+                <div class="card-caption">Seoul, Korea</div>
+              </div>
+
+              <div class="card-back">
+                <p class="korean-line">문화적 배경 없이 기사를 이해하는 건 너무 어려워요.</p>
+                <p class="korean-line">12년간 영어권과 한국 양쪽의 문화를 에듀케이터로서 소개해왔어요.</p>
+                <p class="korean-line">Katchup은 그 대답들을 모아놓은 놀이터예요.</p>
+                <p class="back-caption">Gaya, in Korean</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KOREAN CLASS -->
+  <section id="korean-class">
+    <div class="wrap">
+      <div class="section-label reveal">Read it in Korean</div>
+      <h2 class="section-title reveal">Want to actually <em>read the news yourself?</em></h2>
+
+      <div class="korean-card reveal">
+        <p class="korean-body">I teach Korean to K-Culture fans, using the same news you're already reading. Not textbook Korean. Real expressions, real cultural shorthand that makes everything click.</p>
+
+        <ul class="feature-list">
+          <li>
+            <span class="num">01</span>
+            <div>
+              <strong>News-based curriculum</strong>
+              Lessons built around real Katchup articles, not invented scenarios.
+            </div>
+          </li>
+          <li>
+            <span class="num">02</span>
+            <div>
+              <strong>K-Culture context first</strong>
+              Vocabulary you'll actually encounter as a fan.
+            </div>
+          </li>
+          <li>
+            <span class="num">03</span>
+            <div>
+              <strong>All levels welcome</strong>
+              Complete beginners to intermediate learners.
+            </div>
+          </li>
+          <li>
+            <span class="num">04</span>
+            <div>
+              <strong>Online, flexible</strong>
+              1-on-1 or small group, international-friendly scheduling.
+            </div>
+          </li>
+        </ul>
+
+        <div class="korean-footer">
+          <p class="note">Full details coming soon · Subscribe to get notified</p>
+          <a href="#newsletter" class="cta-btn">Stay in the loop <span>→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section id="newsletter" class="newsletter">
+    <div class="wrap">
+      <h2 class="reveal">Stay in the <em>Loop</em></h2>
+      <p class="lead reveal">Curated by a Korean insider. No noise, just the good stuff. Every Friday.</p>
+
+      <form
+        action="https://yahoo.us4.list-manage.com/subscribe/post?u=b8d172ba12c2f90bedcb571aa&amp;id=93fc87c546&amp;f_id=000651e2f0"
+        method="post"
+        target="_blank"
+        class="reveal"
+      >
+        <input type="email" name="EMAIL" placeholder="your@email.com" required aria-label="Email">
+        <input type="text" name="b_b8d172ba12c2f90bedcb571aa_93fc87c546" tabindex="-1" style="display:none!important" aria-hidden="true">
+        <button type="submit" value="Subscribe">Subscribe</button>
+      </form>
+      <p class="form-note">No spam. Unsubscribe anytime.</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <a href="index.html" class="logo">Katchup<span>.</span></a>
+      <ul class="footer-links">
+        <li><a href="archive.html">Archive</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="#newsletter">Subscribe</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <p class="copyright">© 2026 Katchup. Made with care in Seoul.</p>
+      <p class="disclaimer">© 2026 Katchup by Gaya Kim. All featured content belongs to respective publishers. Article summaries are provided for informational purposes only. All links redirect to original sources. By subscribing, you agree to receive weekly emails from Katchup. We use Mailchimp to manage subscriptions. Your email will never be shared or sold.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ---------- SPOTLIGHT CURSOR GLOW ----------
+  (function() {
+    const spot = document.querySelector('.spotlight');
+    let raf = null;
+    window.addEventListener('mousemove', (e) => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        spot.style.setProperty('--mx', e.clientX + 'px');
+        spot.style.setProperty('--my', e.clientY + 'px');
+        raf = null;
+      });
+    });
+  })();
+
+  // ---------- HAMBURGER ----------
+  (function() {
+    const btn = document.getElementById('hamburger');
+    const links = document.getElementById('nav-links');
+    btn.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open);
+    });
+    links.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        links.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  })();
+
+  // ---------- REVEAL ON SCROLL ----------
+  (function() {
+    const els = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(el => io.observe(el));
+  })();
+
+  // ---------- FLIP CARD ----------
+  (function() {
+    const inner = document.getElementById('card-inner');
+    const toggle = document.getElementById('flip-toggle');
+    const label = document.getElementById('toggle-label');
+    const founder = document.getElementById('founder');
+
+    let isFlipped = false;
+
+    function setFlipped(flag) {
+      isFlipped = flag;
+      inner.classList.toggle('flipped', flag);
+      label.textContent = flag ? 'Read in English' : 'Try reading Korean 🇰🇷';
+      toggle.setAttribute('aria-pressed', String(flag));
+    }
+
+    toggle.addEventListener('click', () => setFlipped(!isFlipped));
+
+    // Auto-spin once on enter (full 360, not a flip-to-back)
+    let spun = false;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting && !spun) {
+          spun = true;
+          // Don't run if user has already flipped via toggle
+          if (isFlipped) return;
+          inner.style.transition = 'transform 900ms ease-out';
+          inner.style.transform = 'rotateY(360deg)';
+          setTimeout(() => {
+            inner.style.transition = '';
+            inner.style.transform = '';
+          }, 950);
+          io.unobserve(founder);
+        }
+      });
+    }, { threshold: 0.4 });
+    io.observe(founder);
+  })();
+
+  // ---------- SMOOTH SCROLL FOR INTERNAL LINKS ----------
+  (function() {
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        if (id.length > 1) {
+          const target = document.querySelector(id);
+          if (target) {
+            e.preventDefault();
+            const rect = target.getBoundingClientRect();
+            const top = rect.top + window.pageYOffset - 80;
+            window.scrollTo({ top, behavior: 'smooth' });
+          }
+        }
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
